@@ -1,0 +1,13 @@
+     Mốc quá trình: 12/3/2024
+
+     Nội dung:
+             Hoàn thành các bước setup ban đầu cho chương trình.
+             Tạo xong map cho game.
+
+
+     ---------------------------------------------------------------
+     Process milestone: March 12, 2024
+
+     Details:
+             Complete the initial setup steps for the program.
+             Created map for the game.
