@@ -136,11 +136,13 @@
     <ClCompile Include="CommonFunc.cpp" />
     <ClCompile Include="game_map.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pacman.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="CommonFunc.h" />
     <ClInclude Include="game_map.h" />
+    <ClInclude Include="Pacman.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

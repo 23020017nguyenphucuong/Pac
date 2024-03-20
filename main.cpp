@@ -2,9 +2,11 @@
 #include "CommonFunc.h"
 #include "BaseObject.h"
 #include "game_map.h"
+#include "Pacman.h"
 
 static BaseObject g_background;
 
+//khai bao chuong trinh va in background
 bool InitData()
 {
 	bool success = true;
@@ -61,31 +63,42 @@ int main(int argc, char* argv[])
 
 	//tai map
 	GameMap game_map;
-
 	game_map.LoadMap();
 	game_map.LoadTiles(g_screen);
 
+	//tai thu nhan vat pacman
+	Pacman p_player;
+	p_player.LoadImg("image//pacman_right.png", g_screen);
+	p_player.SetClips();
+
 	bool is_quit = false;
-
 	g_background.setRect(300, 0);
-
 	while (!is_quit)
 	{
 		while (SDL_PollEvent(&g_event) != 0)
 		{
-			if (g_event.type == SDL_QUIT) is_quit = true;
+			if (g_event.type == SDL_QUIT)
+			{
+				is_quit = true;
+			}
+
+			p_player.HandleInputAction(g_event, g_screen);//player
+			
 		}
-		SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
-		SDL_RenderClear(g_screen);
+		SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);//set mau cho cua so
+		//SDL_RenderClear(g_screen);
 
 		//g_background.ApplyRender(g_screen, NULL);
 
-		game_map.DrawMap(g_screen);
+		game_map.DrawMap(g_screen);//map
+		Map map_1 = game_map.GetMap();
+
+		p_player.DoPlayer(map_1);
+		p_player.Show(g_screen);
 
 		SDL_RenderPresent(g_screen);
+		SDL_RenderClear(g_screen);
 	}
-
 	Close();
-
 	return 0;
 }

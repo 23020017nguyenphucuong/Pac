@@ -10,8 +10,6 @@ void GameMap::LoadMap()
 			game_map_.tile[i][j] = map01[k]; k++;
 		}
 	}
-
-
 }
 
 void GameMap::LoadTiles(SDL_Renderer* screen)
