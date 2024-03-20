@@ -2,7 +2,6 @@
 #pragma once
 #ifndef COMMON_FUNCTION_H_
 #define COMMON_FUNCTION_H_
-
 #include <windows.h>
 #include <string>
 #include <SDL.h>
@@ -25,10 +24,15 @@ const int COLOR_KEY_B = 180;
 
 const int RENDER_DRAW_COLOR = 0;
 
+//nhan vat di chuyen
+#define NUM_OF_FRAME 3
+
 //game map
 #define TILE_SIZE 30
 #define MAX_MAP_X 19
 #define MAX_MAP_Y 22
+
+
 
 typedef struct Map
 {
@@ -42,6 +46,15 @@ typedef struct Map
 
 	int tile[MAX_MAP_Y][MAX_MAP_X];
 	char* file_name;
+};
+
+//trang thai di chuyen cua main object
+typedef struct Input
+{
+	int left_;
+	int right_;
+	int up_;
+	int down_;
 };
 
 //map01

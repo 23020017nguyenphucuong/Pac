@@ -1,0 +1,9 @@
+     Mốc quá trình: 12/3/2024
+
+     Nội dung:
+             Hoàn thành các bước setup ban đầu cho chương trình.
+             Tạo xong map cho game.
+
+
+     ---------------------------------------------------------------
+     

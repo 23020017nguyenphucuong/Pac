@@ -1,0 +1,10 @@
+Cập nhật: 20/3/2024
+
+     Nội dung:
+             Chỉnh sửa lại map vừa vặn hơn.
+             Đã tạo được nhân vật pacman.
+             Tuy nhiên di chuyển vẫn chưa được mượt mà.
+
+
+     ---------------------------------------------------------------
+     

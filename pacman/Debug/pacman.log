@@ -1,1 +1,22 @@
-﻿  pacman.vcxproj -> C:\Users\ABL\source\repos\pac\Debug\pacman.exe
+﻿  Pacman.cpp
+C:\Users\ABL\source\repos\pac\CommonFunc.h(49,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+  (compiling source file 'Pacman.cpp')
+  
+C:\Users\ABL\source\repos\pac\CommonFunc.h(58,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+  (compiling source file 'Pacman.cpp')
+  
+C:\Users\ABL\source\repos\pac\Pacman.cpp(89,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(90,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(168,25): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\ABL\source\repos\pac\Pacman.cpp(172,25): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\ABL\source\repos\pac\Pacman.cpp(176,25): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\ABL\source\repos\pac\Pacman.cpp(180,25): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\ABL\source\repos\pac\Pacman.cpp(195,30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(196,51): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(198,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(199,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(212,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(229,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(240,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(248,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  pacman.vcxproj -> C:\Users\ABL\source\repos\pac\Debug\pacman.exe

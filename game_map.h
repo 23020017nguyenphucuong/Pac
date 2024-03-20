@@ -27,6 +27,7 @@ public:
 	void LoadMap();
 	void LoadTiles(SDL_Renderer* screen);
 	void DrawMap(SDL_Renderer* screen);
+	Map GetMap() const { return game_map_; };
 };
 
 #endif
