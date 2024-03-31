@@ -1,22 +1,32 @@
 ﻿  Pacman.cpp
-C:\Users\ABL\source\repos\pac\CommonFunc.h(49,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+C:\Users\ABL\source\repos\pac\CommonFunc.h(57,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
   (compiling source file 'Pacman.cpp')
   
-C:\Users\ABL\source\repos\pac\CommonFunc.h(58,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+C:\Users\ABL\source\repos\pac\CommonFunc.h(66,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
   (compiling source file 'Pacman.cpp')
   
-C:\Users\ABL\source\repos\pac\Pacman.cpp(89,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\ABL\source\repos\pac\Pacman.cpp(90,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\ABL\source\repos\pac\Pacman.cpp(168,25): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\ABL\source\repos\pac\Pacman.cpp(172,25): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\ABL\source\repos\pac\Pacman.cpp(176,25): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\ABL\source\repos\pac\Pacman.cpp(180,25): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\ABL\source\repos\pac\Pacman.cpp(195,30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\ABL\source\repos\pac\Pacman.cpp(196,51): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\ABL\source\repos\pac\Pacman.cpp(198,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\ABL\source\repos\pac\Pacman.cpp(199,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\ABL\source\repos\pac\Pacman.cpp(212,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\ABL\source\repos\pac\Pacman.cpp(229,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\ABL\source\repos\pac\Pacman.cpp(240,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\ABL\source\repos\pac\Pacman.cpp(248,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\ABL\source\repos\pac\CommonFunc.h(75,2): warning C4091: 'typedef ': ignored on left of 'TouchWallMap' when no variable is declared
+  (compiling source file 'Pacman.cpp')
+  
+C:\Users\ABL\source\repos\pac\Pacman.cpp(100,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(101,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(250,36): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(251,57): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(253,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(254,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(267,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(285,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(297,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\ABL\source\repos\pac\Pacman.cpp(306,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+C:\Users\ABL\source\repos\pac\CommonFunc.h(57,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+  (compiling source file 'main.cpp')
+  
+C:\Users\ABL\source\repos\pac\CommonFunc.h(66,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+  (compiling source file 'main.cpp')
+  
+C:\Users\ABL\source\repos\pac\CommonFunc.h(75,2): warning C4091: 'typedef ': ignored on left of 'TouchWallMap' when no variable is declared
+  (compiling source file 'main.cpp')
+  
+  Generating Code...
   pacman.vcxproj -> C:\Users\ABL\source\repos\pac\Debug\pacman.exe

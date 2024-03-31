@@ -5,7 +5,6 @@
 #include "CommonFunc.h"
 #include "BaseObject.h"
 
-#define PLAYER_SPEED 0.3
 class Pacman : public BaseObject
 {
 private:
@@ -21,19 +20,27 @@ private:
 	SDL_Rect frame_clip_[NUM_OF_FRAME];//luu cac frame
 	Input input_type_;//luu trang thai
 	int frame_;//luu dia chi cua frame, dang o frame nao
-	int status_;//biet duoc dang di chuyen sang ben nao
+	int pacman_status_;//biet duoc pacman dang di chuyen sang ben nao
+	int arrow_status_;//biet duoc mui ten dang chi ve phia nao
+
+	BaseObject arrow_direct[4];
+
+	TouchWallMap touch_the_wall_flags;
+	int is_second_move_flags;
+
+	int is_can_move_flag_;//check xem co di duoc khong hay bi cham tuong
 public:
 	Pacman();
 	~Pacman();
-	
+
 	enum move_type
 	{
 		ALIVE = 0,
 		DIED = 1,
 		WALK_LEFT = 2,
-		WALK_RIGHT=3,
-		WALK_UP=4,
-		WALK_DOWN=5,
+		WALK_RIGHT = 3,
+		WALK_UP = 4,
+		WALK_DOWN = 5,
 	};
 
 	bool LoadImg(std::string path, SDL_Renderer* screen);
@@ -43,6 +50,11 @@ public:
 
 	void DoPlayer(Map& map_data);
 	void CheckToMap(Map& map_data);
+
+	void ShowArrow(SDL_Renderer* des);
+	void ArrowImgInit(SDL_Renderer* des);
+
+	void ControlSecondMove(Map& map_data);//kiem tra 2 lan chay, thuc hien cach di chuyen moi
 };
 
 #endif

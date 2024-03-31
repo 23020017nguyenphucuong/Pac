@@ -3,6 +3,7 @@
 #include "BaseObject.h"
 #include "game_map.h"
 #include "Pacman.h"
+#include "Timer.h"
 
 static BaseObject g_background;
 
@@ -28,7 +29,7 @@ bool InitData()
 		if (g_screen == NULL) success = false;
 		else
 		{
-			SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
+			SDL_SetRenderDrawColor(g_screen, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B, CONTROL_COLOR_TRANSPARENT);
 			int imgFlags = IMG_INIT_PNG;
 			if (!(IMG_Init(imgFlags) && imgFlags)) success = false;
 		}
@@ -60,45 +61,59 @@ int main(int argc, char* argv[])
 {
 	if (InitData() == false) return -1;
 	if (LoadBackground() == false) return -1;
+    g_background.setRect(300, 0);
 
-	//tai map
-	GameMap game_map;
+
+	GameMap game_map;//tai map
 	game_map.LoadMap();
 	game_map.LoadTiles(g_screen);
 
-	//tai thu nhan vat pacman
-	Pacman p_player;
-	p_player.LoadImg("image//pacman_right.png", g_screen);
+	Pacman p_player;//tai nhan vat pacman
+	p_player.LoadImg("image//pac_img//pacman_right.png", g_screen);
 	p_player.SetClips();
+	p_player.ArrowImgInit(g_screen);
+
+	Timer game_time;//set fps cho game
+
 
 	bool is_quit = false;
-	g_background.setRect(300, 0);
 	while (!is_quit)
 	{
+		game_time.start();//tinh thoi gian tu thoi diem bat dau
 		while (SDL_PollEvent(&g_event) != 0)
 		{
 			if (g_event.type == SDL_QUIT)
 			{
 				is_quit = true;
 			}
-
-			p_player.HandleInputAction(g_event, g_screen);//player
-			
+			p_player.HandleInputAction(g_event, g_screen);//pacman animation
 		}
-		SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);//set mau cho cua so
-		//SDL_RenderClear(g_screen);
 
+		SDL_SetRenderDrawColor(g_screen, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B, CONTROL_COLOR_TRANSPARENT);//set mau cho cua so
 		//g_background.ApplyRender(g_screen, NULL);
 
 		game_map.DrawMap(g_screen);//map
 		Map map_1 = game_map.GetMap();
 
-		p_player.DoPlayer(map_1);
+		p_player.DoPlayer(map_1);//pacman di chuyen trong map
 		p_player.Show(g_screen);
+		p_player.ShowArrow(g_screen);
+		
+		
+		
 
 		SDL_RenderPresent(g_screen);
 		SDL_RenderClear(g_screen);
+
+		int real_time = game_time.get_sticks();//dieu chinh fps cua game
+		int time_one_frame = 1000 / FPS;
+		if (real_time < time_one_frame)
+		{
+			int delay_time = time_one_frame - real_time;
+			if (delay_time >= 0) SDL_Delay(delay_time);
+		}
 	}
+
 	Close();
 	return 0;
 }
