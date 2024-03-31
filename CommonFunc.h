@@ -18,20 +18,28 @@ const int SCREEN_WIDTH = 1200;
 const int SCREEN_HEIGHT = 660;
 const int SCREEN_BPP = 32;
 
-const int COLOR_KEY_R = 167;
-const int COLOR_KEY_G = 175;
-const int COLOR_KEY_B = 180;
+const int COLOR_KEY_R = 0;
+const int COLOR_KEY_G = 0;
+const int COLOR_KEY_B = 0;
 
-const int RENDER_DRAW_COLOR = 0;
+const int CONTROL_COLOR_TRANSPARENT = 0;
 
-//nhan vat di chuyen
+//frame
 #define NUM_OF_FRAME 3
 
 //game map
+#define MAX_TILES 5
 #define TILE_SIZE 30
 #define MAX_MAP_X 19
 #define MAX_MAP_Y 22
 
+//pacman
+#define PACMAN_SPEED 15
+
+//fps
+#define FPS 20
+//le ben trai
+#define SIDE_LEFT 300
 
 
 typedef struct Map
@@ -56,6 +64,16 @@ typedef struct Input
 	int up_;
 	int down_;
 };
+
+//check trang thai cham vao tuong cua nhan vat
+typedef struct TouchWallMap
+{
+	int left;
+	int right;
+	int up;
+	int down;
+};
+
 
 //map01
 static int map01[] = {
