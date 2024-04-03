@@ -37,7 +37,7 @@ const int CONTROL_COLOR_TRANSPARENT = 0;
 #define PACMAN_SPEED 15
 
 //fps
-#define FPS 20
+#define FPS 15
 //le ben trai
 #define SIDE_LEFT 300
 

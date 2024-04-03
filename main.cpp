@@ -39,7 +39,7 @@ bool InitData()
 
 bool LoadBackground()
 {
-	bool ret = g_background.LoadImg("image//level.png", g_screen);
+	bool ret = g_background.LoadImg("image//pac_intro.png", g_screen);
 	if (ret == false) return false;
 	return true;
 }
@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 {
 	if (InitData() == false) return -1;
 	if (LoadBackground() == false) return -1;
-    g_background.setRect(300, 0);
+    g_background.setRect(0, 0);
 
 
 	GameMap game_map;//tai map
@@ -74,7 +74,22 @@ int main(int argc, char* argv[])
 	p_player.ArrowImgInit(g_screen);
 
 	Timer game_time;//set fps cho game
-
+	
+    
+	bool intro_closed = false;
+	SDL_Texture* intro_;
+	while (!intro_closed)
+	{
+		while (SDL_PollEvent(&g_event) != 0) {
+			if (g_event.type == SDL_MOUSEBUTTONDOWN) {
+				intro_closed = true;
+			}
+		}
+		
+		g_background.ApplyRender(g_screen, NULL);
+		SDL_RenderPresent(g_screen);
+		SDL_RenderClear(g_screen);
+	}
 
 	bool is_quit = false;
 	while (!is_quit)
@@ -82,6 +97,7 @@ int main(int argc, char* argv[])
 		game_time.start();//tinh thoi gian tu thoi diem bat dau
 		while (SDL_PollEvent(&g_event) != 0)
 		{
+            
 			if (g_event.type == SDL_QUIT)
 			{
 				is_quit = true;
