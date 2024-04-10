@@ -1,0 +1,12 @@
+Cập nhật: 10/4/2024
+
+     Nội dung:
+            Thay đổi cách di chuyển:
+                - Không cần giữ liên tục các phím khi di chuyển mà chỉ cần bấm 1 lần.
+                - Khi chuyển hướng, không cần phải đợi đến đúng chỗ chuyển hướng được thì mới bấm mà chỉ cần bấm trước rồi khi chuyển
+                  hướng được thì pacman sẽ tự động chuyển hướng.
+                -  Tạo một mũi tên quanh pacman để giúp cho việc xác định hướng di chuyển của người chơi.
+            Di chuyển đã hoàn toàn mượt mà và dễ dàng.                                  
+
+     ---------------------------------------------------------------
+     
