@@ -1,6 +1,6 @@
-D:\laptrinhnangcao\Pac\BaseObject.cpp;D:\laptrinhnangcao\Pac\pacman\Debug\BaseObject.obj
-D:\laptrinhnangcao\Pac\CommonFunc.cpp;D:\laptrinhnangcao\Pac\pacman\Debug\CommonFunc.obj
-D:\laptrinhnangcao\Pac\game_map.cpp;D:\laptrinhnangcao\Pac\pacman\Debug\game_map.obj
-D:\laptrinhnangcao\Pac\main.cpp;D:\laptrinhnangcao\Pac\pacman\Debug\main.obj
-D:\laptrinhnangcao\Pac\Pacman.cpp;D:\laptrinhnangcao\Pac\pacman\Debug\Pacman.obj
-D:\laptrinhnangcao\Pac\Timer.cpp;D:\laptrinhnangcao\Pac\pacman\Debug\Timer.obj
+D:\Pac\BaseObject.cpp;D:\Pac\pacman\Debug\BaseObject.obj
+D:\Pac\CommonFunc.cpp;D:\Pac\pacman\Debug\CommonFunc.obj
+D:\Pac\game_map.cpp;D:\Pac\pacman\Debug\game_map.obj
+D:\Pac\main.cpp;D:\Pac\pacman\Debug\main.obj
+D:\Pac\Pacman.cpp;D:\Pac\pacman\Debug\Pacman.obj
+D:\Pac\Timer.cpp;D:\Pac\pacman\Debug\Timer.obj
