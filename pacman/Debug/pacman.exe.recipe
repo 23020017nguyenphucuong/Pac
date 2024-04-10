@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\laptrinhnangcao\Pac\Debug\pacman.exe</FullPath>
+      <FullPath>D:\Pac\Debug\pacman.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

@@ -9,6 +9,7 @@
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include <cstdio>
+#include <vector>
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
@@ -25,7 +26,7 @@ const int COLOR_KEY_B = 0;
 const int CONTROL_COLOR_TRANSPARENT = 0;
 
 //frame
-#define NUM_OF_FRAME 3
+#define NUM_OF_FRAME 9
 
 //game map
 #define MAX_TILES 5
@@ -34,10 +35,10 @@ const int CONTROL_COLOR_TRANSPARENT = 0;
 #define MAX_MAP_Y 22
 
 //pacman
-#define PACMAN_SPEED 15
+#define PACMAN_SPEED 5
 
 //fps
-#define FPS 15
+#define FPS 35
 //le ben trai
 #define SIDE_LEFT 300
 
@@ -56,23 +57,17 @@ typedef struct Map
 	char* file_name;
 };
 
-//trang thai di chuyen cua main object
+//trang thai di chuyen cua pacman
 typedef struct Input
 {
 	int left_;
 	int right_;
 	int up_;
 	int down_;
+
+	
 };
 
-//check trang thai cham vao tuong cua nhan vat
-typedef struct TouchWallMap
-{
-	int left;
-	int right;
-	int up;
-	int down;
-};
 
 
 //map01

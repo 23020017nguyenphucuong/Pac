@@ -37,9 +37,9 @@ bool InitData()
 	return success;
 }
 
-bool LoadBackground()
+bool LoadBackground(std::string path)
 {
-	bool ret = g_background.LoadImg("image//pac_intro.png", g_screen);
+	bool ret = g_background.LoadImg(path, g_screen);
 	if (ret == false) return false;
 	return true;
 }
@@ -60,7 +60,7 @@ void Close()
 int main(int argc, char* argv[])
 {
 	if (InitData() == false) return -1;
-	if (LoadBackground() == false) return -1;
+	if (LoadBackground("image//intro//pac_intro.png") == false) return -1;
     g_background.setRect(0, 0);
 
 
@@ -114,7 +114,7 @@ int main(int argc, char* argv[])
 		p_player.DoPlayer(map_1);//pacman di chuyen trong map
 		p_player.Show(g_screen);
 		p_player.ShowArrow(g_screen);
-		
+		p_player.PacmanMove(map_1);
 		
 		
 

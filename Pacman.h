@@ -25,10 +25,7 @@ private:
 
 	BaseObject arrow_direct[4];
 
-	TouchWallMap touch_the_wall_flags;
-	int is_second_move_flags;
-
-	int is_can_move_flag_;//check xem co di duoc khong hay bi cham tuong
+	bool on_wall;
 public:
 	Pacman();
 	~Pacman();
@@ -54,7 +51,7 @@ public:
 	void ShowArrow(SDL_Renderer* des);
 	void ArrowImgInit(SDL_Renderer* des);
 
-	void ControlSecondMove(Map& map_data);//kiem tra 2 lan chay, thuc hien cach di chuyen moi
+	void PacmanMove(Map& map_data);
 };
 
 #endif

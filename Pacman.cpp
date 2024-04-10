@@ -18,12 +18,7 @@ Pacman::Pacman()
 	input_type_.up_ = 0;
 	input_type_.down_ = 0;
 
-	touch_the_wall_flags.left = 0;
-	touch_the_wall_flags.right = 0;
-	touch_the_wall_flags.up = 0;
-	touch_the_wall_flags.down = 0;
-
-	is_second_move_flags = 0;
+	on_wall = false;
 }
 
 Pacman::~Pacman()
@@ -85,12 +80,8 @@ void Pacman::Show(SDL_Renderer* des)
 		input_type_.up_ == 1 ||
 		input_type_.down_ == 1)
 	{
-		frame_++; //SDL_Delay(10);
+		frame_++; 
 	}
-	/*else
-	{
-		frame_ = 0;
-	}*/
 
 	if (frame_ >= NUM_OF_FRAME)
 	{
@@ -101,9 +92,7 @@ void Pacman::Show(SDL_Renderer* des)
 	rect_.y = y_pos_;
 
 	SDL_Rect* current_clip = &frame_clip_[frame_];//frame clip hien tai
-
 	SDL_Rect renderQuad = { rect_.x,rect_.y,width_frame_,height_frame_ };//kich thuoc chuan nhat
-
 	SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
 }
 
@@ -115,61 +104,22 @@ void Pacman::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
 		switch (events.key.keysym.sym)
 		{
 		case SDLK_LEFT:
-		    pacman_status_ = WALK_LEFT;
 			arrow_status_ = WALK_LEFT;
-			input_type_.left_ = 1;
-			input_type_.right_ = 0;
-			input_type_.up_ = 0;
-			input_type_.down_ = 0;
 			break;
 		case SDLK_RIGHT:
-			pacman_status_ = WALK_RIGHT;
 			arrow_status_ = WALK_RIGHT;
-			input_type_.left_ = 0;
-			input_type_.right_ = 1;
-			input_type_.up_ = 0;
-			input_type_.down_ = 0;
 			break;
 		case SDLK_UP:
-			pacman_status_ = WALK_UP;
 			arrow_status_ = WALK_UP;
-			input_type_.left_ = 0;
-			input_type_.right_ = 0;
-			input_type_.up_ = 1;
-			input_type_.down_ = 0;
 			break;
 		case SDLK_DOWN:
-			pacman_status_ = WALK_DOWN;
 			arrow_status_ = WALK_DOWN;
-			input_type_.left_ = 0;
-			input_type_.right_ = 0;
-			input_type_.up_ = 0;
-			input_type_.down_ = 1;
 			break;
 		default:
 			break;
 		}
 	}
-	/*else if (events.type == SDL_KEYUP)
-	{
-		switch (events.key.keysym.sym)
-		{
-		case SDLK_LEFT:
-			input_type_.left_ = 0;
-			break;
-		case SDLK_RIGHT:
-			input_type_.right_ = 0;
-			break;
-		case SDLK_UP:
-			input_type_.up_ = 0;
-			break;
-		case SDLK_DOWN:
-			input_type_.down_ = 0;
-			break;
-		default:
-			break;
-		}
-	}*/
+
 
 }
 
@@ -234,6 +184,7 @@ void Pacman::DoPlayer(Map& map_data)
 	{
 		y_val_ += PACMAN_SPEED;
 	}
+
 	CheckToMap(map_data);
 }
 
@@ -267,6 +218,7 @@ void Pacman::CheckToMap(Map& map_data)
                 x_pos_ = x2 * TILE_SIZE - width_frame_ + SIDE_LEFT;
 			    x_val_ = 0;
 				input_type_.right_ = 0;
+				on_wall = true;
 			}
 			
 		}
@@ -285,6 +237,7 @@ void Pacman::CheckToMap(Map& map_data)
                 x_pos_ = (x1+1)*TILE_SIZE + SIDE_LEFT;
 			    x_val_ = 0;
 				input_type_.left_ = 0;
+				on_wall = true;
 			}
 			
 		}
@@ -297,6 +250,7 @@ void Pacman::CheckToMap(Map& map_data)
 			y_pos_ = y2 * TILE_SIZE - height_frame_;
 			y_val_ = 0;
 			input_type_.down_ = 0;
+			on_wall = true;
 		}
 	}
 	else if (y_val_ < 0)//len tren
@@ -306,56 +260,16 @@ void Pacman::CheckToMap(Map& map_data)
 			y_pos_ = (y1+1) * TILE_SIZE;
 			y_val_ = 0;
 			input_type_.up_ = 0;
+			on_wall = true;
 		}
 	}
 
 	x_pos_ += x_val_;
 	y_pos_ += y_val_;
 
-
 }
 
-void Pacman::ControlSecondMove(Map& map_data)
-{
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*void Pacman::DoPlayer(Map& map_data)
-{
-	x_val_ = 0;
-	y_val_ = 0;
-
-	CheckToMap(map_data);
-	x_pos_ += x_val_;
-	y_pos_ += y_val_;
-}
-
-void Pacman::CheckToMap(Map& map_data)
+void Pacman::PacmanMove(Map& map_data)
 {
 	int x1 = 0;//gioi han kiem tra tu a den b theo chieu x
 	int x2 = 0;
@@ -364,117 +278,94 @@ void Pacman::CheckToMap(Map& map_data)
 	int y2 = 0;
 
 	//check theo chieu ngang truoc
-	  
-	x1 = (x_pos_ - 300 + x_val_) / TILE_SIZE;//o thu bao nhieu
-	x2 = (x_pos_ - 300 + x_val_ + width_frame_ - 1) / TILE_SIZE;
+
+	x1 = (x_pos_ - SIDE_LEFT + x_val_) / TILE_SIZE;//o thu bao nhieu
+	x2 = (x_pos_ - SIDE_LEFT + x_val_ + width_frame_ - 1) / TILE_SIZE;
 
 	y1 = (y_pos_ + y_val_) / TILE_SIZE;
 	y2 = (y_pos_ + y_val_ + height_frame_ - 1) / TILE_SIZE;
-
-	if (input_type_.right_ == 1)//sang phai
-	{
-		if (map_data.tile[y1][x2] != 0 || map_data.tile[y2][x2] != 0)
+	if (on_wall == false) {
+		if (arrow_status_ == WALK_RIGHT && pacman_status_ != WALK_RIGHT)
 		{
-			if (map_data.tile[y1][x2] == 4 || map_data.tile[y2][x2] == 4)
+			if (map_data.tile[y1][x2 + 1] == 0 && map_data.tile[y2][x2 + 1] == 0)
 			{
-				x_pos_ = 310;
-				x_val_ = 0;
-			}
-			else
-			{
-				touch_the_wall_flags.right = 1;
-				//input_type_.right_ = 0;
-			}
-		}
-		else
-		{
-			touch_the_wall_flags.right = 0;
-		}
+				input_type_.left_ = 0;
+				input_type_.right_ = 1;
+				input_type_.up_ = 0;
+				input_type_.down_ = 0;
+				if (pacman_status_ == WALK_UP) y_pos_ -= PACMAN_SPEED;
+				else if (pacman_status_ == WALK_DOWN) y_pos_ += PACMAN_SPEED;
+				pacman_status_ = WALK_RIGHT;
 
-		if (touch_the_wall_flags.right = 1)
-		{
-			is_second_move_flags = WALK_RIGHT;
+			}
 		}
-		else
+		else if (arrow_status_ == WALK_LEFT && pacman_status_ != WALK_LEFT)
 		{
-			x_val_ += PACMAN_SPEED;
-			is_second_move_flags = 0;
+			if (map_data.tile[y1][x1 - 1] == 0 && map_data.tile[y2][x1 - 1] == 0)
+			{
+				input_type_.left_ = 1;
+				input_type_.right_ = 0;
+				input_type_.up_ = 0;
+				input_type_.down_ = 0;
+				if (pacman_status_ == WALK_UP) y_pos_ -= PACMAN_SPEED;
+				else if (pacman_status_ == WALK_DOWN) y_pos_ += PACMAN_SPEED;
+				pacman_status_ = WALK_LEFT;
+			}
+
+		}
+		else if (arrow_status_ == WALK_UP && pacman_status_ != WALK_UP)
+		{
+			if (map_data.tile[y1 - 1][x1] == 0 && map_data.tile[y1 - 1][x2] == 0)
+			{
+				input_type_.left_ = 0;
+				input_type_.right_ = 0;
+				input_type_.up_ = 1;
+				input_type_.down_ = 0;
+				if (pacman_status_ == WALK_RIGHT) {
+					x_pos_ = ((x_pos_ - 300) / TILE_SIZE + 1) * TILE_SIZE + 300 - (TILE_SIZE-PACMAN_SPEED);
+				}
+				else if (pacman_status_ == WALK_LEFT) x_pos_ = ((x_pos_ - 300) / TILE_SIZE - 1) * TILE_SIZE + 300 + (TILE_SIZE - PACMAN_SPEED);
+				pacman_status_ = WALK_UP;
+			}
+
+		}
+		else if (arrow_status_ == WALK_DOWN && pacman_status_ != WALK_DOWN)
+		{
+			if (map_data.tile[y2 + 1][x1] == 0 && map_data.tile[y2 + 1][x2] == 0)
+			{
+				input_type_.left_ = 0;
+				input_type_.right_ = 0;
+				input_type_.up_ = 0;
+				input_type_.down_ = 1;
+				if (pacman_status_ == WALK_RIGHT) x_pos_ = ((x_pos_ - 300) / TILE_SIZE + 1) * TILE_SIZE + 300 - (TILE_SIZE - PACMAN_SPEED);
+				else if (pacman_status_ == WALK_LEFT) x_pos_ = ((x_pos_ - 300) / TILE_SIZE - 1) * TILE_SIZE + 300 + (TILE_SIZE - PACMAN_SPEED);
+				pacman_status_ = WALK_DOWN;
+			}
 		}
 	}
-	else if (input_type_.left_ == 1)//sang trai
-	{
-		if (map_data.tile[y1][x1] != 0 || map_data.tile[y2][x1] != 0)
-		{
-			if (map_data.tile[y1][x1] == 3 || map_data.tile[y2][x1] == 3)
-			{
-				x_pos_ = 830;
-				x_val_ = 0;
-			}
-			else
-			{
-				touch_the_wall_flags.left = 1;
-				//input_type_.left_ = 0;
-			}
+	else {
+		if (arrow_status_ == WALK_LEFT) {
+			input_type_.left_ = 1;
+			pacman_status_ = WALK_LEFT;
+			on_wall = false;
 		}
-		else
-		{
-			touch_the_wall_flags.left = 0;
+		else if (arrow_status_ == WALK_RIGHT) {
+			input_type_.right_ = 1;
+			pacman_status_ = WALK_RIGHT;
+			on_wall = false;
 		}
-
-		if (touch_the_wall_flags.left == 1)
-		{
-			is_second_move_flags = WALK_LEFT;
+		else if (arrow_status_ == WALK_UP) {
+			input_type_.up_ = 1;
+			pacman_status_ = WALK_UP;
+			on_wall = false;
 		}
-		else
-		{
-			x_val_ -= PACMAN_SPEED;
-			is_second_move_flags = 0;
-		}
-
-	}
-	else if (input_type_.down_ == 1)//xuong duoi
-	{
-		if (map_data.tile[y2][x1] != 0 || map_data.tile[y2][x2] != 0)
-		{
-			touch_the_wall_flags.down = 1;
-			//input_type_.down_ = 0;
-		}
-		else
-		{
-			touch_the_wall_flags.down = 0;
-		}
-
-		if (touch_the_wall_flags.down == 1)
-		{
-			is_second_move_flags = WALK_DOWN;
-		}
-		else
-		{
-			y_val_ += PACMAN_SPEED;
-		}
-	}
-	else if (input_type_.up_ == 1)//len tren
-	{
-		if (map_data.tile[y1][x1] != 0 || map_data.tile[y1][x2] != 0)
-		{
-			touch_the_wall_flags.up = 1;
-			//input_type_.up_ = 0;
-		}
-		else
-		{
-			touch_the_wall_flags.up = 0;
-		}
-
-		if (touch_the_wall_flags.up == 1)
-		{
-			is_second_move_flags = WALK_UP;
-		}
-		else
-		{
-			y_val_ -= PACMAN_SPEED;
-			is_second_move_flags = 0;
+		else if (arrow_status_ == WALK_DOWN) {
+			input_type_.down_ = 1;
+			pacman_status_ = WALK_DOWN;
+			on_wall = false;
 		}
 	}
 }
-*/
+
+
 
