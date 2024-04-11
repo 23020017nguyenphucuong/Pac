@@ -77,12 +77,33 @@ int main(int argc, char* argv[])
 	
     
 	bool intro_closed = false;
+	bool new_game = false;
+	bool help = false;
 	SDL_Texture* intro_;
 	while (!intro_closed)
 	{
 		while (SDL_PollEvent(&g_event) != 0) {
-			if (g_event.type == SDL_MOUSEBUTTONDOWN) {
-				intro_closed = true;
+			if (g_event.type == SDL_KEYDOWN)
+			{
+				switch (g_event.key.keysym.sym)
+				{
+				case SDLK_UP:
+					LoadBackground("image//intro//RRR.png");
+					new_game = true;
+					help = false;
+					break;
+				case SDLK_DOWN:
+					LoadBackground("image//intro//RRRR.png");
+					new_game = false;
+					help = true;
+					break;
+				case SDLK_RETURN:
+					if (new_game == true) intro_closed = true;
+					//else if(help = true) todo;
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		
@@ -103,6 +124,7 @@ int main(int argc, char* argv[])
 				is_quit = true;
 			}
 			p_player.HandleInputAction(g_event, g_screen);//pacman animation
+
 		}
 
 		SDL_SetRenderDrawColor(g_screen, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B, CONTROL_COLOR_TRANSPARENT);//set mau cho cua so
@@ -114,7 +136,6 @@ int main(int argc, char* argv[])
 		p_player.DoPlayer(map_1);//pacman di chuyen trong map
 		p_player.Show(g_screen);
 		p_player.ShowArrow(g_screen);
-		p_player.PacmanMove(map_1);
 		
 		
 

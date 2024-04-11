@@ -26,6 +26,8 @@ private:
 	BaseObject arrow_direct[4];
 
 	bool on_wall;
+
+	int score;
 public:
 	Pacman();
 	~Pacman();
