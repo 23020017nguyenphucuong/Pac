@@ -1,31 +1,31 @@
 ﻿  Pacman.cpp
-D:\Pac\CommonFunc.h(58,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+D:\Pac\CommonFunc.h(63,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
   (compiling source file 'Pacman.cpp')
   
-D:\Pac\CommonFunc.h(69,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+D:\Pac\CommonFunc.h(74,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
   (compiling source file 'Pacman.cpp')
   
 D:\Pac\Pacman.cpp(91,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 D:\Pac\Pacman.cpp(92,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(201,36): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(202,57): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(204,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(205,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(218,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Pacman.cpp(237,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Pacman.cpp(250,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Pacman.cpp(260,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Pacman.cpp(282,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(283,56): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(285,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(286,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(202,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(203,56): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(205,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(206,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(219,44): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Pac\Pacman.cpp(238,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Pac\Pacman.cpp(251,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Pac\Pacman.cpp(261,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Pac\Pacman.cpp(283,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(284,56): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(286,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(287,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   main.cpp
-D:\Pac\CommonFunc.h(58,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+D:\Pac\CommonFunc.h(63,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
   (compiling source file 'main.cpp')
   
-D:\Pac\CommonFunc.h(69,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+D:\Pac\CommonFunc.h(74,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
   (compiling source file 'main.cpp')
   
-D:\Pac\main.cpp(80,15): warning C4101: 'intro_': unreferenced local variable
+D:\Pac\main.cpp(82,15): warning C4101: 'intro_': unreferenced local variable
   Generating Code...
   pacman.vcxproj -> D:\Pac\Debug\pacman.exe

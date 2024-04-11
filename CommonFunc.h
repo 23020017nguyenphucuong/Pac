@@ -29,13 +29,18 @@ const int CONTROL_COLOR_TRANSPARENT = 0;
 #define NUM_OF_FRAME 9
 
 //game map
-#define MAX_TILES 5
+#define MAX_TILES 7
 #define TILE_SIZE 30
 #define MAX_MAP_X 19
 #define MAX_MAP_Y 22
 
 //pacman
 #define PACMAN_SPEED 5
+#define BLANK_TILE 1
+#define DOT_TILE 1
+#define GALAXY_RIGHT_TILE 5
+#define GALAXY_LEFT_TILE 4
+#define HUNTER_MODE_TILE 6
 
 //fps
 #define FPS 35

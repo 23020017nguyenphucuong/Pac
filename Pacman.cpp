@@ -41,14 +41,14 @@ void Pacman::SetClips()
 {
 	if (width_frame_ > 0 && height_frame_ > 0) //xac dinh trang thai cua tung frame
 	{
-        frame_clip_[0].x = 0;
-	    frame_clip_[0].y = 0;
+		frame_clip_[0].x = 0;
+		frame_clip_[0].y = 0;
 		frame_clip_[0].w = width_frame_;
-	    frame_clip_[0].h = height_frame_;
+		frame_clip_[0].h = height_frame_;
 
-		for (int i = 1; i < NUM_OF_FRAME; i++) 
+		for (int i = 1; i < NUM_OF_FRAME; i++)
 		{
-			frame_clip_[i].x = i*width_frame_;
+			frame_clip_[i].x = i * width_frame_;
 			frame_clip_[i].y = 0;
 			frame_clip_[i].w = width_frame_;
 			frame_clip_[i].h = height_frame_;
@@ -80,7 +80,7 @@ void Pacman::Show(SDL_Renderer* des)
 		input_type_.up_ == 1 ||
 		input_type_.down_ == 1)
 	{
-		frame_++; 
+		frame_++;
 	}
 
 	if (frame_ >= NUM_OF_FRAME)
@@ -136,26 +136,26 @@ void Pacman::ShowArrow(SDL_Renderer* des)
 {
 	if (arrow_status_ == WALK_LEFT)
 	{
-		SDL_Rect renderQuad = {rect_.x - 9, rect_.y + 7, 7, 16};//kich thuoc chuan nhat
+		SDL_Rect renderQuad = { rect_.x - 9, rect_.y + 7, 7, 16 };//kich thuoc chuan nhat
 
 		SDL_RenderCopy(des, arrow_direct[0].getObject(), NULL, &renderQuad);
 
 	}
 	if (arrow_status_ == WALK_RIGHT)
 	{
-		SDL_Rect renderQuad = {rect_.x + 32, rect_.y + 7, 7, 16};//kich thuoc chuan nhat
+		SDL_Rect renderQuad = { rect_.x + 32, rect_.y + 7, 7, 16 };//kich thuoc chuan nhat
 
 		SDL_RenderCopy(des, arrow_direct[1].getObject(), NULL, &renderQuad);
 	}
 	if (arrow_status_ == WALK_UP)
 	{
-		SDL_Rect renderQuad = {rect_.x + 7, rect_.y - 9, 16, 7};//kich thuoc chuan nhat
+		SDL_Rect renderQuad = { rect_.x + 7, rect_.y - 9, 16, 7 };//kich thuoc chuan nhat
 
 		SDL_RenderCopy(des, arrow_direct[2].getObject(), NULL, &renderQuad);
 	}
 	if (arrow_status_ == WALK_DOWN)
 	{
-		SDL_Rect renderQuad = {rect_.x + 7, rect_.y + 32, 16, 7};//kich thuoc chuan nhat
+		SDL_Rect renderQuad = { rect_.x + 7, rect_.y + 32, 16, 7 };//kich thuoc chuan nhat
 
 		SDL_RenderCopy(des, arrow_direct[3].getObject(), NULL, &renderQuad);
 	}
@@ -186,6 +186,7 @@ void Pacman::DoPlayer(Map& map_data)
 	}
 
 	CheckToMap(map_data);
+	PacmanMove(map_data);
 }
 
 void Pacman::CheckToMap(Map& map_data)
@@ -198,8 +199,8 @@ void Pacman::CheckToMap(Map& map_data)
 
 	//check theo chieu ngang truoc
 
-	x1 = (x_pos_ - SIDE_LEFT + x_val_)/TILE_SIZE;//o thu bao nhieu
-	x2 = (x_pos_ - SIDE_LEFT + x_val_ + width_frame_ - 1 ) / TILE_SIZE;
+	x1 = (x_pos_ - SIDE_LEFT + x_val_) / TILE_SIZE;//o thu bao nhieu
+	x2 = (x_pos_ - SIDE_LEFT + x_val_ + width_frame_ - 1) / TILE_SIZE;
 
 	y1 = (y_pos_ + y_val_) / TILE_SIZE;
 	y2 = (y_pos_ + y_val_ + height_frame_ - 1) / TILE_SIZE;
@@ -215,12 +216,12 @@ void Pacman::CheckToMap(Map& map_data)
 			}
 			else
 			{
-                x_pos_ = x2 * TILE_SIZE - width_frame_ + SIDE_LEFT;
-			    x_val_ = 0;
+				x_pos_ = x2 * TILE_SIZE - width_frame_ + SIDE_LEFT;
+				x_val_ = 0;
 				input_type_.right_ = 0;
 				on_wall = true;
 			}
-			
+
 		}
 	}
 	else if (input_type_.left_ == 1)//sang trai
@@ -234,14 +235,14 @@ void Pacman::CheckToMap(Map& map_data)
 			}
 			else
 			{
-                x_pos_ = (x1+1)*TILE_SIZE + SIDE_LEFT;
-			    x_val_ = 0;
+				x_pos_ = (x1 + 1) * TILE_SIZE + SIDE_LEFT;
+				x_val_ = 0;
 				input_type_.left_ = 0;
 				on_wall = true;
 			}
-			
+
 		}
-		
+
 	}
 	else if (y_val_ > 0)//xuong duoi
 	{
@@ -257,7 +258,7 @@ void Pacman::CheckToMap(Map& map_data)
 	{
 		if (map_data.tile[y1][x1] != 0 || map_data.tile[y1][x2] != 0)
 		{
-			y_pos_ = (y1+1) * TILE_SIZE;
+			y_pos_ = (y1 + 1) * TILE_SIZE;
 			y_val_ = 0;
 			input_type_.up_ = 0;
 			on_wall = true;
@@ -322,7 +323,7 @@ void Pacman::PacmanMove(Map& map_data)
 				input_type_.up_ = 1;
 				input_type_.down_ = 0;
 				if (pacman_status_ == WALK_RIGHT) {
-					x_pos_ = ((x_pos_ - 300) / TILE_SIZE + 1) * TILE_SIZE + 300 - (TILE_SIZE-PACMAN_SPEED);
+					x_pos_ = ((x_pos_ - 300) / TILE_SIZE + 1) * TILE_SIZE + 300 - (TILE_SIZE - PACMAN_SPEED);
 				}
 				else if (pacman_status_ == WALK_LEFT) x_pos_ = ((x_pos_ - 300) / TILE_SIZE - 1) * TILE_SIZE + 300 + (TILE_SIZE - PACMAN_SPEED);
 				pacman_status_ = WALK_UP;
@@ -366,6 +367,3 @@ void Pacman::PacmanMove(Map& map_data)
 		}
 	}
 }
-
-
-
