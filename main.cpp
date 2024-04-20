@@ -4,8 +4,13 @@
 #include "game_map.h"
 #include "Pacman.h"
 #include "Timer.h"
+#include "Text.h"
 
 static BaseObject g_background;
+TTF_Font* font_score = NULL;
+TTF_Font* font_pause = NULL;
+TTF_Font* font_continue = NULL;
+
 
 //khai bao chuong trinh va in background
 bool InitData()
@@ -33,7 +38,24 @@ bool InitData()
 			int imgFlags = IMG_INIT_PNG;
 			if (!(IMG_Init(imgFlags) && imgFlags)) success = false;
 		}
+
+		if (TTF_Init() == -1)
+		{
+			success = false;
+		}
+
+		font_score = TTF_OpenFont("font//FFFFORWA.TTF", 25);
+		font_pause = TTF_OpenFont("font//FFFFORWA.TTF", 20);
+		font_continue = TTF_OpenFont("font//FFFFORWA.TTF", 19);
+		if (font_score == NULL || font_pause == NULL)
+		{
+			success = false;
+		}
 	}
+
+	g_sound_pac[0] = Mix_LoadWAV("audio//eat_dot.wav");
+	if (g_sound_pac[0] == NULL) return false;
+
 	return success;
 }
 
@@ -63,19 +85,42 @@ int main(int argc, char* argv[])
 	if (LoadBackground("image//intro//pac_intro.png") == false) return -1;
     g_background.setRect(0, 0);
 
-
-	GameMap game_map;//tai map
+    //tai map
+	GameMap game_map;
 	game_map.LoadMap();
 	game_map.LoadTiles(g_screen);
+	Map map_1 = game_map.GetMap();
 
-	Pacman p_player;//tai nhan vat pacman
+    //tai nhan vat pacman
+	static Pacman p_player;
 	p_player.LoadImg("image//pac_img//pacman_right.png", g_screen);
 	p_player.SetClips();
 	p_player.ArrowImgInit(g_screen);
 
-	Timer game_time;//set fps cho game
+    //set fps cho game
+	Timer game_time;
+
+	//score cua nguoi choi
+	Text score_hehe;
+    score_hehe.SetColor(Text::YELLOW_TEXT);
+
+	//in len man hinh huong dan continue and pause game
+	Text pause_hehe;
+	pause_hehe.SetColor(Text::WHITE_TEXT);
+
+	Text continue_hehe;
+	continue_hehe.SetColor(Text::YELLOW_TEXT);
+
+	BaseObject Paused_img;
+	Paused_img.LoadImg("map01//pause.png", g_screen);
+	Paused_img.setRect(340, 270);
+
+	//Ghost
+	//Ghost pinky;
+	//pinky.LoadImg("image//pinky//pinky_up.png", g_screen);
+	//pinky.SetClip();
 	
-    
+    //intro
 	bool intro_closed = false;
 	bool new_game = false;
 	bool help = false;
@@ -112,6 +157,8 @@ int main(int argc, char* argv[])
 		SDL_RenderClear(g_screen);
 	}
 
+	//chay game
+	int count_num_of_pause = 0;
 	bool is_quit = false;
 	while (!is_quit)
 	{
@@ -123,26 +170,87 @@ int main(int argc, char* argv[])
 			{
 				is_quit = true;
 			}
+			if (g_event.type == SDL_KEYDOWN)
+			{
+				if (g_event.key.keysym.sym == SDLK_SPACE)
+				{
+					if (count_num_of_pause % 2 == 0)
+					{
+						p_player.Set_paused(true);
+						//pinky.Set_paused(true);
+						count_num_of_pause++;
+					}
+					else
+					{
+						p_player.Set_paused(false);
+						//pinky.Set_paused(false);
+						count_num_of_pause++;
+					}
+				}
+			}
 			p_player.HandleInputAction(g_event, g_screen);//pacman animation
 
 		}
 
-		SDL_SetRenderDrawColor(g_screen, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B, CONTROL_COLOR_TRANSPARENT);//set mau cho cua so
+        //set mau cho cua so
+		SDL_SetRenderDrawColor(g_screen, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B, CONTROL_COLOR_TRANSPARENT);
 		//g_background.ApplyRender(g_screen, NULL);
 
-		game_map.DrawMap(g_screen);//map
-		Map map_1 = game_map.GetMap();
+        //ve map
+		game_map.DrawMap(g_screen,map_1);
 
-		p_player.DoPlayer(map_1);//pacman di chuyen trong map
+        //pacman di chuyen trong map
+		p_player.DoPlayer(map_1);
 		p_player.Show(g_screen);
 		p_player.ShowArrow(g_screen);
-		
-		
+		p_player.PacmanMove(map_1);
+
+		//show anh dung game
+		if (count_num_of_pause % 2 == 1)
+		{
+			Paused_img.ApplyRender(g_screen, NULL);
+		}
 
 		SDL_RenderPresent(g_screen);
 		SDL_RenderClear(g_screen);
 
-		int real_time = game_time.get_sticks();//dieu chinh fps cua game
+		//show score cua nguoi choi
+		std::string str_score = "Your score: ";
+		Uint32 score_val = p_player.Get_score();
+
+		std::string str_val = std::to_string(score_val);
+		str_score += str_val;
+		score_hehe.SetText(str_score);
+
+		score_hehe.LoadFromRenderText(font_score, g_screen);
+		score_hehe.RenderText(g_screen, SCREEN_WIDTH - 400, SCREEN_HEIGHT - 450);
+		score_hehe.Free();
+
+        //show huong dan continue va pause game
+		if (count_num_of_pause % 2 == 1)
+		{
+			std::string str_continue = "Press SPACE button to continue the game";
+
+			pause_hehe.SetText(str_continue);
+
+			pause_hehe.LoadFromRenderText(font_continue, g_screen);
+			pause_hehe.RenderText(g_screen, SCREEN_WIDTH - 520, SCREEN_HEIGHT - 500);
+			pause_hehe.Free();
+
+		}
+		else
+		{
+			std::string str_pause = "Press SPACE button to pause the game";
+
+			pause_hehe.SetText(str_pause);
+
+			pause_hehe.LoadFromRenderText(font_continue, g_screen);
+			pause_hehe.RenderText(g_screen, SCREEN_WIDTH - 520, SCREEN_HEIGHT - 500);
+			pause_hehe.Free();
+		}
+
+        //dieu chinh fps cua game
+		int real_time = game_time.get_sticks();
 		int time_one_frame = 1000 / FPS;
 		if (real_time < time_one_frame)
 		{

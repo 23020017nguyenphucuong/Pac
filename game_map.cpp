@@ -34,13 +34,13 @@ void GameMap::LoadTiles(SDL_Renderer* screen)
 	fclose(fp);
 }
 
-void GameMap::DrawMap(SDL_Renderer* screen)
+void GameMap::DrawMap(SDL_Renderer* screen,Map &map_data)
 {
-	int x1 = 300;
-	int x2 = 870;
+	int x1 = MAP_CORNER_X1;
+	int x2 = MAP_CORNER_X2;
 
-	int y1 = 0;
-	int y2 = 660;
+	int y1 = MAP_CORNER_Y1;
+	int y2 = MAP_CORNER_Y2;
 
 	int map_x = 0;
 	int map_y = 0;
@@ -50,8 +50,8 @@ void GameMap::DrawMap(SDL_Renderer* screen)
 		map_x = 0;
 		for (int j = x1; j < x2; j += TILE_SIZE)
 		{
-			int val = game_map_.tile[map_y][map_x];
-			if (val > 0)
+			int val = map_data.tile[map_y][map_x];
+			if (val >= 0)
 			{
 				tile_mat[val].setRect(j, i);
 				tile_mat[val].ApplyRender(screen, NULL);

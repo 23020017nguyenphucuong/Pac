@@ -4,7 +4,7 @@ Pacman::Pacman()
 {
 	x_val_ = 0;
 	y_val_ = 0;
-	x_pos_ = 570;
+	x_pos_ = 370;
 	y_pos_ = 360;
 	width_frame_ = 30;
 	height_frame_ = 30;
@@ -19,6 +19,9 @@ Pacman::Pacman()
 	input_type_.down_ = 0;
 
 	on_wall = false;
+	score = 0;
+	number_of_dot = 184;
+	paused_ = false;
 }
 
 Pacman::~Pacman()
@@ -31,7 +34,7 @@ bool Pacman::LoadImg(std::string path, SDL_Renderer* screen)
 	bool ret = BaseObject::LoadImg(path, screen);
 	if (ret == true)
 	{
-		width_frame_ = rect_.w / NUM_OF_FRAME;
+		width_frame_ = rect_.w / NUM_OF_FRAME_MOVE;
 		height_frame_ = rect_.h;
 	}
 	return ret;
@@ -46,13 +49,14 @@ void Pacman::SetClips()
 		frame_clip_[0].w = width_frame_;
 		frame_clip_[0].h = height_frame_;
 
-		for (int i = 1; i < NUM_OF_FRAME; i++)
+		for (int i = 1; i < NUM_OF_FRAME_MOVE; i++)
 		{
 			frame_clip_[i].x = i * width_frame_;
 			frame_clip_[i].y = 0;
 			frame_clip_[i].w = width_frame_;
 			frame_clip_[i].h = height_frame_;
 		}
+
 	}
 }
 
@@ -75,17 +79,20 @@ void Pacman::Show(SDL_Renderer* des)
 	{
 		LoadImg("image//pac_img//pacman_down.png", des);
 	}
-	if (input_type_.left_ == 1 || //doi frame sau moi lan bam 
-		input_type_.right_ == 1 ||
-		input_type_.up_ == 1 ||
-		input_type_.down_ == 1)
-	{
-		frame_++;
-	}
 
-	if (frame_ >= NUM_OF_FRAME)
+	if (paused_ == false)
 	{
-		frame_ = 0;
+		if (input_type_.left_ == 1 || //doi frame sau moi lan bam 
+			input_type_.right_ == 1 ||
+			input_type_.up_ == 1 ||
+			input_type_.down_ == 1)
+		{
+			frame_++;
+		}
+		if (frame_ >= NUM_OF_FRAME_MOVE)
+		{
+			frame_ = 0;
+		}
 	}
 
 	rect_.x = x_pos_;
@@ -99,28 +106,29 @@ void Pacman::Show(SDL_Renderer* des)
 void Pacman::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
 {
 	//xu li ban phim
-	if (events.type == SDL_KEYDOWN)
+	if (paused_ == false)
 	{
-		switch (events.key.keysym.sym)
+		if (events.type == SDL_KEYDOWN)
 		{
-		case SDLK_LEFT:
-			arrow_status_ = WALK_LEFT;
-			break;
-		case SDLK_RIGHT:
-			arrow_status_ = WALK_RIGHT;
-			break;
-		case SDLK_UP:
-			arrow_status_ = WALK_UP;
-			break;
-		case SDLK_DOWN:
-			arrow_status_ = WALK_DOWN;
-			break;
-		default:
-			break;
+			switch (events.key.keysym.sym)
+			{
+			case SDLK_LEFT:
+				arrow_status_ = WALK_LEFT;
+				break;
+			case SDLK_RIGHT:
+				arrow_status_ = WALK_RIGHT;
+				break;
+			case SDLK_UP:
+				arrow_status_ = WALK_UP;
+				break;
+			case SDLK_DOWN:
+				arrow_status_ = WALK_DOWN;
+				break;
+			default:
+				break;
+			}
 		}
 	}
-
-
 }
 
 
@@ -168,25 +176,27 @@ void Pacman::DoPlayer(Map& map_data)
 	x_val_ = 0;
 	y_val_ = 0;
 
-	if (input_type_.left_ == 1)
+	if (paused_ == false)
 	{
-		x_val_ -= PACMAN_SPEED;
-	}
-	else if (input_type_.right_ == 1)
-	{
-		x_val_ += PACMAN_SPEED;
-	}
-	else if (input_type_.up_ == 1)
-	{
-		y_val_ -= PACMAN_SPEED;
-	}
-	else if (input_type_.down_ == 1)
-	{
-		y_val_ += PACMAN_SPEED;
+		if (input_type_.left_ == 1)
+		{
+			x_val_ -= PACMAN_SPEED;
+		}
+		else if (input_type_.right_ == 1)
+		{
+			x_val_ += PACMAN_SPEED;
+		}
+		else if (input_type_.up_ == 1)
+		{
+			y_val_ -= PACMAN_SPEED;
+		}
+		else if (input_type_.down_ == 1)
+		{
+			y_val_ += PACMAN_SPEED;
+		}
+		CheckToMap(map_data);
 	}
 
-	CheckToMap(map_data);
-	PacmanMove(map_data);
 }
 
 void Pacman::CheckToMap(Map& map_data)
@@ -205,63 +215,138 @@ void Pacman::CheckToMap(Map& map_data)
 	y1 = (y_pos_ + y_val_) / TILE_SIZE;
 	y2 = (y_pos_ + y_val_ + height_frame_ - 1) / TILE_SIZE;
 
-	if (input_type_.right_ == 1)//sang phai
+	if (x_val_ > 0)//sang phai
 	{
-		if (map_data.tile[y1][x2] != 0 || map_data.tile[y2][x2] != 0)
+		if (map_data.tile[y1][x2] == DOT_TILE || map_data.tile[y2][x2] == DOT_TILE)
 		{
-			if (map_data.tile[y1][x2] == 4 || map_data.tile[y2][x2] == 4)
-			{
-				x_pos_ = SIDE_LEFT + 10;
-				x_val_ = 0;
-			}
-			else
-			{
-				x_pos_ = x2 * TILE_SIZE - width_frame_ + SIDE_LEFT;
-				x_val_ = 0;
-				input_type_.right_ = 0;
-				on_wall = true;
-			}
+			map_data.tile[y1][x2] = BLANK_TILE;
+			map_data.tile[y2][x2] == BLANK_TILE;
 
+			number_of_dot--;
+			score += 10;
 		}
+		else if (map_data.tile[y1][x2] == HUNTER_MODE_TILE || map_data.tile[y2][x2] == HUNTER_MODE_TILE)
+		{
+			map_data.tile[y1][x2] = BLANK_TILE;
+			map_data.tile[y2][x2] == BLANK_TILE;
+
+			number_of_dot--;
+			score += 20;
+		}
+		else
+		{
+			if (map_data.tile[y1][x2] != BLANK_TILE || map_data.tile[y2][x2] != BLANK_TILE)
+			{
+				if (map_data.tile[y1][x2] == GALAXY_RIGHT_TILE || map_data.tile[y2][x2] == GALAXY_RIGHT_TILE)
+				{
+					x_pos_ = SIDE_LEFT + 10;
+					x_val_ = 0;
+				}
+				else
+				{
+					x_pos_ = x2 * TILE_SIZE - width_frame_ + SIDE_LEFT;
+					x_val_ = 0;
+					input_type_.right_ = 0;
+					on_wall = true;
+					int i = 0; int j = 0;
+				}
+			}
+		}
+
 	}
-	else if (input_type_.left_ == 1)//sang trai
+	else if (x_val_ < 0)//sang trai
 	{
-		if (map_data.tile[y1][x1] != 0 || map_data.tile[y2][x1] != 0)
+		if (map_data.tile[y1][x1] == DOT_TILE || map_data.tile[y2][x1] == DOT_TILE)
 		{
-			if (map_data.tile[y1][x1] == 3 || map_data.tile[y2][x1] == 3)
-			{
-				x_pos_ = SIDE_LEFT + 18 * TILE_SIZE - 10;
-				x_val_ = 0;
-			}
-			else
-			{
-				x_pos_ = (x1 + 1) * TILE_SIZE + SIDE_LEFT;
-				x_val_ = 0;
-				input_type_.left_ = 0;
-				on_wall = true;
-			}
+			map_data.tile[y1][x1] = BLANK_TILE;
+			map_data.tile[y2][x1] = BLANK_TILE;
 
+			number_of_dot--;
+			score += 10;
 		}
+		else if (map_data.tile[y1][x1] == HUNTER_MODE_TILE || map_data.tile[y2][x1] == HUNTER_MODE_TILE)
+		{
+			map_data.tile[y1][x1] = BLANK_TILE;
+			map_data.tile[y2][x1] = BLANK_TILE;
 
+			number_of_dot--;
+			score += 20;
+		}
+		else
+		{
+			if (map_data.tile[y1][x1] != BLANK_TILE || map_data.tile[y2][x1] != BLANK_TILE)
+			{
+				if (map_data.tile[y1][x1] == GALAXY_LEFT_TILE || map_data.tile[y2][x1] == GALAXY_LEFT_TILE)
+				{
+					x_pos_ = SIDE_LEFT + 18 * TILE_SIZE - 10;
+					x_val_ = 0;
+				}
+				else
+				{
+					x_pos_ = (x1 + 1) * TILE_SIZE + SIDE_LEFT;
+					x_val_ = 0;
+					input_type_.left_ = 0;
+					on_wall = true;
+				}
+			}
+		}
 	}
 	else if (y_val_ > 0)//xuong duoi
 	{
-		if (map_data.tile[y2][x1] != 0 || map_data.tile[y2][x2] != 0)
+		if (map_data.tile[y2][x1] == DOT_TILE || map_data.tile[y2][x2] == DOT_TILE)
 		{
-			y_pos_ = y2 * TILE_SIZE - height_frame_;
-			y_val_ = 0;
-			input_type_.down_ = 0;
-			on_wall = true;
+			map_data.tile[y2][x1] = BLANK_TILE;
+			map_data.tile[y2][x2] = BLANK_TILE;
+
+			number_of_dot--;
+			score += 10;
+		}
+		else if (map_data.tile[y2][x1] == HUNTER_MODE_TILE || map_data.tile[y2][x2] == HUNTER_MODE_TILE)
+		{
+			map_data.tile[y2][x1] = BLANK_TILE;
+			map_data.tile[y2][x2] = BLANK_TILE;
+
+			number_of_dot--;
+			score += 20;
+		}
+		else
+		{
+			if (map_data.tile[y2][x1] != BLANK_TILE || map_data.tile[y2][x2] != BLANK_TILE)
+			{
+				y_pos_ = y2 * TILE_SIZE - height_frame_;
+				y_val_ = 0;
+				input_type_.down_ = 0;
+				on_wall = true;
+			}
 		}
 	}
 	else if (y_val_ < 0)//len tren
 	{
-		if (map_data.tile[y1][x1] != 0 || map_data.tile[y1][x2] != 0)
+		if (map_data.tile[y1][x1] == DOT_TILE || map_data.tile[y1][x2] == DOT_TILE)
 		{
-			y_pos_ = (y1 + 1) * TILE_SIZE;
-			y_val_ = 0;
-			input_type_.up_ = 0;
-			on_wall = true;
+			map_data.tile[y1][x1] = BLANK_TILE;
+			map_data.tile[y1][x2] = BLANK_TILE;
+
+			number_of_dot--;
+			score += 10;
+		}
+		else if (map_data.tile[y1][x1] == HUNTER_MODE_TILE || map_data.tile[y1][x2] == HUNTER_MODE_TILE)
+		{
+			map_data.tile[y1][x1] = BLANK_TILE;
+			map_data.tile[y1][x2] = BLANK_TILE;
+
+			number_of_dot--;
+			score += 20;
+		}
+		else
+		{
+			if (map_data.tile[y1][x1] != BLANK_TILE || map_data.tile[y1][x2] != BLANK_TILE)
+			{
+				y_pos_ = (y1 + 1) * TILE_SIZE;
+				y_val_ = 0;
+				input_type_.up_ = 0;
+				on_wall = true;
+			}
 		}
 	}
 
@@ -288,7 +373,8 @@ void Pacman::PacmanMove(Map& map_data)
 	if (on_wall == false) {
 		if (arrow_status_ == WALK_RIGHT && pacman_status_ != WALK_RIGHT)
 		{
-			if (map_data.tile[y1][x2 + 1] == 0 && map_data.tile[y2][x2 + 1] == 0)
+			if (map_data.tile[y1][x2 + 1] == BLANK_TILE && map_data.tile[y2][x2 + 1] == BLANK_TILE ||
+				map_data.tile[y1][x2 + 1] == DOT_TILE && map_data.tile[y2][x2 + 1] == DOT_TILE)
 			{
 				input_type_.left_ = 0;
 				input_type_.right_ = 1;
@@ -302,7 +388,8 @@ void Pacman::PacmanMove(Map& map_data)
 		}
 		else if (arrow_status_ == WALK_LEFT && pacman_status_ != WALK_LEFT)
 		{
-			if (map_data.tile[y1][x1 - 1] == 0 && map_data.tile[y2][x1 - 1] == 0)
+			if (map_data.tile[y1][x1 - 1] == BLANK_TILE && map_data.tile[y2][x1 - 1] == BLANK_TILE ||
+				map_data.tile[y1][x1 - 1] == DOT_TILE && map_data.tile[y2][x1 - 1] == DOT_TILE)
 			{
 				input_type_.left_ = 1;
 				input_type_.right_ = 0;
@@ -316,7 +403,8 @@ void Pacman::PacmanMove(Map& map_data)
 		}
 		else if (arrow_status_ == WALK_UP && pacman_status_ != WALK_UP)
 		{
-			if (map_data.tile[y1 - 1][x1] == 0 && map_data.tile[y1 - 1][x2] == 0)
+			if (map_data.tile[y1 - 1][x1] == BLANK_TILE && map_data.tile[y1 - 1][x2] == BLANK_TILE ||
+				map_data.tile[y1 - 1][x1] == DOT_TILE && map_data.tile[y1 - 1][x2] == DOT_TILE)
 			{
 				input_type_.left_ = 0;
 				input_type_.right_ = 0;
@@ -332,7 +420,8 @@ void Pacman::PacmanMove(Map& map_data)
 		}
 		else if (arrow_status_ == WALK_DOWN && pacman_status_ != WALK_DOWN)
 		{
-			if (map_data.tile[y2 + 1][x1] == 0 && map_data.tile[y2 + 1][x2] == 0)
+			if (map_data.tile[y2 + 1][x1] == BLANK_TILE && map_data.tile[y2 + 1][x2] == BLANK_TILE ||
+				map_data.tile[y2 + 1][x1] == DOT_TILE && map_data.tile[y2 + 1][x2] == DOT_TILE)
 			{
 				input_type_.left_ = 0;
 				input_type_.right_ = 0;
@@ -367,3 +456,17 @@ void Pacman::PacmanMove(Map& map_data)
 		}
 	}
 }
+
+std::pair<int, int> Pacman::Get_current_coordinates_(Map& map_data)
+{
+	CheckToMap(map_data);
+	int x1 = (x_pos_ + x_val_ - SIDE_LEFT + 5) / TILE_SIZE;//o thu bao nhieu
+	int x2 = (x_pos_ - SIDE_LEFT + width_frame_) / TILE_SIZE;
+
+	int y1 = (y_pos_ + y_val_ + 5) / TILE_SIZE;
+	int y2 = (y_pos_ + height_frame_) / TILE_SIZE;
+	std::pair<int, int> coor = { x1,y1 };
+	return coor;
+}
+
+

@@ -10,9 +10,18 @@
 #include <SDL_ttf.h>
 #include <cstdio>
 #include <vector>
+#include <utility>
+#include <map>
+#include <queue>
+#include <iostream>
+
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
+
+static Mix_Chunk* g_sound_game[3];
+static Mix_Chunk* g_sound_pac[5];
+static Mix_Chunk* g_sound_intro[2];
 
 //screen
 const int SCREEN_WIDTH = 1200;
@@ -26,26 +35,37 @@ const int COLOR_KEY_B = 0;
 const int CONTROL_COLOR_TRANSPARENT = 0;
 
 //frame
-#define NUM_OF_FRAME 9
+#define NUM_OF_FRAME_MOVE 9
+#define NUM_OF_FRAME_DIE 33
+#define NUM_OF_GHOST_FRAME 6
 
 //game map
 #define MAX_TILES 7
 #define TILE_SIZE 30
 #define MAX_MAP_X 19
 #define MAX_MAP_Y 22
+#define MAP_CORNER_X1 100
+#define MAP_CORNER_X2 670
+#define MAP_CORNER_Y1 0
+#define MAP_CORNER_Y2 660
 
 //pacman
 #define PACMAN_SPEED 5
-#define BLANK_TILE 1
-#define DOT_TILE 1
-#define GALAXY_RIGHT_TILE 5
-#define GALAXY_LEFT_TILE 4
+#define BLANK_TILE 5
+#define DOT_TILE 0
+#define GALAXY_RIGHT_TILE 4
+#define GALAXY_LEFT_TILE 3
 #define HUNTER_MODE_TILE 6
+#define WALL_TILE 1
+
+//ghost
+#define GHOST_SPEED 1
+#define GHOST_DOOR_TILE 2
 
 //fps
 #define FPS 35
 //le ben trai
-#define SIDE_LEFT 300
+#define SIDE_LEFT 100
 
 
 typedef struct Map
@@ -73,27 +93,30 @@ typedef struct Input
 	
 };
 
-
+/*namespace CommonFunc
+{
+	bool CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2);
+}*/
 
 //map01
 static int map01[] = {
 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
-1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
+1, 6, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 6, 1,
 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1,
 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1,
 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1,
-0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0,
+5, 5, 5, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 5, 5, 5,
 1, 1, 1, 1, 0, 1, 0, 1, 1, 2, 1, 1, 0, 1, 0, 1, 1, 1, 1,
-3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 4,
+3, 0, 0, 0, 0, 0, 0, 1, 5, 5, 5, 1, 0, 0, 0, 0, 0, 0, 4,
 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
-0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0,
+5, 5, 5, 1, 0, 1, 0, 5, 5, 5, 5, 5, 0, 1, 0, 1, 5, 5, 5,
 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
-1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
+1, 6, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 6, 1,
 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1,
 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1,
 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1,

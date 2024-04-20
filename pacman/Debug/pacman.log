@@ -1,31 +1,9 @@
-﻿  Pacman.cpp
-D:\Pac\CommonFunc.h(63,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
-  (compiling source file 'Pacman.cpp')
-  
-D:\Pac\CommonFunc.h(74,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
-  (compiling source file 'Pacman.cpp')
-  
-D:\Pac\Pacman.cpp(91,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(92,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(202,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(203,56): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(205,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(206,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(219,44): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Pacman.cpp(238,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Pacman.cpp(251,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Pacman.cpp(261,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Pacman.cpp(283,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(284,56): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(286,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Pacman.cpp(287,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-D:\Pac\CommonFunc.h(63,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+﻿  main.cpp
+D:\Pac\CommonFunc.h(83,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
   (compiling source file 'main.cpp')
   
-D:\Pac\CommonFunc.h(74,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+D:\Pac\CommonFunc.h(94,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
   (compiling source file 'main.cpp')
   
-D:\Pac\main.cpp(82,15): warning C4101: 'intro_': unreferenced local variable
-  Generating Code...
+D:\Pac\main.cpp(127,15): warning C4101: 'intro_': unreferenced local variable
   pacman.vcxproj -> D:\Pac\Debug\pacman.exe
