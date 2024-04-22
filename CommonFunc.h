@@ -19,9 +19,9 @@ static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
 
-static Mix_Chunk* g_sound_game[3];
+static Mix_Chunk* g_sound_game[5];
 static Mix_Chunk* g_sound_pac[5];
-static Mix_Chunk* g_sound_intro[2];
+static Mix_Music* g_sound_music;
 
 //screen
 const int SCREEN_WIDTH = 1200;
@@ -59,7 +59,7 @@ const int CONTROL_COLOR_TRANSPARENT = 0;
 #define WALL_TILE 1
 
 //ghost
-#define GHOST_SPEED 1
+#define GHOST_SPEED 3
 #define GHOST_DOOR_TILE 2
 
 //fps
@@ -91,6 +91,11 @@ typedef struct Input
 	int down_;
 
 	
+};
+
+typedef struct Node {
+	int x, y;
+	Node* parent;
 };
 
 /*namespace CommonFunc

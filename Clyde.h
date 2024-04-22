@@ -1,10 +1,10 @@
 #pragma once
-#ifndef GHOST_H_
-#define GHOST_H_
+#ifndef Clyde_H_
+#define Clyde_H_
 #include "CommonFunc.h"
 #include "BaseObject.h"
 
-class Ghost : public BaseObject
+class Clyde : public BaseObject
 {
 private:
 	int frame_;
@@ -25,6 +25,10 @@ private:
 	int animation_a_;
 	int animation_b_;
 
+	int arrow_status_;
+
+	Uint32 lastUpdateTime;
+
 	Input input_type_;
 
 	//std::vector<std::pair<int, int>> way;
@@ -34,8 +38,21 @@ private:
 	int dy[4] = { 0, -1, 1, 0 };
 
 public:
-	Ghost();
-	~Ghost();
+	Clyde();
+	~Clyde();
+
+	enum move_type
+	{
+		DIED = -1,
+		ALIVE = 0,
+		SCARRY = 1,
+		WALK_LEFT = 2,
+		WALK_RIGHT = 3,
+		WALK_UP = 4,
+		WALK_DOWN = 5,
+	};
+
+	void ClydeMove1();
 
 	void Set_x_val(const float& xv) { x_val_ = xv; };
 	void Set_y_val(const float& yv) { y_val_ = yv; };
@@ -63,13 +80,6 @@ public:
 	void Set_input_right(const int& ip_right) { input_type_.right_ = ip_right; };
 	void Set_input_up(const int& ip_up) { input_type_.up_ = ip_up; };
 	void Set_input_down(const int& ip_down) { input_type_.down_ = ip_down; };
-
-    // void BFS(Map& map_data, std::pair<int, int> ghost_coordinates, std::pair<int, int> pac_coordinates);
-	//std::vector<std::pair<int,int>> BFS(Map& map_data, std::pair<int, int> ghost_coordinates, std::pair<int, int> pac_coordinates);
-
-	//std::pair <int, int> Get_current_coordinates_(Map& map_data);
-
-	//void DoThePath(Map& map_data,Pacman pac);
 
 	void Set_paused(bool pau) { paused_ = pau; };
 

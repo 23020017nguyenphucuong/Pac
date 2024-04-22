@@ -22,6 +22,10 @@ Pacman::Pacman()
 	score = 0;
 	number_of_dot = 184;
 	paused_ = false;
+
+	eat_dot_sound = 0;
+
+	g_sound_pac[0] = Mix_LoadWAV("audio//eat_dot_1.wav");
 }
 
 Pacman::~Pacman()
@@ -201,6 +205,7 @@ void Pacman::DoPlayer(Map& map_data)
 
 void Pacman::CheckToMap(Map& map_data)
 {
+
 	int x1 = 0;//gioi han kiem tra tu a den b theo chieu x
 	int x2 = 0;
 
@@ -224,6 +229,10 @@ void Pacman::CheckToMap(Map& map_data)
 
 			number_of_dot--;
 			score += 10;
+
+            if(eat_dot_sound == 0) Mix_PlayChannel(-1, g_sound_pac[0], 0);
+			eat_dot_sound++;
+			if (eat_dot_sound == 2) eat_dot_sound = 0;
 		}
 		else if (map_data.tile[y1][x2] == HUNTER_MODE_TILE || map_data.tile[y2][x2] == HUNTER_MODE_TILE)
 		{
@@ -263,6 +272,10 @@ void Pacman::CheckToMap(Map& map_data)
 
 			number_of_dot--;
 			score += 10;
+
+			if (eat_dot_sound == 0) Mix_PlayChannel(-1, g_sound_pac[0], 0);
+			eat_dot_sound++;
+			if (eat_dot_sound == 2) eat_dot_sound = 0;
 		}
 		else if (map_data.tile[y1][x1] == HUNTER_MODE_TILE || map_data.tile[y2][x1] == HUNTER_MODE_TILE)
 		{
@@ -300,6 +313,10 @@ void Pacman::CheckToMap(Map& map_data)
 
 			number_of_dot--;
 			score += 10;
+
+			if (eat_dot_sound == 0) Mix_PlayChannel(-1, g_sound_pac[0], 0);
+			eat_dot_sound++;
+			if (eat_dot_sound == 2) eat_dot_sound = 0;  
 		}
 		else if (map_data.tile[y2][x1] == HUNTER_MODE_TILE || map_data.tile[y2][x2] == HUNTER_MODE_TILE)
 		{
@@ -329,6 +346,10 @@ void Pacman::CheckToMap(Map& map_data)
 
 			number_of_dot--;
 			score += 10;
+
+			if (eat_dot_sound == 0) Mix_PlayChannel(-1, g_sound_pac[0], 0);
+			eat_dot_sound++;
+			if (eat_dot_sound == 2) eat_dot_sound = 0;
 		}
 		else if (map_data.tile[y1][x1] == HUNTER_MODE_TILE || map_data.tile[y1][x2] == HUNTER_MODE_TILE)
 		{
@@ -459,12 +480,8 @@ void Pacman::PacmanMove(Map& map_data)
 
 std::pair<int, int> Pacman::Get_current_coordinates_(Map& map_data)
 {
-	CheckToMap(map_data);
 	int x1 = (x_pos_ + x_val_ - SIDE_LEFT + 5) / TILE_SIZE;//o thu bao nhieu
-	int x2 = (x_pos_ - SIDE_LEFT + width_frame_) / TILE_SIZE;
-
 	int y1 = (y_pos_ + y_val_ + 5) / TILE_SIZE;
-	int y2 = (y_pos_ + height_frame_) / TILE_SIZE;
 	std::pair<int, int> coor = { x1,y1 };
 	return coor;
 }

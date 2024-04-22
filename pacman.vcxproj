@@ -133,20 +133,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="Clyde.cpp" />
     <ClCompile Include="CommonFunc.cpp" />
     <ClCompile Include="game_map.cpp" />
-    <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="Blinky.cpp" />
+    <ClCompile Include="Inky.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pacman.cpp" />
+    <ClCompile Include="Pinky.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="Clyde.h" />
     <ClInclude Include="CommonFunc.h" />
     <ClInclude Include="game_map.h" />
-    <ClInclude Include="Ghost.h" />
+    <ClInclude Include="Blinky.h" />
+    <ClInclude Include="Inky.h" />
     <ClInclude Include="Pacman.h" />
+    <ClInclude Include="Pinky.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>

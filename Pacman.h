@@ -35,6 +35,8 @@ private:
 
 	int dx[4] = { -1, 0, 0, 1 };
 	int dy[4] = { 0, -1, 1, 0 };
+
+	int eat_dot_sound;
 public:
 	Pacman();
 	~Pacman();
@@ -71,6 +73,7 @@ public:
 
 	void Set_pacman_status(int n) { pacman_status_ = n; };
 	void PacDie() { pacman_status_ = DIED; };
+
 };
 
 #endif

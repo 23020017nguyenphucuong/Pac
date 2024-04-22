@@ -5,6 +5,10 @@
 #include "Pacman.h"
 #include "Timer.h"
 #include "Text.h"
+#include "Blinky.h"
+#include "Pinky.h"
+#include "Inky.h"
+#include "Clyde.h"
 
 static BaseObject g_background;
 TTF_Font* font_score = NULL;
@@ -53,8 +57,16 @@ bool InitData()
 		}
 	}
 
-	g_sound_pac[0] = Mix_LoadWAV("audio//eat_dot.wav");
-	if (g_sound_pac[0] == NULL) return false;
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
+	{
+		success = false;
+	}
+
+	g_sound_game[0] = Mix_LoadWAV("audio//button.wav");
+	g_sound_game[1] = Mix_LoadWAV("audio//button2.wav");
+	g_sound_game[2] = Mix_LoadWAV("audio//breaktime.wav");
+	g_sound_game[3] = Mix_LoadWAV("audio//move_1111.wav");
+	g_sound_game[4] = Mix_LoadWAV("audio//start.wav");
 
 	return success;
 }
@@ -115,10 +127,25 @@ int main(int argc, char* argv[])
 	Paused_img.LoadImg("map01//pause.png", g_screen);
 	Paused_img.setRect(340, 270);
 
-	//Ghost
-	//Ghost pinky;
-	//pinky.LoadImg("image//pinky//pinky_up.png", g_screen);
-	//pinky.SetClip();
+	//blinky
+	Blinky blinky;
+	blinky.LoadImg("image//blinky_img//blinky_up.png", g_screen);
+	blinky.SetClip();
+
+	//pinky
+	Pinky pinky;
+	pinky.LoadImg("image//pinky_img//pinky_up.png", g_screen);
+	pinky.SetClip();
+
+	//inky
+	Inky inky;
+	inky.LoadImg("image//inky_img//inky_up.png", g_screen);
+	inky.SetClip();
+
+	//pinky
+	Clyde clyde;
+	clyde.LoadImg("image//clyde_img//clyde_up.png", g_screen);
+	clyde.SetClip();
 	
     //intro
 	bool intro_closed = false;
@@ -136,15 +163,18 @@ int main(int argc, char* argv[])
 					LoadBackground("image//intro//RRR.png");
 					new_game = true;
 					help = false;
+					Mix_PlayChannel(-1, g_sound_game[0], 0);
 					break;
 				case SDLK_DOWN:
 					LoadBackground("image//intro//RRRR.png");
 					new_game = false;
 					help = true;
+					Mix_PlayChannel(-1, g_sound_game[0], 0);
 					break;
 				case SDLK_RETURN:
 					if (new_game == true) intro_closed = true;
 					//else if(help = true) todo;
+					Mix_PlayChannel(-1, g_sound_game[1], 0);
 					break;
 				default:
 					break;
@@ -157,11 +187,16 @@ int main(int argc, char* argv[])
 		SDL_RenderClear(g_screen);
 	}
 
+	//Mix_PlayChannel(1, g_sound_game[4], 0);
+	Mix_PlayChannel(1, g_sound_game[3], -1);
+
 	//chay game
 	int count_num_of_pause = 0;
 	bool is_quit = false;
+	int count_intro_sound = 0;
 	while (!is_quit)
 	{
+
 		game_time.start();//tinh thoi gian tu thoi diem bat dau
 		while (SDL_PollEvent(&g_event) != 0)
 		{
@@ -172,6 +207,7 @@ int main(int argc, char* argv[])
 			}
 			if (g_event.type == SDL_KEYDOWN)
 			{
+				//set cac nhan vat o che do tam dung
 				if (g_event.key.keysym.sym == SDLK_SPACE)
 				{
 					if (count_num_of_pause % 2 == 0)
@@ -179,12 +215,25 @@ int main(int argc, char* argv[])
 						p_player.Set_paused(true);
 						//pinky.Set_paused(true);
 						count_num_of_pause++;
+
+						if (count_intro_sound == 0)
+						{
+							Mix_PlayChannel(1, g_sound_game[2], -1);
+							count_intro_sound = 1;
+						}
 					}
 					else
 					{
 						p_player.Set_paused(false);
 						//pinky.Set_paused(false);
 						count_num_of_pause++;
+                       
+						if (count_intro_sound == 1)
+						{
+							Mix_PlayChannel(1, g_sound_game[3], -1);
+							count_intro_sound = 0;
+						}
+
 					}
 				}
 			}
@@ -204,6 +253,37 @@ int main(int argc, char* argv[])
 		p_player.Show(g_screen);
 		p_player.ShowArrow(g_screen);
 		p_player.PacmanMove(map_1);
+
+		//blinky
+		blinky.DoPlayer(map_1);
+		blinky.Show(g_screen);
+		std::pair<int, int> pac_coor = p_player.Get_current_coordinates_(map_1);
+		std::pair<int, int> blinky_coor = blinky.Get_current_coordinates_(map_1);
+        blinky.BlinkyMove(map_1);
+		blinky.BlinkyMove1(map_1,blinky_coor,pac_coor);
+		
+
+		//pinky
+		pinky.DoPlayer(map_1);
+		pinky.Show(g_screen);
+		//pinky.PinkyMove(map_1);
+		pinky.PinkyMove1(map_1);
+
+		//inky
+		std::pair<int, int> inky_coor = inky.Get_current_coordinates_();
+		
+		
+		inky.set_goal_x(pac_coor.first);
+		inky.set_goal_y(pac_coor.second);
+		
+		inky.Find(inky_coor.first, inky_coor.second,map_1);
+		inky.DoPlayer(map_1);
+		
+		inky.Show(g_screen);
+		//clyde
+		clyde.DoPlayer(map_1);
+		clyde.Show(g_screen);
+		clyde.ClydeMove1();
 
 		//show anh dung game
 		if (count_num_of_pause % 2 == 1)
