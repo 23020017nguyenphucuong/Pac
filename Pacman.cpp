@@ -9,9 +9,11 @@ Pacman::Pacman()
 	width_frame_ = 30;
 	height_frame_ = 30;
 	frame_ = 0;
+	frame_die_ = 0;
 
 	pacman_status_ = 0;
 	arrow_status_ = 0;
+	alive_status_ = ALIVE;
 
 	input_type_.left_ = 0;
 	input_type_.right_ = 0;
@@ -26,6 +28,13 @@ Pacman::Pacman()
 	eat_dot_sound = 0;
 
 	g_sound_pac[0] = Mix_LoadWAV("audio//eat_dot_1.wav");
+	eat_boss1 = false;
+	eat_boss2 = false;
+	eat_boss3 = false;
+	eat_boss4 = false;
+	start_time_strong = 0;
+	end_time_strong = 0;
+	mang = 3;
 }
 
 Pacman::~Pacman()
@@ -52,7 +61,7 @@ void Pacman::SetClips()
 		frame_clip_[0].y = 0;
 		frame_clip_[0].w = width_frame_;
 		frame_clip_[0].h = height_frame_;
-
+		
 		for (int i = 1; i < NUM_OF_FRAME_MOVE; i++)
 		{
 			frame_clip_[i].x = i * width_frame_;
@@ -61,7 +70,20 @@ void Pacman::SetClips()
 			frame_clip_[i].h = height_frame_;
 		}
 
+		frame_clip_die_[0].x = 0;
+		frame_clip_die_[0].y = 0;
+		frame_clip_die_[0].w = width_frame_;
+		frame_clip_die_[0].h = height_frame_;
+
+		for (int i = 1; i < NUM_OF_FRAME_DIE; i++)
+		{
+			frame_clip_die_[i].x = i * width_frame_;
+			frame_clip_die_[i].y = 0;
+			frame_clip_die_[i].w = width_frame_;
+			frame_clip_die_[i].h = height_frame_;
+		}
 	}
+
 }
 
 void Pacman::Show(SDL_Renderer* des)
@@ -107,6 +129,29 @@ void Pacman::Show(SDL_Renderer* des)
 	SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
 }
 
+void Pacman::ShowDie(SDL_Renderer* des)
+{
+	LoadImg("image//pac_img//pacman_die.png", des);
+	
+	if (paused_ == false)
+	{
+		frame_die_++;
+
+		if (frame_die_ >= NUM_OF_FRAME_DIE)
+		{
+			frame_die_ = 0;
+		}
+	}
+
+	rect_.x = x_pos_;
+	rect_.y = y_pos_;
+
+	SDL_Rect* current_clip = &frame_clip_die_[frame_die_];//frame clip hien tai
+	SDL_Rect renderQuad = { rect_.x,rect_.y,30,height_frame_ };//kich thuoc chuan nhat
+	SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
+	
+}
+
 void Pacman::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
 {
 	//xu li ban phim
@@ -134,7 +179,6 @@ void Pacman::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
 		}
 	}
 }
-
 
 void Pacman::ArrowImgInit(SDL_Renderer* des)
 {
@@ -173,8 +217,6 @@ void Pacman::ShowArrow(SDL_Renderer* des)
 	}
 }
 
-
-
 void Pacman::DoPlayer(Map& map_data)
 {
 	x_val_ = 0;
@@ -205,13 +247,12 @@ void Pacman::DoPlayer(Map& map_data)
 
 void Pacman::CheckToMap(Map& map_data)
 {
-
+	start_time_strong = SDL_GetTicks();
 	int x1 = 0;//gioi han kiem tra tu a den b theo chieu x
 	int x2 = 0;
 
 	int y1 = 0;
 	int y2 = 0;
-
 	//check theo chieu ngang truoc
 
 	x1 = (x_pos_ - SIDE_LEFT + x_val_) / TILE_SIZE;//o thu bao nhieu
@@ -225,7 +266,7 @@ void Pacman::CheckToMap(Map& map_data)
 		if (map_data.tile[y1][x2] == DOT_TILE || map_data.tile[y2][x2] == DOT_TILE)
 		{
 			map_data.tile[y1][x2] = BLANK_TILE;
-			map_data.tile[y2][x2] == BLANK_TILE;
+			map_data.tile[y2][x2] = BLANK_TILE;
 
 			number_of_dot--;
 			score += 10;
@@ -237,10 +278,13 @@ void Pacman::CheckToMap(Map& map_data)
 		else if (map_data.tile[y1][x2] == HUNTER_MODE_TILE || map_data.tile[y2][x2] == HUNTER_MODE_TILE)
 		{
 			map_data.tile[y1][x2] = BLANK_TILE;
-			map_data.tile[y2][x2] == BLANK_TILE;
+			map_data.tile[y2][x2] = BLANK_TILE;
 
 			number_of_dot--;
 			score += 20;
+
+			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true;
+			end_time_strong = start_time_strong + 10000;
 		}
 		else
 		{
@@ -284,6 +328,9 @@ void Pacman::CheckToMap(Map& map_data)
 
 			number_of_dot--;
 			score += 20;
+
+			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true;
+			end_time_strong = start_time_strong +10000;
 		}
 		else
 		{
@@ -325,6 +372,9 @@ void Pacman::CheckToMap(Map& map_data)
 
 			number_of_dot--;
 			score += 20;
+
+			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true;
+			end_time_strong = start_time_strong + 10000;
 		}
 		else
 		{
@@ -358,6 +408,9 @@ void Pacman::CheckToMap(Map& map_data)
 
 			number_of_dot--;
 			score += 20;
+
+			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true;
+			end_time_strong = start_time_strong + 10000;
 		}
 		else
 		{
@@ -373,10 +426,13 @@ void Pacman::CheckToMap(Map& map_data)
 
 	x_pos_ += x_val_;
 	y_pos_ += y_val_;
-
+	if (start_time_strong >= end_time_strong) { 
+		hunter_mode = 0; 
+		eat_boss1 = false; eat_boss2 = false; eat_boss3 = false; eat_boss4 = false; }
+	
 }
 
-void Pacman::PacmanMove(Map& map_data)
+void Pacman::PacmanMove(Map map_data)
 {
 	int x1 = 0;//gioi han kiem tra tu a den b theo chieu x
 	int x2 = 0;
@@ -478,12 +534,38 @@ void Pacman::PacmanMove(Map& map_data)
 	}
 }
 
-std::pair<int, int> Pacman::Get_current_coordinates_(Map& map_data)
+std::pair<int, int> Pacman::Get_current_coordinates_(Map map_data)
 {
 	int x1 = (x_pos_ + x_val_ - SIDE_LEFT + 5) / TILE_SIZE;//o thu bao nhieu
 	int y1 = (y_pos_ + y_val_ + 5) / TILE_SIZE;
 	std::pair<int, int> coor = { x1,y1 };
 	return coor;
 }
+
+void Pacman::Set_original_state()
+{
+	x_val_ = 0;
+	y_val_ = 0;
+	x_pos_ = 370;
+	y_pos_ = 360;
+	width_frame_ = 30;
+	height_frame_ = 30;
+	frame_ = 0;
+	frame_die_ = 0;
+
+	pacman_status_ = 0;
+	arrow_status_ = 0;
+	alive_status_ = ALIVE;
+
+	input_type_.left_ = 0;
+	input_type_.right_ = 0;
+	input_type_.up_ = 0;
+	input_type_.down_ = 0;
+
+	on_wall = false;
+	paused_ = false;
+	reduce_mang();
+}
+
 
 

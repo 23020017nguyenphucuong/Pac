@@ -14,6 +14,9 @@
 #include <map>
 #include <queue>
 #include <iostream>
+#include <SDL_timer.h>
+#include <random>
+#include <cmath>
 
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
@@ -61,6 +64,7 @@ const int CONTROL_COLOR_TRANSPARENT = 0;
 //ghost
 #define GHOST_SPEED 3
 #define GHOST_DOOR_TILE 2
+#define ERROR_NUMBER_OF_GHOST 10
 
 //fps
 #define FPS 35
@@ -98,11 +102,6 @@ typedef struct Node {
 	Node* parent;
 };
 
-/*namespace CommonFunc
-{
-	bool CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2);
-}*/
-
 //map01
 static int map01[] = {
 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -113,11 +112,11 @@ static int map01[] = {
 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1,
 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1,
 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1,
-5, 5, 5, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 5, 5, 5,
+1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
 1, 1, 1, 1, 0, 1, 0, 1, 1, 2, 1, 1, 0, 1, 0, 1, 1, 1, 1,
 3, 0, 0, 0, 0, 0, 0, 1, 5, 5, 5, 1, 0, 0, 0, 0, 0, 0, 4,
 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
-5, 5, 5, 1, 0, 1, 0, 5, 5, 5, 5, 5, 0, 1, 0, 1, 5, 5, 5,
+1, 1, 1, 1, 0, 1, 0, 5, 5, 5, 5, 5, 0, 1, 0, 1, 1, 1, 1,
 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,

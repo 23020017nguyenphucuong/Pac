@@ -1,23 +1,83 @@
-﻿  Inky.cpp
-D:\Pac\CommonFunc.h(83,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
-  (compiling source file 'Inky.cpp')
+﻿  Menu.cpp
+D:\Pac\CommonFunc.h(87,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+  (compiling source file 'Menu.cpp')
   
-D:\Pac\CommonFunc.h(94,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
-  (compiling source file 'Inky.cpp')
+D:\Pac\CommonFunc.h(98,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+  (compiling source file 'Menu.cpp')
   
-D:\Pac\CommonFunc.h(99,2): warning C4091: 'typedef ': ignored on left of 'Node' when no variable is declared
-  (compiling source file 'Inky.cpp')
+D:\Pac\CommonFunc.h(103,2): warning C4091: 'typedef ': ignored on left of 'Node' when no variable is declared
+  (compiling source file 'Menu.cpp')
   
-D:\Pac\Inky.cpp(135,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Inky.cpp(136,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Inky.cpp(229,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Inky.cpp(230,56): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Inky.cpp(232,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Inky.cpp(233,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Inky.cpp(248,44): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Inky.cpp(268,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Inky.cpp(280,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Inky.cpp(291,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Pac\Inky.cpp(379,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Pac\Inky.cpp(380,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.h(101,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Menu.cpp')
+  
+D:\Pac\Pacman.h(101,78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Menu.cpp')
+  
+D:\Pac\Ghost.h(68,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Menu.cpp')
+  
+D:\Pac\Ghost.h(68,78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Menu.cpp')
+  
+D:\Pac\Menu.cpp(576,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Pacman.cpp
+D:\Pac\CommonFunc.h(87,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+  (compiling source file 'Pacman.cpp')
+  
+D:\Pac\CommonFunc.h(98,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+  (compiling source file 'Pacman.cpp')
+  
+D:\Pac\CommonFunc.h(103,2): warning C4091: 'typedef ': ignored on left of 'Node' when no variable is declared
+  (compiling source file 'Pacman.cpp')
+  
+D:\Pac\Pacman.h(101,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Pacman.cpp')
+  
+D:\Pac\Pacman.h(101,78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Pacman.cpp')
+  
+D:\Pac\Pacman.cpp(124,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(125,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(146,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(147,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(258,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(259,56): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(261,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(262,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(300,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Pac\Pacman.cpp(346,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Pac\Pacman.cpp(383,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Pac\Pacman.cpp(419,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Pac\Pacman.cpp(445,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(446,56): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(448,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(449,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(539,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Pac\Pacman.cpp(540,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+D:\Pac\CommonFunc.h(87,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+  (compiling source file 'main.cpp')
+  
+D:\Pac\CommonFunc.h(98,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+  (compiling source file 'main.cpp')
+  
+D:\Pac\CommonFunc.h(103,2): warning C4091: 'typedef ': ignored on left of 'Node' when no variable is declared
+  (compiling source file 'main.cpp')
+  
+D:\Pac\Pacman.h(101,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+D:\Pac\Pacman.h(101,78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+D:\Pac\Ghost.h(68,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+D:\Pac\Ghost.h(68,78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+  Generating Code...
+D:\Pac\Pacman.h(119,1): warning C4715: 'Pacman::get_eat_boss': not all control paths return a value
+D:\Pac\Menu.cpp(529,1): warning C4715: 'Menu::Target_for_inky': not all control paths return a value
   pacman.vcxproj -> D:\Pac\Debug\pacman.exe

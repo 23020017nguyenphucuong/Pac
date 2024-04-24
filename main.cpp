@@ -5,16 +5,14 @@
 #include "Pacman.h"
 #include "Timer.h"
 #include "Text.h"
-#include "Blinky.h"
-#include "Pinky.h"
-#include "Inky.h"
-#include "Clyde.h"
+#include "Ghost.h"
+#include "Menu.h"
 
 static BaseObject g_background;
 TTF_Font* font_score = NULL;
 TTF_Font* font_pause = NULL;
 TTF_Font* font_continue = NULL;
-
+int MANG = 0;
 
 //khai bao chuong trinh va in background
 bool InitData()
@@ -62,15 +60,14 @@ bool InitData()
 		success = false;
 	}
 
-	g_sound_game[0] = Mix_LoadWAV("audio//button.wav");
-	g_sound_game[1] = Mix_LoadWAV("audio//button2.wav");
-	g_sound_game[2] = Mix_LoadWAV("audio//breaktime.wav");
-	g_sound_game[3] = Mix_LoadWAV("audio//move_1111.wav");
 	g_sound_game[4] = Mix_LoadWAV("audio//start.wav");
 
 	return success;
 }
-
+bool check_Toado(SDL_Rect Rect, int x, int y) {
+	if ((Rect.x < x && x < Rect.x + Rect.w) && (Rect.y < y && y < Rect.y + Rect.h)) return true;
+	else return false;
+}
 bool LoadBackground(std::string path)
 {
 	bool ret = g_background.LoadImg(path, g_screen);
@@ -90,246 +87,226 @@ void Close()
 	IMG_Quit();
 	SDL_Quit();
 }
-
+int game_over(BaseObject p_over[]) {
+	while (SDL_PollEvent(&g_event) != 0)
+	{
+		if (g_event.type == SDL_QUIT)
+		{
+			return -1;
+		}
+		int mouseX = g_event.button.x;
+		int mouseY = g_event.button.y;
+		if (g_event.type == SDL_MOUSEBUTTONDOWN)
+		{
+			if (check_Toado(p_over[2].getRect(), mouseX, mouseY) || check_Toado(p_over[2].getRect(), mouseX, mouseY)) {
+				return 1;
+			}
+			if (check_Toado(p_over[4].getRect(), mouseX, mouseY) || check_Toado(p_over[5].getRect(), mouseX, mouseY)) {
+				return 0;
+			}
+		}
+			if (check_Toado(p_over[2].getRect(), mouseX, mouseY)) {
+				p_over[2].ApplyRender(g_screen);
+			}
+			else{
+				p_over[3].ApplyRender(g_screen);
+			}
+			if (check_Toado(p_over[4].getRect(), mouseX, mouseY)) {
+				p_over[4].ApplyRender(g_screen);
+			}
+			else {
+				p_over[5].ApplyRender(g_screen);
+			}
+		p_over[0].ApplyRender(g_screen);
+		p_over[1].ApplyRender(g_screen);
+		SDL_RenderPresent(g_screen);
+	}
+	SDL_RenderPresent(g_screen);
+	return -2;
+}
 int main(int argc, char* argv[])
 {
-	if (InitData() == false) return -1;
-	if (LoadBackground("image//intro//pac_intro.png") == false) return -1;
-    g_background.setRect(0, 0);
 
-    //tai map
+	if (InitData() == false) return -1;
+new_game:
+	
+	if (LoadBackground("image//intro//pac_intro.png") == false) return -1;
+	g_background.setRect(0, 0);
+	Menu menu;
+
+	//luu score cua nguoi choi
+	Uint32 score_val=0;
+
+	//intro
+	menu.CreateIntro(g_event, g_background, g_screen);
+	g_background.Free();
+	BaseObject p_mang[3];
+	for (int i = 0; i < 3; i++) p_mang[i].LoadImg("image//intro//mang.png",g_screen);
+	p_mang[0].setRect(850, 300);
+	p_mang[1].setRect(900, 300);
+	p_mang[2].setRect(950, 300);
+new_level:
+	//set fps cho game
+	Timer game_time;
+
+	//tai map
 	GameMap game_map;
 	game_map.LoadMap();
 	game_map.LoadTiles(g_screen);
 	Map map_1 = game_map.GetMap();
 
-    //tai nhan vat pacman
-	static Pacman p_player;
+	//tai nhan vat pacman
+	 Pacman p_player;
 	p_player.LoadImg("image//pac_img//pacman_right.png", g_screen);
 	p_player.SetClips();
 	p_player.ArrowImgInit(g_screen);
+	if (MANG == 0) p_player.set_mang(3);
+	else p_player.set_mang(MANG);
+	p_player.Set_score(score_val);
 
-    //set fps cho game
-	Timer game_time;
-
-	//score cua nguoi choi
-	Text score_hehe;
-    score_hehe.SetColor(Text::YELLOW_TEXT);
-
-	//in len man hinh huong dan continue and pause game
-	Text pause_hehe;
-	pause_hehe.SetColor(Text::WHITE_TEXT);
-
-	Text continue_hehe;
-	continue_hehe.SetColor(Text::YELLOW_TEXT);
-
-	BaseObject Paused_img;
-	Paused_img.LoadImg("map01//pause.png", g_screen);
-	Paused_img.setRect(340, 270);
+	Ghost blinky, pinky, inky, clyde;
 
 	//blinky
-	Blinky blinky;
 	blinky.LoadImg("image//blinky_img//blinky_up.png", g_screen);
 	blinky.SetClip();
+	blinky.Set_where_start(370, 240);
 
 	//pinky
-	Pinky pinky;
 	pinky.LoadImg("image//pinky_img//pinky_up.png", g_screen);
 	pinky.SetClip();
+	pinky.Set_where_start(340, 300);
 
 	//inky
-	Inky inky;
 	inky.LoadImg("image//inky_img//inky_up.png", g_screen);
 	inky.SetClip();
+	inky.Set_where_start(400, 300);
 
-	//pinky
-	Clyde clyde;
+	//clyde
 	clyde.LoadImg("image//clyde_img//clyde_up.png", g_screen);
 	clyde.SetClip();
-	
-    //intro
-	bool intro_closed = false;
-	bool new_game = false;
-	bool help = false;
-	SDL_Texture* intro_;
-	while (!intro_closed)
-	{
-		while (SDL_PollEvent(&g_event) != 0) {
-			if (g_event.type == SDL_KEYDOWN)
-			{
-				switch (g_event.key.keysym.sym)
-				{
-				case SDLK_UP:
-					LoadBackground("image//intro//RRR.png");
-					new_game = true;
-					help = false;
-					Mix_PlayChannel(-1, g_sound_game[0], 0);
-					break;
-				case SDLK_DOWN:
-					LoadBackground("image//intro//RRRR.png");
-					new_game = false;
-					help = true;
-					Mix_PlayChannel(-1, g_sound_game[0], 0);
-					break;
-				case SDLK_RETURN:
-					if (new_game == true) intro_closed = true;
-					//else if(help = true) todo;
-					Mix_PlayChannel(-1, g_sound_game[1], 0);
-					break;
-				default:
-					break;
-				}
-			}
-		}
-		
-		g_background.ApplyRender(g_screen, NULL);
-		SDL_RenderPresent(g_screen);
-		SDL_RenderClear(g_screen);
-	}
+	clyde.Set_where_start(370, 300);
+
+	//tao bien kieu menu
 
 	//Mix_PlayChannel(1, g_sound_game[4], 0);
-	Mix_PlayChannel(1, g_sound_game[3], -1);
-
+	
 	//chay game
-	int count_num_of_pause = 0;
 	bool is_quit = false;
-	int count_intro_sound = 0;
+	int count_blinky_first_move = 0;
+	int call_func_blinky = 0;
+	Uint32 time_to_go_out;
+	new_life:
 	while (!is_quit)
 	{
-
-		game_time.start();//tinh thoi gian tu thoi diem bat dau
+		time_to_go_out = SDL_GetTicks();
+		//tinh thoi gian tu thoi diem bat dau
+		game_time.start();
 		while (SDL_PollEvent(&g_event) != 0)
 		{
-            
 			if (g_event.type == SDL_QUIT)
 			{
 				is_quit = true;
 			}
 			if (g_event.type == SDL_KEYDOWN)
 			{
-				//set cac nhan vat o che do tam dung
-				if (g_event.key.keysym.sym == SDLK_SPACE)
-				{
-					if (count_num_of_pause % 2 == 0)
-					{
-						p_player.Set_paused(true);
-						//pinky.Set_paused(true);
-						count_num_of_pause++;
-
-						if (count_intro_sound == 0)
-						{
-							Mix_PlayChannel(1, g_sound_game[2], -1);
-							count_intro_sound = 1;
-						}
-					}
-					else
-					{
-						p_player.Set_paused(false);
-						//pinky.Set_paused(false);
-						count_num_of_pause++;
-                       
-						if (count_intro_sound == 1)
-						{
-							Mix_PlayChannel(1, g_sound_game[3], -1);
-							count_intro_sound = 0;
-						}
-
-					}
-				}
+				//xu li ban phim cho pause
+				menu.HandleIputForPause(g_event, p_player, blinky, pinky, inky, clyde);
 			}
-			p_player.HandleInputAction(g_event, g_screen);//pacman animation
+			//pacman animation
+			p_player.HandleInputAction(g_event, g_screen);
 
 		}
 
-        //set mau cho cua so
+		//set mau cho cua so
 		SDL_SetRenderDrawColor(g_screen, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B, CONTROL_COLOR_TRANSPARENT);
-		//g_background.ApplyRender(g_screen, NULL);
+		g_background.ApplyRender(g_screen, NULL);
 
-        //ve map
-		game_map.DrawMap(g_screen,map_1);
+		//ve map
+		game_map.DrawMap(g_screen, map_1);
 
-        //pacman di chuyen trong map
+		//pacman di chuyen trong map
+		std::pair<int, int> pac_coor = p_player.Get_current_coordinates_(map_1);
 		p_player.DoPlayer(map_1);
 		p_player.Show(g_screen);
 		p_player.ShowArrow(g_screen);
 		p_player.PacmanMove(map_1);
 
-		//blinky
-		blinky.DoPlayer(map_1);
-		blinky.Show(g_screen);
-		std::pair<int, int> pac_coor = p_player.Get_current_coordinates_(map_1);
-		std::pair<int, int> blinky_coor = blinky.Get_current_coordinates_(map_1);
-        blinky.BlinkyMove(map_1);
-		blinky.BlinkyMove1(map_1,blinky_coor,pac_coor);
-		
+		//bool check_hunter_mode = p_player.Is_hunter_mode();
 
-		//pinky
-		pinky.DoPlayer(map_1);
-		pinky.Show(g_screen);
-		//pinky.PinkyMove(map_1);
-		pinky.PinkyMove1(map_1);
+		//thoi gian xuat hien cua cac nhan vat
+		menu.FirstProbe(p_player, blinky, 10000, pinky, 19000, inky, 25000, clyde, 30000, map_1, g_screen);
 
-		//inky
-		std::pair<int, int> inky_coor = inky.Get_current_coordinates_();
-		
-		
-		inky.set_goal_x(pac_coor.first);
-		inky.set_goal_y(pac_coor.second);
-		
-		inky.Find(inky_coor.first, inky_coor.second,map_1);
-		inky.DoPlayer(map_1);
-		
-		inky.Show(g_screen);
-		//clyde
-		clyde.DoPlayer(map_1);
-		clyde.Show(g_screen);
-		clyde.ClydeMove1();
-
-		//show anh dung game
-		if (count_num_of_pause % 2 == 1)
+		//check xem pacman an trung power dot chua
+		bool check_hunter_mode = p_player.Is_hunter_mode();
+		if (check_hunter_mode!=0)
 		{
-			Paused_img.ApplyRender(g_screen, NULL);
+			if (p_player.get_eat_boss(1) ) {
+				blinky.set_eat_pacman(false);
+			}
+			if (p_player.get_eat_boss(2)) {
+				pinky.set_eat_pacman(false);
+			}
+			if (p_player.get_eat_boss(3)) {
+				inky.set_eat_pacman(false);
+			}
+			if (p_player.get_eat_boss(4)) {
+				clyde.set_eat_pacman(false);
+			}
+            menu.BecomeAMonster(p_player,blinky,pinky,inky,clyde,game_map,map_1,g_background,g_screen);
 		}
+		else
+		{
+			//check va cham, pacman mat mang va choi lai mang moi
+			blinky.Set_alive_status(3);
+			pinky.Set_alive_status(3);
+			inky.Set_alive_status(3);
+			clyde.Set_alive_status(3);
+			bool check_play_again = menu.DieAndPlayAgain(p_player, blinky, pinky, inky, clyde, game_map, map_1, g_background, g_screen);
+			if (check_play_again) goto new_life;
+		}
+		if (p_player.Get_num_of_dot() <= 0) {
+			MANG = p_player.get_mang();
+			goto new_level;
+		}
+		for (int i = 0; i < p_player.get_mang(); i++) {
+			p_mang[i].ApplyRender(g_screen);
+		}
+		if (p_player.get_mang() <= 0) {
+			BaseObject p_over[6];
+			p_over[0].LoadImg("image//intro//game_over.png", g_screen); p_over[0].setRect(310, 360);
+			p_over[1].LoadImg("image//intro//wanna_try_again.png", g_screen); p_over[1].setRect(705, 200);
+			p_over[2].LoadImg("image//intro//yes.png", g_screen); p_over[2].setRect(735, 350);
+			p_over[3].LoadImg("image//intro//yes_white.png", g_screen); p_over[3].setRect(735, 350);
+			p_over[4].LoadImg("image//intro//no.png", g_screen); p_over[4].setRect(995, 350);
+			p_over[5].LoadImg("image//intro//no_white.png", g_screen); p_over[5].setRect(995, 350);
+			game_map.DrawMap(g_screen, map_1);
+			p_over[3].ApplyRender(g_screen);
+			p_over[5].ApplyRender(g_screen);
+			p_over[0].ApplyRender(g_screen);
+			p_over[1].ApplyRender(g_screen);
+			int Cuongg_Over = -2;
+			do {
+				Cuongg_Over = game_over(p_over);
+			} while (Cuongg_Over == -2);
+			if (Cuongg_Over == 0) is_quit = true;
+			else if (Cuongg_Over == 1) {
+				MANG = 0;
+				score_val = 0;
+			 goto new_game;
+			}
+		}
+		
+		//tuy chon pause game
+		menu.ShowPause(font_continue, g_screen);
 
 		SDL_RenderPresent(g_screen);
 		SDL_RenderClear(g_screen);
 
 		//show score cua nguoi choi
-		std::string str_score = "Your score: ";
-		Uint32 score_val = p_player.Get_score();
+		score_val = p_player.Get_score();
+		menu.ShowScore(p_player, score_val, font_score, g_screen);
 
-		std::string str_val = std::to_string(score_val);
-		str_score += str_val;
-		score_hehe.SetText(str_score);
-
-		score_hehe.LoadFromRenderText(font_score, g_screen);
-		score_hehe.RenderText(g_screen, SCREEN_WIDTH - 400, SCREEN_HEIGHT - 450);
-		score_hehe.Free();
-
-        //show huong dan continue va pause game
-		if (count_num_of_pause % 2 == 1)
-		{
-			std::string str_continue = "Press SPACE button to continue the game";
-
-			pause_hehe.SetText(str_continue);
-
-			pause_hehe.LoadFromRenderText(font_continue, g_screen);
-			pause_hehe.RenderText(g_screen, SCREEN_WIDTH - 520, SCREEN_HEIGHT - 500);
-			pause_hehe.Free();
-
-		}
-		else
-		{
-			std::string str_pause = "Press SPACE button to pause the game";
-
-			pause_hehe.SetText(str_pause);
-
-			pause_hehe.LoadFromRenderText(font_continue, g_screen);
-			pause_hehe.RenderText(g_screen, SCREEN_WIDTH - 520, SCREEN_HEIGHT - 500);
-			pause_hehe.Free();
-		}
-
-        //dieu chinh fps cua game
+		//dieu chinh fps cua game
 		int real_time = game_time.get_sticks();
 		int time_one_frame = 1000 / FPS;
 		if (real_time < time_one_frame)

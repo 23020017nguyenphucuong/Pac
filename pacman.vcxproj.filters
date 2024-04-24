@@ -36,16 +36,10 @@
     <ClCompile Include="Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Blinky.cpp">
+    <ClCompile Include="Ghost.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pinky.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Inky.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Clyde.cpp">
+    <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,16 +62,10 @@
     <ClInclude Include="Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Blinky.h">
+    <ClInclude Include="Ghost.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pinky.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Inky.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Clyde.h">
+    <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
