@@ -11,7 +11,7 @@ Nhìn chung thì may mắn mình vẫn push được code trước deadline, 10 
 
 Mình học về thư viện SDL2 ở kênh youtube [phattrienphanmem](https://www.youtube.com/@PhatTrienPhanMem123AZ), nếu muốn học về thư viện SDL 2.0, bạn có thể tham khảo trang web này và trang web [SDL Wiki](https://wiki.libsdl.org/SDL2/FrontPage).
 
-Theo dõi tiến trình phát triển dự án cùng mình tại: [Develop Process](https://github.com/23020017nguyenphucuong/Pac/edit/main/Develop_Process)
+Theo dõi tiến trình phát triển dự án của mình tại: [Develop Process](https://github.com/23020017nguyenphucuong/Pac/edit/main/Develop_Process)
 
 Link video: 
 
@@ -37,17 +37,19 @@ Tiếp theo là phần để nhận biết thư viện ở trong Visual Studio 2
 
 2. ### Cách cài đặt và chơi game.
 
-Thao tác này rất đơn giản, bạn chỉ cần truy cập đến file zip mình đã tạo sau đó tại xuống. Khi đã tải xuống xong, bạn giải nén ở bất kì vị trí nào trong máy sau đó tìm đến file có đuôi `.exe`. Mọi việc đã xong, giờ công việc tiếp theo là chơi game.
+Thao tác này rất đơn giản, bạn chỉ cần truy cập đến file zip mình đã tạo sau đó tải xuống. Khi đã tải xuống xong, bạn giải nén ở bất kì vị trí nào trong máy sau đó tìm đến file có đuôi `.exe`. Mọi việc đã xong, giờ công việc tiếp theo là chơi game.
 
-3. ### Hướng dẫn chơi game
+Trong quá trình test việc chạy file zip trong nhiều máy khác nhau, mình phát hiện ra một vấn đề, đó là một số máy không thể chạy được file có đuôi `.exe` mà mình dùng để chạy game. Điểm chung của những máy này là chúng đều không có các ứng dụng dùng để lập trình, hiện tại mình vẫn chưa biết vấn đề cụ thể nằm ở đâu, nhưng nếu mọi người và các thầy nếu không mở được, thì mong mọi người sẽ đọc được dòng này.
 
-Trong trò chơi này, bạn trong vai một `Pacman`.
+3. ### Cấu trúc và hướng dẫn chơi game
+
+Trong trò chơi này, bạn trong vai một `Pacman` ![](image/recycle/die2.png).
 
 Bạn sẽ phải chạy khỏi những con `Ghost` đang săn lùng bạn, phải luôn chạy, đừng dừng chân, bởi vì bọn chúng biết phối hợp với nhau.
 
-Bạn sẽ qua một màn khi mà bạn ăn hết tất cả các `dot` trong map.
+Bạn sẽ qua một màn khi mà bạn ăn hết tất cả các `dot` ![](map01/0.png) trong map.
 
-Trong mỗi màn sẽ có 4 `power dot`, cố gấng ăn chúng, bạn sẽ được săn lùng những con ghost trong một khoảng thời gian ngắn.
+Trong mỗi màn sẽ có 4 `power dot` ![](map01/6.png), cố gắng ăn chúng, bạn sẽ được săn lùng những con ghost trong một khoảng thời gian ngắn.
 
 Trong mỗi màn cũng sẽ xuất hiện một loại `fruit`, tìm đến và ăn chúng, sẽ được cộng khá nhiều điểm đấy.
 
@@ -57,18 +59,18 @@ Tiếp theo ta sẽ nói đến những con `Ghost`
 
 Giống như game gốc, ở đây cũng sẽ có 4 con Ghost với các cách di chuyển khác nhau để chúng về cơ bản có thể phối hợp với nhau, lần lượt đó là:
 
-- `Blinky`: Kẻ nóng tính nhất, luôn đuổi theo Pacman.
-- `Pinky`: Làm chim mồi, đi đến vị trí trước mặt Pacman 4 ô, nếu không đạt được mục đích, lập tức đuổi theo Pacman.
-- `Inky`: Kẻ mưu trí nhất, đi đến vị trí đôi xứng với Blinky qua Pacman, nói cách khác chính là đón đầu Pacman, nó cũng sẽ đuổi theo Pacman nếu không đạt được mục đích.
-- `Clyde`: Đánh du kích, đi ngẫu nhiên quanh rìa bản đồ, khi phát hiện Pacman còn cách mình dưới 8 ô thì đuổi theo Pacman.
+- `Blinky` ![](image/recycle/pr.png): Kẻ nóng tính nhất, luôn đuổi theo Pacman.
+- `Pinky` ![](image/recycle/hr.png): Làm chim mồi, đi đến vị trí trước mặt Pacman 4 ô, nếu không đạt được mục đích, lập tức đuổi theo Pacman.
+- `Inky` ![](image/recycle/cr.png): Kẻ mưu trí nhất, đi đến vị trí đôi xứng với Blinky qua Pacman, nói cách khác chính là đón đầu Pacman, nó cũng sẽ đuổi theo Pacman nếu không đạt được mục đích.
+- `Clyde` ![](image/recycle/or.png): Vây hãm, khi khoảng cách giữa nó và Pacman bé hơn 8 ô thì sẽ đi ngẫu nhiên quanh rìa bản đồ, khi phát hiện Pacman còn cách mình trên 8 ô thì đuổi theo Pacman.
 
 Ghost được chia ra làm 3 trạng thái:
 
-- `Thăm dò`: Khi ở chế độ thăm dò, Ghost sẽ di chuyển ở một góc trên bản đồ trong một khoảng thời gian ngắn. Ở trong game gốc thì chế độ thăm dò sẽ được áp dụng với tất cả con Ghost, nhưng mình sẽ chỉ dùng chế độ thăm dò cho Blinky, thay vào đó sẽ set thời gian các Ghost khác ra khỏi lồng là lâu hơn.
-- `Săn lùng`: Trong chế độ săn lùng, các Ghost sẽ phối hợp với nhau để ăn được Pacman, có thể bạn sẽ nghĩ các ghost sẽ di chuyển như nhau, tuy nhiên mỗi ghost sẽ có một mục tiêu khác nhau.
--   `Hoảng sợ`: Chế độ hoảng sợ của Ghost bắt đầu khi Pacman ăn được power dot. Khi đó Ghost sẽ không đuổi theo Pacman, nếu bị Pacman ăn thì sẽ chuyển thành `đôi mắt`, sau đó tìm đường đi ngắn nhất về cửa lồng để khôi phục trạng thái bình thường.
+- `Thăm dò` ![](image/recycle/pr.png): Khi ở chế độ thăm dò, Ghost sẽ di chuyển ở một góc trên bản đồ trong một khoảng thời gian ngắn. Ở trong game gốc thì chế độ thăm dò sẽ được áp dụng với tất cả con Ghost, nhưng mình sẽ chỉ dùng chế độ thăm dò cho Blinky, thay vào đó sẽ set thời gian các Ghost khác ra khỏi lồng là lâu hơn.
+- `Săn lùng` ![](image/recycle/pr.png): Trong chế độ săn lùng, các Ghost sẽ phối hợp với nhau để ăn được Pacman, có thể bạn sẽ nghĩ các ghost sẽ di chuyển như nhau, tuy nhiên mỗi ghost sẽ có một mục tiêu khác nhau.
+-   `Hoảng sợ` ![](image/recycle/ptime.png): Chế độ hoảng sợ của Ghost bắt đầu khi Pacman ăn được power dot. Khi đó Ghost sẽ không đuổi theo Pacman, nếu bị Pacman ăn thì sẽ chuyển thành `đôi mắt` ![](image/recycle/eyel.png), sau đó tìm đường đi ngắn nhất về cửa lồng để khôi phục trạng thái bình thường.
 
-Trong bản đồ sẽ có những hình khối sau:
+#### Trong bản đồ sẽ có những hình khối sau:
 -
 -
 -
