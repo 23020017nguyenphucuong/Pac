@@ -17,15 +17,15 @@ Link video:
 
 ## MỤC LỤC
 
-[1. Cách tải thư viện SDL 2.0, cài đặt thư viện để có thể code game.]()
+[1. Cách tải thư viện SDL 2.0, cài đặt thư viện để có thể code game.](https://github.com/23020017nguyenphucuong/Pac?tab=readme-ov-file#c%C3%A1ch-t%E1%BA%A3i-th%C6%B0-vi%E1%BB%87n-sdl-20-c%C3%A0i-%C4%91%E1%BA%B7t-th%C6%B0-vi%E1%BB%87n-%C4%91%E1%BB%83-c%C3%B3-th%E1%BB%83-code-game)
 
-[2. Cách cài đặt và chơi game.]()
+[2. Cách cài đặt và chơi game.](https://github.com/23020017nguyenphucuong/Pac?tab=readme-ov-file#c%C3%A1ch-c%C3%A0i-%C4%91%E1%BA%B7t-v%C3%A0-ch%C6%A1i-game)
 
-[3. Cấu trúc và hướng dẫn chơi game]()
+[3. Cấu trúc và hướng dẫn chơi game](https://github.com/23020017nguyenphucuong/Pac?tab=readme-ov-file#c%E1%BA%A5u-tr%C3%BAc-v%C3%A0-h%C6%B0%E1%BB%9Bng-d%E1%BA%ABn-ch%C6%A1i-game)
 
-[4. Thuật toán của game]()
+[4. Thuật toán của game](https://github.com/23020017nguyenphucuong/Pac?tab=readme-ov-file#thu%E1%BA%ADt-to%C3%A1n-c%E1%BB%A7a-game)
 
-[5. Nguồn tham khảo code, hình ảnh và âm thanh.]()
+[5. Nguồn tham khảo code, hình ảnh và âm thanh.](https://github.com/23020017nguyenphucuong/Pac?tab=readme-ov-file#ngu%E1%BB%93n-tham-kh%E1%BA%A3o-code-h%C3%ACnh-%E1%BA%A3nh-v%C3%A0-%C3%A2m-thanh)
 
 ## NỘI DUNG
 
