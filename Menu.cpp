@@ -292,7 +292,8 @@ bool Menu::BecomeAMonster(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky,
 		else 
 		{
 			DieAndPlayAgain(pac, blinky, pinky, inky, clyde, game_map, map_1, background, screen);
-			pinky.set_eat_pacman(true);
+			pinky.Set_alive_status(3);
+			//pinky.set_eat_pacman(true);
 		}
 	}
 	if (CheckCollision(pac, inky))
@@ -432,7 +433,7 @@ void Menu::FirstProbe(Pacman& pac, Ghost& blinky, Uint32 time_blinky, Ghost& pin
 		}
 		else //pinky di thoe muc tieu cua minh o day
 		{
-			std::pair<int, int> pinky_target = Target_for_pinky(pac, map_1);
+			std::pair<int, int> pinky_target = Target_for_pinky(pac, pinky, map_1);
 			GhostMove(pinky, pinky_target.first, pinky_target.second, map_1);
 		}
 	}
@@ -467,7 +468,7 @@ void Menu::FirstProbe(Pacman& pac, Ghost& blinky, Uint32 time_blinky, Ghost& pin
 		}
 		else //inky di thoe muc tieu cua minh o day
 		{
-			std::pair<int, int> inky_target = Target_for_inky(pac, blinky, map_1);
+			std::pair<int, int> inky_target = Target_for_inky(pac, blinky, inky, map_1);
 			GhostMove(inky, inky_target.first, inky_target.second, map_1);
 		}
 	}
@@ -509,12 +510,23 @@ void Menu::FirstProbe(Pacman& pac, Ghost& blinky, Uint32 time_blinky, Ghost& pin
 
 }
 
-std::pair<int, int> Menu::Target_for_inky(Pacman pac, Ghost blinky, Map map_1)
+std::pair<int, int> Menu::Target_for_inky(Pacman pac, Ghost blinky, Ghost inky, Map map_1)
 {
 	//lay doi xung cua pacman va blinky nen ta se truyen blinky vao ham
 	std::pair<int, int> pac_coor = pac.Get_current_coordinates_(map_1);
 	std::pair<int, int> blinky_coor = blinky.Get_current_coordinates_(map_1);
+	std::pair<int, int> inky_coor = inky.Get_current_coordinates_(map_1);
 	std::pair<int, int> target_coor;
+
+	if (inky_coor.first == 8 || inky_coor.first == 9 || inky_coor.first == 10)
+	{
+		if (inky_coor.second == 10)
+		{
+			target_coor.first = 9;
+			target_coor.second = 8;
+			return target_coor;
+		}
+	}
 
 	target_coor.first = 2 * pac_coor.first - blinky_coor.first;
 	target_coor.second = 2 * pac_coor.second - blinky_coor.second;
@@ -528,10 +540,12 @@ std::pair<int, int> Menu::Target_for_inky(Pacman pac, Ghost blinky, Map map_1)
 	else return pac_coor;
 }
 
-std::pair<int, int> Menu::Target_for_pinky(Pacman pac, Map map_1)
+std::pair<int, int> Menu::Target_for_pinky(Pacman pac, Ghost pinky, Map map_1)
 {
+
 	//lay vi tri truoc pacman 4 o
 	std::pair<int, int> pac_coor = pac.Get_current_coordinates_(map_1);
+	std::pair<int, int> pinky_coor = pinky.Get_current_coordinates_(map_1);
 	std::pair<int, int> target_coor;
 
 	int n = pac.Get_pacman_status();
@@ -569,13 +583,21 @@ std::pair<int, int> Menu::Target_for_pinky(Pacman pac, Map map_1)
 
 void Menu::move_if_the_distance_between_clyde_and_pacman_is_8_cells(Pacman pac, Ghost& clyde, Map map_1)
 {
-	//lay doi xung cua pacman va blinky nen ta se truyen blinky vao ham
 	std::pair<int, int> pac_coor = pac.Get_current_coordinates_(map_1);
 	std::pair<int, int> clyde_coor = clyde.Get_current_coordinates_(map_1);
 
 	float x = sqrt(pow(clyde_coor.first - pac_coor.first, 2) + pow(clyde_coor.second - pac_coor.second, 2));
 
-	if (x >= 8)
+	if (clyde_coor.first == 8 || clyde_coor.first == 9 || clyde_coor.first == 10)
+	{
+		if (clyde_coor.second == 10)
+		{
+			GhostMove(clyde, 8, 9, map_1);
+			return;
+		}
+	}
+
+	if (x < 8)
 	{
 		std::random_device rd;
 		std::mt19937 gen(rd());

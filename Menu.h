@@ -68,8 +68,8 @@ public:
 
 	void move_if_the_distance_between_clyde_and_pacman_is_8_cells(Pacman pac, Ghost& clyde, Map map_1);
 
-	std::pair<int, int> Target_for_inky(Pacman pac, Ghost blinky, Map map_1);
-	std::pair<int, int> Target_for_pinky(Pacman pac, Map map_1);
+	std::pair<int, int> Target_for_inky(Pacman pac, Ghost blinky, Ghost inky, Map map_1);
+	std::pair<int, int> Target_for_pinky(Pacman pac, Ghost pinky, Map map_1);
 };
 
 #endif // !MENU_H_
