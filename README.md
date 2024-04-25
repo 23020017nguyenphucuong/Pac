@@ -11,7 +11,7 @@ Nhìn chung thì may mắn mình vẫn push được code trước deadline, 10 
 
 Mình học về thư viện SDL2 ở kênh youtube [phattrienphanmem](https://www.youtube.com/@PhatTrienPhanMem123AZ), nếu muốn học về thư viện SDL 2.0, bạn có thể tham khảo trang web này và trang web [SDL Wiki](https://wiki.libsdl.org/SDL2/FrontPage).
 
-Theo dõi tiến trình phát triển dự án cùng mình tại: 
+Theo dõi tiến trình phát triển dự án cùng mình tại: [Develop Process](https://github.com/23020017nguyenphucuong/Pac/edit/main/Develop_Process)
 
 Link video: 
 
