@@ -81,9 +81,15 @@ Ghost được chia ra làm 3 trạng thái:
 -   `Hoảng sợ` ![](image/recycle/ptime.png): Chế độ hoảng sợ của Ghost bắt đầu khi Pacman ăn được power dot. Khi đó Ghost sẽ không đuổi theo Pacman, nếu bị Pacman ăn thì sẽ chuyển thành `đôi mắt` ![](image/recycle/eyel.png), sau đó tìm đường đi ngắn nhất về cửa lồng để khôi phục trạng thái bình thường.
 
 #### Trong bản đồ sẽ có những hình khối sau:
--
--
--
+|Item|Trạng thái|Tên|Điểm đặc biệt|
+|----|----------|---|-------------|
+|![](map01/0.png)|0|Dot|Pacman ăn được cộng điểm|
+|![](map01/1.png)|1|Wall|Không đi qua được|
+|![](map01/2.png)|2|Cage door|Cửa lồng Ghost, Ghost đi qua được còn Pacman thì không|
+|![](map01/3.png)|3|Galaxy|Đi đến galaxy thì dịch chuyển sang galaxy còn lại|
+|![](map01/4.png)|4|Galaxy|Đi đến galaxy thì dịch chuyển sang galaxy còn lại|
+|![](map01/5.png)|5|Blank|Ô trống, đi qua được|
+|![](map01/6.png)|6|Power dot|Pacman ăn được sẽ tăng sức mạnh|
 
 4. ### Thuật toán của game
 
@@ -101,12 +107,24 @@ Khác với game gốc, ở đây mình sẽ thực hiện việc di chuyển c�
 
 Công việc kiểm tra va chạm của Ghost và Pacman thì không mấy khó khăn, mình dùng 3 cặp tọa độ x, y với mỗi nhân vật, nói như này có thể gây khó hiểu, vậy bạn hãy tưởng tượng nhân vật là một hình vuông, thì 3 điểm mình tạo là điểm nằm ở `góc trên bên trái(1)`, điểm nằm ở `góc trên bên phải(2)` và `góc dưới bên trái(3)`, sau đó mình chia trường hợp thì cụ thể nó sẽ được chia thành 4 trường hợp mà mình sẽ nói ngay sau đây. Trường hợp đầu tiên đó là Ghost đi từ bên phải Pacman, khi đó ta xét điểm (1) của Pacman với điểm (2) của Ghost, ngược lại với Ghost đi từ bên trái của Pacman thì ta xét điểm (2) của Pacman với điểm (1) của Ghost. Tiếp theo nếu Ghost đi từ dưới lên vị trí của Pacman, ta xét điểm (3) của Pacman với điểm (1) của Ghost. Cuối cùng với trường hợp Ghost đi từ trên xuống vị trí của Pacman thì ta xét điểm (1) của Pacman với điểm (3) của Ghost. Sau đó ta cũng cộng thêm một lượng sai số, mình tìm bằng cách kiểm thử từng trường hợp.
 
+Nguyên lí của mình về việc kiểm tra va chạm giữa nhân vật với bản đồ cũng chung tinh thần với việc kiểm tra va chạm bên trên, tuy nhiên kiểm tra va chạm và kiểm tra nhân vật khi chia trường hợp nó sẽ có những sai khác, vậy nên việc xác định ô được gán có sự thay đổi. Khi kiểm tra được va chạm với bản đồ, mình sẽ cho nhân vật dừng không di chuyển nữa, và nếu như nhân vật có đi quá để dè lên map thì mình cũng sẽ cộng trừ vị trí để cho nhân vật không thể chạm vào tường dẫn đến sai lệch về cơ chế kiểm tra.
+
 Về phần chuyển động xuyên suốt game của Ghost, mình kiểm soát nó bằng các hàm di chuyển áp dụng cho từng con Ghost. Thuật toán di chuyển cũng không quá khó hiểu khi mà ta chỉ xoay quanh việc di chuyển bằng thuật toán BFS và di chuyển ngẫu nhiên, điều khó nhất có lẽ là áp dụng thuật toán BFS gắn với chuyển động của Ghost. Vậy vấn đề còn lại đó là việc chọn ra được mục tiêu cho từng con Ghost, với mục tiêu tmình quản lí bằng ô trên bản đồ để dễ dàng kiểm tra qua lại giữa Pacman, Ghost và bản đồ, việc này thì mình triển khai như sau:
 
 - `Blinky`: Dùng thẳng thuật toán BFS với mục tiêu là Pacman.
+  
 - `Pinky`: Ta lấy mục tiêu là ô ở trước mặt Pacman cách nó 4 ô, để lấy được ô này thì ta phải xét từng trạng thái di chuyển rồi mới lấy được mục tiêu. Sau đó ta kiểm tra xem mục tiêu có nằm ngoài bản đồ hay không, nếu nằm ngoài thì ta xét đại lượng nào nằm bên ngoài thì ta sẽ cho nó là ô ngoài cùng nhất là ô đi được. Khi kiểm tra xong ta lại kiểm tra xem ô mục tiêu có phải là tường hay không, nếu không thì mục tiêu chính là ô đó, còn nếu đúng thì gán mục tiêu bằng ô hiện tại của Pacman.
-- `Inky`: 
+  
+- `Inky`: Đầu tiên sẽ lấy mục tiêu của Inky chính là đối xứng của Blinky qua Pacman, sau đó ta thực hiện xét trường hợp ngoại lệ giống Pinky, ta kiểm tra xem mục tiêu có nằm ngoài bản đồ hay không, nếu nằm ngoài thì ta xét đại lượng nào nằm bên ngoài thì ta sẽ cho nó là ô ngoài cùng nhất là ô đi được. Khi kiểm tra xong ta lại kiểm tra xem ô mục tiêu có phải là tường hay không, nếu không thì mục tiêu chính là ô đó, còn nếu đúng thì gán mục tiêu bằng ô hiện tại của Pacman.
 
+- `Clyde`: Ta xét khoảng cách giữa Pacman và CLyde, nếu nó lớn hơn hoặc bằng 8 ô thì gán mục tiêu bằng vị trí hiện tại của Pacman. Ngược lại, nếu khoảng cách nhỏ hơn 8 thì ta chuyển thuật toán di chuyển thành đi ngẫu nhiên quanh rìa bản đồ.
+
+Ở game gốc sẽ có 265 màn chơi, sau màn 265 sẽ gặp lỗi và đó sẽ là giới hạn của người chơi. Tuy nhiên trong game của mình, minh cho sinh vô hạn số màn, giả sử bạn là một người chơi cực giỏi, và không cần ăn uống gì thì trên lí thuyết bạn có thể chơi mãi mãi.
 
 5. ### Nguồn tham khảo code, hình ảnh và âm thanh.
 
+Những code cơ bản như in hình ảnh ra màn hình, hay cách tổ chức code mình đều học và tham khảo từ website [phattrienphanmem](https://phattrienphanmem123az.com/lap-trinh-game-cpp). Những ý tưởng cá nhân là của mình viết ra, không tham khảo thêm nguồn ngoài.
+
+Hình ảnh và âm thanh của Pacman phải trả phí, nên mình đã mượn hình ảnh và âm thanh từ repo của một người anh khóa trước của UET: 
+- [Hình ảnh](https://github.com/tungddk2/Pacman/tree/master/Source/Assets/Entity%20Image).
+- [Âm thanh](https://github.com/tungddk2/Pacman/tree/master/Source/Assets/Sound).
