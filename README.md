@@ -5,9 +5,15 @@
 
 Hiện tại thì việc push code lên github của mình đang gặp một số lỗi, mình chưa thể up code lên đã được nửa tháng nên trong quá trình đó sẽ không có bất cứ cập nhật gì.
 
-Nguồn tham khảo code của mình: [blogphattrienphanmem](https://phattrienphanmem123az.com/lap-trinh-game-cpp), nếu muốn học về thư viện SDL 2.0, bạn có thể tham khảo trang web này và trang web [SDL Wiki](https://wiki.libsdl.org/SDL2/FrontPage).
+Big Update (3:14 26/4/2024): Anh mentor đã giúp mình push được code lên github, thay đổi ở đây đó là tạo folder .ignore bỏ qua những phần không cần push, tạo branch mới và bằng cách nào đó push được code lên thì mình cũng không hiểu lắm.
 
-Link video:
+Nhìn chung thì may mắn mình vẫn push được code trước deadline, 10 điểm không có nhưng cho anh Nguyễn Vũ Thanh Tùng.
+
+Mình học về thư viện SDL2 ở kênh youtube [phattrienphanmem](https://www.youtube.com/@PhatTrienPhanMem123AZ), nếu muốn học về thư viện SDL 2.0, bạn có thể tham khảo trang web này và trang web [SDL Wiki](https://wiki.libsdl.org/SDL2/FrontPage).
+
+Theo dõi tiến trình phát triển dự án cùng mình tại: 
+
+Link video: 
 
 ## MỤC LỤC
 
