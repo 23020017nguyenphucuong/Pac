@@ -17,7 +17,7 @@ Link video:
 
 ## MỤC LỤC
 
-[1. Cách tải thư viện SDL 2.0, cài đặt thư viện để có thể code game.](https://github.com/23020017nguyenphucuong/Pac/edit/main/README.md#c%C3%A1ch-t%E1%BA%A3i-th%C6%B0-vi%E1%BB%87n-sdl-20-c%C3%A0i-%C4%91%E1%BA%B7t-th%C6%B0-vi%E1%BB%87n-%C4%91%E1%BB%83-c%C3%B3-th%E1%BB%83-code-game)
+[1. Cách tải thư viện SDL 2.0, cài đặt thư viện để có thể code game.]([https://github.com/23020017nguyenphucuong/Pac/edit/main/README.md#c%C3%A1ch-t%E1%BA%A3i-th%C6%B0-vi%E1%BB%87n-sdl-20-c%C3%A0i-%C4%91%E1%BA%B7t-th%C6%B0-vi%E1%BB%87n-%C4%91%E1%BB%83-c%C3%B3-th%E1%BB%83-code-game](https://github.com/23020017nguyenphucuong/Pac/blob/main/README.md#c%C3%A1ch-t%E1%BA%A3i-th%C6%B0-vi%E1%BB%87n-sdl-20-c%C3%A0i-%C4%91%E1%BA%B7t-th%C6%B0-vi%E1%BB%87n-%C4%91%E1%BB%83-c%C3%B3-th%E1%BB%83-code-game))
 
 [2. Cách cài đặt và chơi game.](https://github.com/23020017nguyenphucuong/Pac/edit/main/README.md#c%C3%A1ch-c%C3%A0i-%C4%91%E1%BA%B7t-v%C3%A0-ch%C6%A1i-game)
 
