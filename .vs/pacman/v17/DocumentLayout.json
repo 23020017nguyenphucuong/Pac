@@ -3,8 +3,40 @@
   "WorkspaceRootPath": "D:\\Pac\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|D:\\Pac\\Pacman.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|solutionrelative:Pacman.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|D:\\Pac\\Text.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|solutionrelative:Text.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|D:\\Pac\\Timer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|solutionrelative:Timer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|D:\\Pac\\Menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|solutionrelative:Menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|D:\\Pac\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|D:\\Pac\\Ghost.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|solutionrelative:Ghost.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|D:\\Pac\\game_map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|solutionrelative:game_map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|D:\\Pac\\CommonFunc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|solutionrelative:CommonFunc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|D:\\Pac\\BaseObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5690892F-2E3B-45DA-B0C6-50B681A747DB}|pacman.vcxproj|solutionrelative:BaseObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,7 +54,111 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Timer.cpp",
+              "DocumentMoniker": "D:\\Pac\\Timer.cpp",
+              "RelativeDocumentMoniker": "Timer.cpp",
+              "ToolTip": "D:\\Pac\\Timer.cpp",
+              "RelativeToolTip": "Timer.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-25T16:06:04.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Text.cpp",
+              "DocumentMoniker": "D:\\Pac\\Text.cpp",
+              "RelativeDocumentMoniker": "Text.cpp",
+              "ToolTip": "D:\\Pac\\Text.cpp",
+              "RelativeToolTip": "Text.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-25T16:06:03.998Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Pacman.cpp",
+              "DocumentMoniker": "D:\\Pac\\Pacman.cpp",
+              "RelativeDocumentMoniker": "Pacman.cpp",
+              "ToolTip": "D:\\Pac\\Pacman.cpp",
+              "RelativeToolTip": "Pacman.cpp",
+              "ViewState": "AQIAAG4BAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-25T16:06:03.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Menu.cpp",
+              "DocumentMoniker": "D:\\Pac\\Menu.cpp",
+              "RelativeDocumentMoniker": "Menu.cpp",
+              "ToolTip": "D:\\Pac\\Menu.cpp",
+              "RelativeToolTip": "Menu.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-25T16:06:02.468Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "main.cpp",
+              "DocumentMoniker": "D:\\Pac\\main.cpp",
+              "RelativeDocumentMoniker": "main.cpp",
+              "ToolTip": "D:\\Pac\\main.cpp",
+              "RelativeToolTip": "main.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-25T16:06:01.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "game_map.cpp",
+              "DocumentMoniker": "D:\\Pac\\game_map.cpp",
+              "RelativeDocumentMoniker": "game_map.cpp",
+              "ToolTip": "D:\\Pac\\game_map.cpp",
+              "RelativeToolTip": "game_map.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-25T16:06:00.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CommonFunc.cpp",
+              "DocumentMoniker": "D:\\Pac\\CommonFunc.cpp",
+              "RelativeDocumentMoniker": "CommonFunc.cpp",
+              "ToolTip": "D:\\Pac\\CommonFunc.cpp",
+              "RelativeToolTip": "CommonFunc.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-25T16:05:59.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BaseObject.cpp",
+              "DocumentMoniker": "D:\\Pac\\BaseObject.cpp",
+              "RelativeDocumentMoniker": "BaseObject.cpp",
+              "ToolTip": "D:\\Pac\\BaseObject.cpp",
+              "RelativeToolTip": "BaseObject.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-25T16:05:58.185Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Ghost.cpp",
               "DocumentMoniker": "D:\\Pac\\Ghost.cpp",
               "RelativeDocumentMoniker": "Ghost.cpp",
