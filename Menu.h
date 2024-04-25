@@ -43,6 +43,8 @@ private:
     int goi_ra_de_chay_vong_lap;
 	bool check_collis_stronger;
 
+	int score_increase_only_one;
+
 
 public:
 	Menu();

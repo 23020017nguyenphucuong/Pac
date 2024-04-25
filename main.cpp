@@ -129,7 +129,6 @@ int main(int argc, char* argv[])
 
 	if (InitData() == false) return -1;
 new_game:
-	
 	if (LoadBackground("image//intro//pac_intro.png") == false) return -1;
 	g_background.setRect(0, 0);
 	Menu menu;
@@ -195,7 +194,8 @@ new_level:
 	int count_blinky_first_move = 0;
 	int call_func_blinky = 0;
 	Uint32 time_to_go_out;
-	new_life:
+new_life:
+	Mix_Resume(1);//am thanh
 	while (!is_quit)
 	{
 		time_to_go_out = SDL_GetTicks();
@@ -285,6 +285,7 @@ new_level:
 			p_over[0].ApplyRender(g_screen);
 			p_over[1].ApplyRender(g_screen);
 			int Cuongg_Over = -2;
+			Mix_Pause(1);//am thanh
 			do {
 				Cuongg_Over = game_over(p_over);
 			} while (Cuongg_Over == -2);

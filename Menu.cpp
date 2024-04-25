@@ -43,6 +43,8 @@ Menu::Menu()
 	goi_ra_de_chay_vong_lap = 0;
 
 	check_collis_stronger = false;
+
+	score_increase_only_one = 0;
 }
 
 Menu::~Menu()
@@ -363,7 +365,10 @@ void Menu::FirstProbe(Pacman& pac, Ghost& blinky, Uint32 time_blinky, Ghost& pin
 	//blinky
 	std::pair<int, int> blinky_coor = blinky.Get_current_coordinates_(map_1);
 	if (blinky_coor.first == 9 && blinky_coor.second == 9) {
-		blinky.Set_alive_status(3); pac.set_eat_boss(1, false);
+		if (blinky.Get_alive_status() == 0)
+		{
+			blinky.Set_alive_status(3); pac.set_eat_boss(1, false);
+		}
 	}
 	if (time_to_go_out < 5400 + save_time_when_dead)
 	{
@@ -409,7 +414,10 @@ void Menu::FirstProbe(Pacman& pac, Ghost& blinky, Uint32 time_blinky, Ghost& pin
 	{
 		std::pair<int, int> pinky_coor = pinky.Get_current_coordinates_(map_1);
 		if (pinky_coor.first == 9 && pinky_coor.second == 9) {
-			pinky.Set_alive_status(3); pac.set_eat_boss(2, false);
+			if (pinky.Get_alive_status() == 0)
+			{
+				pinky.Set_alive_status(3); pac.set_eat_boss(2, false);
+			}
 		}
 		if (pinky.Get_alive_status() == 0) {
 			GhostMove(pinky, 9, 9, map_1);

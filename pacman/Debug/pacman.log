@@ -1,25 +1,24 @@
-﻿  Menu.cpp
+﻿  main.cpp
 D:\Pac\CommonFunc.h(87,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
-  (compiling source file 'Menu.cpp')
+  (compiling source file 'main.cpp')
   
 D:\Pac\CommonFunc.h(98,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
-  (compiling source file 'Menu.cpp')
+  (compiling source file 'main.cpp')
   
 D:\Pac\CommonFunc.h(103,2): warning C4091: 'typedef ': ignored on left of 'Node' when no variable is declared
-  (compiling source file 'Menu.cpp')
+  (compiling source file 'main.cpp')
   
 D:\Pac\Pacman.h(101,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  (compiling source file 'Menu.cpp')
+  (compiling source file 'main.cpp')
   
 D:\Pac\Pacman.h(101,78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  (compiling source file 'Menu.cpp')
+  (compiling source file 'main.cpp')
   
 D:\Pac\Ghost.h(68,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  (compiling source file 'Menu.cpp')
+  (compiling source file 'main.cpp')
   
 D:\Pac\Ghost.h(68,78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  (compiling source file 'Menu.cpp')
+  (compiling source file 'main.cpp')
   
-D:\Pac\Menu.cpp(599,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\Pac\Menu.cpp(541,1): warning C4715: 'Menu::Target_for_inky': not all control paths return a value
+D:\Pac\Pacman.h(119,1): warning C4715: 'Pacman::get_eat_boss': not all control paths return a value
   pacman.vcxproj -> D:\Pac\Debug\pacman.exe
