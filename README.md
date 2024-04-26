@@ -13,8 +13,8 @@ Mình học về thư viện SDL2 ở kênh youtube [phattrienphanmem](https://w
 
 Theo dõi tiến trình phát triển dự án của mình tại: [Develop Process](https://github.com/23020017nguyenphucuong/Pac/edit/main/Develop_Process)
 
-Link video: [Review game](https://drive.google.com/drive/folders/1iYwVmvwPahlnMHqKgTS-7l2Ne_QLxMld?usp=sharing)
-            [Youtube](https://youtu.be/wtUe2qfCCEM)
+Link video: - [Review game](https://drive.google.com/drive/folders/1iYwVmvwPahlnMHqKgTS-7l2Ne_QLxMld?usp=sharing)
+            - [Youtube](https://youtu.be/wtUe2qfCCEM)
 
 ## MỤC LỤC
 
