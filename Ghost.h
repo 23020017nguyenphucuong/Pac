@@ -35,7 +35,7 @@ private:
 	int goal_x; int goal_y;
 	int dx[4]; int dy[4];
 	int random_direction;
-	
+
 public:
 	Ghost();
 	~Ghost();
@@ -80,7 +80,7 @@ public:
 
 	std::pair <int, int> Get_current_coordinates_(Map map_data);
 
-	void BFS(int x, int y,  Map map);
+	void BFS(int x, int y, Map map);
 	bool CheckEndCell(int i, int j);
 	void Move(Map map_data);
 	void set_goal_x(int x) { goal_x = x; };
@@ -89,11 +89,11 @@ public:
 	std::pair<int, int> Get_rect() { std::pair<int, int> c; c.first = rect_.x; c.second = rect_.y; return c; };
 
 	int Get_alive_status() { return alive_status_; };
-	void Set_alive_status(int x) { 
+	void Set_alive_status(int x) {
 		alive_status_ = x;
 		if (x == 1 || x == 0) eat_pacman = false;
 		else if (x == 3) eat_pacman = true;
-	
+
 	};
 
 	void set_eat_pacman(bool u) {

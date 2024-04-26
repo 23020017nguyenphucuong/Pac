@@ -64,12 +64,17 @@ const int CONTROL_COLOR_TRANSPARENT = 0;
 //ghost
 #define GHOST_SPEED 3
 #define GHOST_DOOR_TILE 2
-#define ERROR_NUMBER_OF_GHOST 10
+#define ERROR_NUMBER_OF_GHOST 20
 
 //fps
 #define FPS 35
+
 //le ben trai
 #define SIDE_LEFT 100
+
+//menu
+#define PAC_EAT_GHOST_SCORE 100
+
 
 
 typedef struct Map
@@ -94,7 +99,7 @@ typedef struct Input
 	int up_;
 	int down_;
 
-	
+
 };
 
 typedef struct Node {

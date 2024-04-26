@@ -184,6 +184,25 @@ void Ghost::Show(SDL_Renderer* des, int type_of_ghost)
 				LoadImg("image//clyde_img//clyde_down.png", des);
 			}
 		}
+		if (type_of_ghost == 4)
+		{
+			if (input_type_.left_ == 1)
+			{
+				LoadImg("image//shady_img//shady_left.png", des);
+			}
+			else if (input_type_.right_ == 1)
+			{
+				LoadImg("image//shady_img//shady_right.png", des);
+			}
+			else if (input_type_.up_ == 1)
+			{
+				LoadImg("image//shady_img//shady_up.png", des);
+			}
+			else if (input_type_.down_ == 1)
+			{
+				LoadImg("image//shady_img//shady_down.png", des);
+			}
+		}
 	}
 
 	if (paused_ == false)

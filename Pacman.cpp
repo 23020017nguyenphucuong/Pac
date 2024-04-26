@@ -32,6 +32,7 @@ Pacman::Pacman()
 	eat_boss2 = false;
 	eat_boss3 = false;
 	eat_boss4 = false;
+	eat_boss5 = false;
 	start_time_strong = 0;
 	end_time_strong = 0;
 	mang = 3;
@@ -61,7 +62,7 @@ void Pacman::SetClips()
 		frame_clip_[0].y = 0;
 		frame_clip_[0].w = width_frame_;
 		frame_clip_[0].h = height_frame_;
-		
+
 		for (int i = 1; i < NUM_OF_FRAME_MOVE; i++)
 		{
 			frame_clip_[i].x = i * width_frame_;
@@ -132,7 +133,7 @@ void Pacman::Show(SDL_Renderer* des)
 void Pacman::ShowDie(SDL_Renderer* des)
 {
 	LoadImg("image//pac_img//pacman_die.png", des);
-	
+
 	if (paused_ == false)
 	{
 		frame_die_++;
@@ -149,7 +150,7 @@ void Pacman::ShowDie(SDL_Renderer* des)
 	SDL_Rect* current_clip = &frame_clip_die_[frame_die_];//frame clip hien tai
 	SDL_Rect renderQuad = { rect_.x,rect_.y,30,height_frame_ };//kich thuoc chuan nhat
 	SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
-	
+
 }
 
 void Pacman::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
@@ -271,7 +272,7 @@ void Pacman::CheckToMap(Map& map_data)
 			number_of_dot--;
 			score += 10;
 
-            if(eat_dot_sound == 0) Mix_PlayChannel(-1, g_sound_pac[0], 0);
+			if (eat_dot_sound == 0) Mix_PlayChannel(-1, g_sound_pac[0], 0);
 			eat_dot_sound++;
 			if (eat_dot_sound == 2) eat_dot_sound = 0;
 		}
@@ -283,7 +284,7 @@ void Pacman::CheckToMap(Map& map_data)
 			number_of_dot--;
 			score += 20;
 
-			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true;
+			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true; eat_boss5 = true;
 			end_time_strong = start_time_strong + 10000;
 		}
 		else
@@ -329,8 +330,8 @@ void Pacman::CheckToMap(Map& map_data)
 			number_of_dot--;
 			score += 20;
 
-			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true;
-			end_time_strong = start_time_strong +10000;
+			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true; eat_boss5 = true;
+			end_time_strong = start_time_strong + 10000;
 		}
 		else
 		{
@@ -363,7 +364,7 @@ void Pacman::CheckToMap(Map& map_data)
 
 			if (eat_dot_sound == 0) Mix_PlayChannel(-1, g_sound_pac[0], 0);
 			eat_dot_sound++;
-			if (eat_dot_sound == 2) eat_dot_sound = 0;  
+			if (eat_dot_sound == 2) eat_dot_sound = 0;
 		}
 		else if (map_data.tile[y2][x1] == HUNTER_MODE_TILE || map_data.tile[y2][x2] == HUNTER_MODE_TILE)
 		{
@@ -373,7 +374,7 @@ void Pacman::CheckToMap(Map& map_data)
 			number_of_dot--;
 			score += 20;
 
-			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true;
+			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true; eat_boss5 = true;
 			end_time_strong = start_time_strong + 10000;
 		}
 		else
@@ -409,7 +410,7 @@ void Pacman::CheckToMap(Map& map_data)
 			number_of_dot--;
 			score += 20;
 
-			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true;
+			hunter_mode++; eat_boss1 = true; eat_boss2 = true; eat_boss3 = true; eat_boss4 = true; eat_boss5 = true;
 			end_time_strong = start_time_strong + 10000;
 		}
 		else
@@ -426,10 +427,11 @@ void Pacman::CheckToMap(Map& map_data)
 
 	x_pos_ += x_val_;
 	y_pos_ += y_val_;
-	if (start_time_strong >= end_time_strong) { 
-		hunter_mode = 0; 
-		eat_boss1 = false; eat_boss2 = false; eat_boss3 = false; eat_boss4 = false; }
-	
+	if (start_time_strong >= end_time_strong) {
+		hunter_mode = 0;
+		eat_boss1 = false; eat_boss2 = false; eat_boss3 = false; eat_boss4 = false; eat_boss5 = false;
+	}
+
 }
 
 void Pacman::PacmanMove(Map map_data)

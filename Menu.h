@@ -40,37 +40,41 @@ private:
 	Uint32 time_to_go_out;
 	Uint32 save_time_when_dead;
 	Uint32 Time_begin_stronger;
-    int goi_ra_de_chay_vong_lap;
+	int goi_ra_de_chay_vong_lap;
 	bool check_collis_stronger;
-
-	int score_increase_only_one;
-
 
 public:
 	Menu();
 	~Menu();
 	void CreateIntro(SDL_Event even, BaseObject background, SDL_Renderer* des);
-	void HandleIputForPause(SDL_Event even,Pacman& pac, Ghost& ghost1, Ghost& ghost2, Ghost& ghost3, Ghost& ghost4);
+	void HandleIputForPause(SDL_Event even, Pacman& pac, Ghost& ghost1, Ghost& ghost2, Ghost& ghost3, Ghost& ghost4);
 
 	void ShowPause(TTF_Font* font, SDL_Renderer* screen);
 	void ShowScore(Pacman pac, Uint32 score_val, TTF_Font* font, SDL_Renderer* screen);
 
 	bool CheckCollision(Pacman pac, Ghost ghost);
 
-	bool DieAndPlayAgain(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky, Ghost& clyde, GameMap game_map, Map map_1,
-		                 BaseObject background, SDL_Renderer* screen);
-	bool BecomeAMonster(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky, Ghost& clyde, GameMap game_map, Map map_1,
-		                BaseObject background, SDL_Renderer* screen);
-	void FirstProbe(Pacman &pac, Ghost& blinky,Uint32 time_blinky, Ghost& pinky, Uint32 time_pinky,
-		            Ghost& inky, Uint32 time_inky, Ghost& clyde, Uint32 time_clyde, Map map_1, SDL_Renderer* screen);
-	void GhostMove(Ghost& ghost, int goal_x, int goal_y,Map map_1);
+	bool DieAndPlayAgain_ez(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky, Ghost& clyde, GameMap game_map, Map map_1,
+		BaseObject background, SDL_Renderer* screen);
+
+	bool BecomeAMonster_ez(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky, Ghost& clyde, GameMap game_map, Map map_1,
+		BaseObject background, SDL_Renderer* screen);
+
+	void FirstProbe(Pacman& pac, Ghost& blinky, Uint32 time_blinky, Ghost& pinky, Uint32 time_pinky,
+		Ghost& inky, Uint32 time_inky, Ghost& clyde, Uint32 time_clyde, Map map_1, SDL_Renderer* screen);
+
+	void ShadyFirstProbe(Pacman& pac, Ghost& shady, Uint32 time_shady, Map map_1, SDL_Renderer* screen);
+
+	void GhostMove(Ghost& ghost, int goal_x, int goal_y, Map map_1);
 
 	void Set_time_to_go_out(Uint32 x) { time_to_go_out = x; }
+
 	void Set_save_time_when_dead(Uint32 x) { save_time_when_dead = x; }
 
 	void move_if_the_distance_between_clyde_and_pacman_is_8_cells(Pacman pac, Ghost& clyde, Map map_1);
 
 	std::pair<int, int> Target_for_inky(Pacman pac, Ghost blinky, Ghost inky, Map map_1);
+
 	std::pair<int, int> Target_for_pinky(Pacman pac, Ghost pinky, Map map_1);
 };
 

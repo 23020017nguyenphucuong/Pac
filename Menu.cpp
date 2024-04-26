@@ -43,8 +43,6 @@ Menu::Menu()
 	goi_ra_de_chay_vong_lap = 0;
 
 	check_collis_stronger = false;
-
-	score_increase_only_one = 0;
 }
 
 Menu::~Menu()
@@ -84,6 +82,7 @@ void Menu::CreateIntro(SDL_Event even, BaseObject background, SDL_Renderer* scre
 					{
 						intro_closed = true;
 						Mix_PlayChannel(1, g_sound_game[3], -1);
+						Set_save_time_when_dead(SDL_GetTicks());
 					}
 					else if (help)
 					{
@@ -223,7 +222,7 @@ bool Menu::CheckCollision(Pacman pac, Ghost ghost)
 	return false;
 }
 
-bool Menu::DieAndPlayAgain(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky, Ghost& clyde, GameMap game_map, Map map_1,
+bool Menu::DieAndPlayAgain_ez(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky, Ghost& clyde, GameMap game_map, Map map_1,
 	BaseObject background, SDL_Renderer* screen)
 {
 	bool check = false;//check xem co va cham giua pacman va ghost khong
@@ -237,7 +236,7 @@ bool Menu::DieAndPlayAgain(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky
 			background.ApplyRender(screen, NULL);
 			game_map.DrawMap(screen, map_1);
 			pac.ShowDie(screen);
-			SDL_Delay(50);
+			SDL_Delay(40);
 			count_frame_die++;
 			SDL_RenderPresent(screen);
 			SDL_RenderClear(screen);
@@ -255,7 +254,7 @@ bool Menu::DieAndPlayAgain(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky
 	return check;
 }
 
-bool Menu::BecomeAMonster(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky, Ghost& clyde, GameMap game_map, Map map_1,
+bool Menu::BecomeAMonster_ez(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky, Ghost& clyde, GameMap game_map, Map map_1,
 	BaseObject background, SDL_Renderer* screen)
 {
 	bool check = false;//check xem co va cham giua pacman va ghost khong
@@ -273,13 +272,13 @@ bool Menu::BecomeAMonster(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky,
 	{
 		if (blinky.get_eat_pacman() == false)
 		{
-			blinky.Set_alive_status(0);
 			Uint32 x = pac.Get_score();
-			pac.Set_score(x + 20);
+			if (blinky.Get_alive_status() == 1) pac.Set_score(x + PAC_EAT_GHOST_SCORE);
+			blinky.Set_alive_status(0);
 		}
-		else 
+		else
 		{
-			DieAndPlayAgain(pac, blinky, pinky, inky, clyde, game_map, map_1, background, screen);
+			DieAndPlayAgain_ez(pac, blinky, pinky, inky, clyde, game_map, map_1, background, screen);
 			blinky.set_eat_pacman(true);
 		}
 	}
@@ -287,13 +286,13 @@ bool Menu::BecomeAMonster(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky,
 	{
 		if (pinky.get_eat_pacman() == false)
 		{
-			pinky.Set_alive_status(0);
 			Uint32 x = pac.Get_score();
-			pac.Set_score(x + 20);
+			if (pinky.Get_alive_status() == 1)pac.Set_score(x + PAC_EAT_GHOST_SCORE);
+			pinky.Set_alive_status(0);
 		}
-		else 
+		else
 		{
-			DieAndPlayAgain(pac, blinky, pinky, inky, clyde, game_map, map_1, background, screen);
+			DieAndPlayAgain_ez(pac, blinky, pinky, inky, clyde, game_map, map_1, background, screen);
 			pinky.Set_alive_status(3);
 			//pinky.set_eat_pacman(true);
 		}
@@ -302,13 +301,13 @@ bool Menu::BecomeAMonster(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky,
 	{
 		if (inky.get_eat_pacman() == false)
 		{
-			inky.Set_alive_status(0);
 			Uint32 x = pac.Get_score();
-			pac.Set_score(x + 20);
+			if (inky.Get_alive_status() == 1) pac.Set_score(x + PAC_EAT_GHOST_SCORE);
+			inky.Set_alive_status(0);
 		}
-		else 
+		else
 		{
-			DieAndPlayAgain(pac, blinky, pinky, inky, clyde, game_map, map_1, background, screen);
+			DieAndPlayAgain_ez(pac, blinky, pinky, inky, clyde, game_map, map_1, background, screen);
 			inky.set_eat_pacman(true);
 		}
 	}
@@ -316,13 +315,13 @@ bool Menu::BecomeAMonster(Pacman& pac, Ghost& blinky, Ghost& pinky, Ghost& inky,
 	{
 		if (clyde.get_eat_pacman() == false)
 		{
-			clyde.Set_alive_status(0);
 			Uint32 x = pac.Get_score();
-			pac.Set_score(x + 20);
+			if (clyde.Get_alive_status() == 1) pac.Set_score(x + PAC_EAT_GHOST_SCORE);
+			clyde.Set_alive_status(0);
 		}
-		else 
+		else
 		{
-			DieAndPlayAgain(pac, blinky, pinky, inky, clyde, game_map, map_1, background, screen);
+			DieAndPlayAgain_ez(pac, blinky, pinky, inky, clyde, game_map, map_1, background, screen);
 			clyde.set_eat_pacman(true);
 		}
 	}
@@ -354,6 +353,45 @@ void Menu::GhostMove(Ghost& ghost, int goal_x, int goal_y, Map map_1)
 
 	ghost.BFS(ghost_coor.first, ghost_coor.second, map_1);
 	ghost.DoPlayer(map_1);
+}
+
+void Menu::ShadyFirstProbe(Pacman& pac, Ghost& shady, Uint32 time_shady, Map map_1, SDL_Renderer* screen)
+{
+	time_to_go_out = SDL_GetTicks();
+	std::pair<int, int> pac_coor = pac.Get_current_coordinates_(map_1);
+	//shady
+	if (time_to_go_out > time_shady + save_time_when_dead)
+	{
+		std::pair<int, int> shady_coor = shady.Get_current_coordinates_(map_1);
+		if (shady_coor.first == 9 && shady_coor.second == 9) {
+			shady.Set_alive_status(3); pac.set_eat_boss(4, false);
+		}
+		if (shady.Get_alive_status() == 0) {
+			GhostMove(shady, 9, 9, map_1);
+		}
+		else if (shady.Get_alive_status() == 1) {
+			std::random_device rd;
+			std::mt19937 gen(rd());
+			std::uniform_int_distribution<> dis(0, 8);
+
+			int index;
+			int count = 0;
+			if (shady.get_goal_x() == shady_coor.first && shady.get_goal_y() == shady_coor.second) {
+				do {
+					index = dis(gen);
+					count++;
+				} while (first_move_left[index].first == shady_coor.first && first_move_left[index].second == shady_coor.second);
+			}
+
+			if (count > 0) GhostMove(shady, first_move_left[index].first, first_move_left[index].second, map_1);
+			else GhostMove(shady, shady.get_goal_x(), shady.get_goal_y(), map_1);
+		}
+		else //clyde di theo muc tieu cua minh o day
+		{
+			GhostMove(shady, pac_coor.first, pac_coor.second, map_1);
+		}
+	}
+	shady.Show(screen, 4);
 }
 
 void Menu::FirstProbe(Pacman& pac, Ghost& blinky, Uint32 time_blinky, Ghost& pinky, Uint32 time_pinky, Ghost& inky, Uint32 time_inky,
@@ -515,7 +553,6 @@ void Menu::FirstProbe(Pacman& pac, Ghost& blinky, Uint32 time_blinky, Ghost& pin
 		}
 	}
 	clyde.Show(screen, 3);
-
 }
 
 std::pair<int, int> Menu::Target_for_inky(Pacman pac, Ghost blinky, Ghost inky, Map map_1)
@@ -596,17 +633,17 @@ void Menu::move_if_the_distance_between_clyde_and_pacman_is_8_cells(Pacman pac, 
 
 	float x = sqrt(pow(clyde_coor.first - pac_coor.first, 2) + pow(clyde_coor.second - pac_coor.second, 2));
 
-	if (clyde_coor.first == 8 || clyde_coor.first == 9 || clyde_coor.first == 10)
-	{
-		if (clyde_coor.second == 10)
-		{
-			GhostMove(clyde, 8, 9, map_1);
-			return;
-		}
-	}
-
 	if (x < 8)
 	{
+		if (clyde_coor.first == 8 || clyde_coor.first == 9 || clyde_coor.first == 10)
+		{
+			if (clyde_coor.second == 10)
+			{
+				GhostMove(clyde, 8, 9, map_1);
+				return;
+			}
+		}
+
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_int_distribution<> dis(0, 8);

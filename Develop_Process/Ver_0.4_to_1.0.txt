@@ -1,0 +1,40 @@
+Cập nhật: 25/4/2024
+
+     Nội dung: Ver 0.4 -> 1.0
+            Đầu tiên, do không thể cập nhật được bất cứ thứ gì lên github, nên hôm nay mới là ngày cập nhật tổng thể cả 6 version.
+            
+            Ver 0.4:
+                - Khởi tạo vị trí cho các dot, power dot.
+                - Xử lí hiệu ứng ăn được dot thì dot sẽ biến mất.
+
+            Ver 0.5:
+                - Tạo thêm class Text dùng để show các đoạn văn bản.
+                - Show nhắc nhở pause và continue game.
+                - Show điểm của người chơi
+                - Tạo thêm intro đơn giản với menu gồm phần PLAY và HELP.
+
+            Ver 0.6:
+                - In được Blinky ra màn hinh, đi được các đường đi đơn.
+                - Xử lí việc ăn dot thì điểm được cộng thêm.   
+
+            Ver 0.7:
+                - Cài đặt thuật toán BFS vào để xử lí di chuyển của Ghost, tuy nhiên di chuyển vẫn rất khó khăn vì hàm BFS bị mâu thuẫn
+                  với hàm kiểm tra va chạm với map.
+                - Cài đặt thêm 3 con Ghost lần lượt là Pinky, Inky và Clyde.
+                - Xây dựng class Menu, xử lí intro và lệnh continue, pause.
+
+            Ver 0.8:
+                - Xử lí di chuyển của Ghost, lúc này đang để tạm thời mục tiêu tất cả các Ghost đều nhắm đến Pacman.
+                - Xử lí các trạng thái của Ghost trong class Menu.
+                - Thêm audio cho các trạng thái và âm thanh nền của game.
+
+            Ver 0.9:
+                - Cài đặt mục tiêu cho các Ghost.
+                - Xử lí va chạm của Ghost và Pacman.
+                - Tối ưu di chuyển của Pacman.
+
+            Ver 1.0:
+                - Xử lí gameplay trong menu, phần này mất khá nhiều thời gian nên ver 1.0 chỉ dành để làm phần này.
+
+     ---------------------------------------------------------------
+     

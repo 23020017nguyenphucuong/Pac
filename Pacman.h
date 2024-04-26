@@ -47,10 +47,11 @@ private:
 	bool eat_boss2;
 	bool eat_boss3;
 	bool eat_boss4;
+	bool eat_boss5;
 
 	int start_time_strong;
 	int end_time_strong;
-	int mang ;
+	int mang;
 public:
 	Pacman();
 	~Pacman();
@@ -87,9 +88,9 @@ public:
 	void Set_score(Uint32 x) { score = x; }
 	int Get_num_of_dot() { return number_of_dot; };
 
-	std::pair <int,int> Get_current_coordinates_(Map map_data);
+	std::pair <int, int> Get_current_coordinates_(Map map_data);
 
-	int Get_move_status() const { return arrow_status_; };  
+	int Get_move_status() const { return arrow_status_; };
 	void Set_paused(bool pau) { paused_ = pau; };
 
 	int Get_pacman_status() { return pacman_status_; };
@@ -117,7 +118,7 @@ public:
 		else if (x == 3) return eat_boss3;
 		else if (x == 4) return eat_boss4;
 	}
-	void reduce_mang() { mang--;}
+	void reduce_mang() { mang--; }
 	int get_mang() { return mang; }
 	void set_mang(int x) { mang = x; }
 };
