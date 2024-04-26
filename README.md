@@ -75,7 +75,7 @@ Giống như game gốc, ở đây cũng sẽ có 4 con Ghost với các cách d
 - `Clyde` ![](image/recycle/or.png): Vây hãm, khi khoảng cách giữa nó và Pacman bé hơn 8 ô thì sẽ đi ngẫu nhiên quanh rìa bản đồ, khi phát hiện Pacman còn cách mình trên 8 ô thì đuổi theo Pacman.
 
 Ngoài ra thì đây là sản phẩm do trí tưởng tượng của mình:
-- `Shady` ![](image/recycle/sr.png): Kẻ du mục, ban đầu xuất hiện ở vị trí góc trái trên cùng của bản đồ, về sau mỗi lần bạn hồi sinh sẽ không trở về vị trí cũ như 4 con Ghost cơ bản. Giống những cao thủ sống dạt nhà trên phim, đầu tiên Shady sẽ tìm đến ngẫu nhiên một trong 4 con Ghost để học phong cách cây bắt, sau khi đã đụng vào nhau thì Shady đã học được, nên giờ anh ta có thể dùng phong cách đuổi của con Ghost mà anh ta gặp.
+- `Shady` ![](image/recycle/sr.png): Kẻ du mục, ban đầu xuất hiện ở vị trí góc trái trên cùng của bản đồ, về sau mỗi lần bạn hồi sinh sẽ không trở về vị trí cũ như 4 con Ghost cơ bản. Giống những cao thủ sống dạt nhà trên phim, đầu tiên Shady sẽ tìm đến ngẫu nhiên một trong 4 con Ghost để học phong cách vây bắt, sau khi đã đụng vào nhau thì Shady đã học được, nên giờ anh ta có thể dùng phong cách đuổi của con Ghost mà anh ta gặp.
 
 Ghost được chia ra làm 3 trạng thái:
 
