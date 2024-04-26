@@ -52,7 +52,7 @@ Thao tác này rất đơn giản, bạn chỉ cần truy cập đến file zip 
 Trong quá trình test việc chạy file zip trong nhiều máy khác nhau, mình phát hiện ra một vấn đề, đó là một số máy không thể chạy được file có đuôi `.exe` mà mình dùng để chạy game. Điểm chung của những máy này là chúng đều không có các ứng dụng dùng để lập trình, hiện tại mình vẫn chưa biết vấn đề cụ thể nằm ở đâu, nhưng nếu mọi người và các thầy nếu không mở được, thì mong mọi người sẽ đọc được dòng này.
 
 3. ### Cấu trúc và hướng dẫn chơi game
-
+   
 Trong trò chơi này, bạn trong vai một `Pacman` ![](image/recycle/die2.png).
 
 Bạn sẽ phải chạy khỏi những con `Ghost` đang săn lùng bạn, phải luôn chạy, đừng dừng chân, bởi vì bọn chúng biết phối hợp với nhau.
@@ -74,11 +74,16 @@ Giống như game gốc, ở đây cũng sẽ có 4 con Ghost với các cách d
 - `Inky` ![](image/recycle/cr.png): Kẻ mưu trí nhất, đi đến vị trí đôi xứng với Blinky qua Pacman, nói cách khác chính là đón đầu Pacman, nó cũng sẽ đuổi theo Pacman nếu không đạt được mục đích.
 - `Clyde` ![](image/recycle/or.png): Vây hãm, khi khoảng cách giữa nó và Pacman bé hơn 8 ô thì sẽ đi ngẫu nhiên quanh rìa bản đồ, khi phát hiện Pacman còn cách mình trên 8 ô thì đuổi theo Pacman.
 
+  Ngoài ra thì đây là sản phẩm do trí tưởng tượng của mình:
+- `Shady` ![](image/recycle/sr.png): Kẻ du mục, ban đầu xuất hiện ở vị trí góc trái trên cùng của bản đồ, về sau mỗi lần bạn hồi sinh sẽ không trở về vị trí cũ như 4 con Ghost cơ bản. Giống những cao thủ sống dạt nhà trên phim, đầu tiên Shady sẽ tìm đến ngẫu nhiên một trong 4 con Ghost để học phong cách cây bắt, sau khi đã đụng vào nhau thì Shady đã học được, nên giờ anh ta có thể dùng phong cách đuổi của con Ghost mà anh ta gặp.
+
 Ghost được chia ra làm 3 trạng thái:
 
 - `Thăm dò` ![](image/recycle/pr.png): Khi ở chế độ thăm dò, Ghost sẽ di chuyển ở một góc trên bản đồ trong một khoảng thời gian ngắn. Ở trong game gốc thì chế độ thăm dò sẽ được áp dụng với tất cả con Ghost, nhưng mình sẽ chỉ dùng chế độ thăm dò cho Blinky, thay vào đó sẽ set thời gian các Ghost khác ra khỏi lồng là lâu hơn.
 - `Săn lùng` ![](image/recycle/pr.png): Trong chế độ săn lùng, các Ghost sẽ phối hợp với nhau để ăn được Pacman, có thể bạn sẽ nghĩ các ghost sẽ di chuyển như nhau, tuy nhiên mỗi ghost sẽ có một mục tiêu khác nhau.
 -   `Hoảng sợ` ![](image/recycle/ptime.png): Chế độ hoảng sợ của Ghost bắt đầu khi Pacman ăn được power dot. Khi đó Ghost sẽ không đuổi theo Pacman, nếu bị Pacman ăn thì sẽ chuyển thành `đôi mắt` ![](image/recycle/eyel.png), sau đó tìm đường đi ngắn nhất về cửa lồng để khôi phục trạng thái bình thường.
+
+Mình chia game thành 3 mức độ đó là `Easy`, `Medium` và `Hard`. Với chế độ Easy thì sẽ có 4 con ghost truyền thống, tốc độ của nó chậm hơn Pacman. Ở chế độ Medium thì mình có đẩy tốc độ lên một chút, đẩy thời gian Ghost ra khỏi lồng nhanh hơn 1 chút. Ở chế độ cuối cùng là Hard, ban đầu mình định tăng thêm tốc độ, nhưng sau một vài lần chơi mình cảm thấy khá bất lực, nên mình quyết định tốc độ của nó không nên tăng. Ở chế độ khó chúng ta có `Shady`, và thời gian các Ghost xuất hiện cũng nâng lên thêm một mức, hi vọng mọi người không thấy nó quá khó.
 
 #### Trong bản đồ sẽ có những hình khối sau:
 |Item|Trạng thái|Tên|Điểm đặc biệt|
@@ -90,6 +95,15 @@ Ghost được chia ra làm 3 trạng thái:
 |![](map01/4.png)|4|Galaxy|Đi đến galaxy thì dịch chuyển sang galaxy còn lại|
 |![](map01/5.png)|5|Blank|Ô trống, đi qua được|
 |![](map01/6.png)|6|Power dot|Pacman ăn được sẽ tăng sức mạnh|
+
+### Cùng với đó là hoa quả, khi bạn ăn sẽ được cộng 100 điểm, nhưng phải chắt chiu đấy, vì nó biến mất cũng rất nhanh, khi nhân vật của bạn chết hoặc bạn ăn đủ số dot làm cho nó mất.
+
+|Item|Tên|
+|----|---|
+|![](map01/7.png)|Banana|
+|![](map01/8.png)|Cherry|
+|![](map01/9.png)|Orange|
+|![](map01/10.png)|Strawberry|
 
 4. ### Thuật toán của game
 
@@ -118,6 +132,8 @@ Về phần chuyển động xuyên suốt game của Ghost, mình kiểm soát 
 - `Inky`: Đầu tiên sẽ lấy mục tiêu của Inky chính là đối xứng của Blinky qua Pacman, sau đó ta thực hiện xét trường hợp ngoại lệ giống Pinky, ta kiểm tra xem mục tiêu có nằm ngoài bản đồ hay không, nếu nằm ngoài thì ta xét đại lượng nào nằm bên ngoài thì ta sẽ cho nó là ô ngoài cùng nhất là ô đi được. Khi kiểm tra xong ta lại kiểm tra xem ô mục tiêu có phải là tường hay không, nếu không thì mục tiêu chính là ô đó, còn nếu đúng thì gán mục tiêu bằng ô hiện tại của Pacman.
 
 - `Clyde`: Ta xét khoảng cách giữa Pacman và CLyde, nếu nó lớn hơn hoặc bằng 8 ô thì gán mục tiêu bằng vị trí hiện tại của Pacman. Ngược lại, nếu khoảng cách nhỏ hơn 8 thì ta chuyển thuật toán di chuyển thành đi ngẫu nhiên quanh rìa bản đồ.
+
+- `Shady`: Mình dùng một hàm sinh ngẫu nhiên để chọn một trong 4 con Ghost làm mục tiêu đầu tiên mà Shady phải đi đến, sau đó mình giới hạn sinh số chỉ được 1 lần duy nhất trong mỗi lượt chơi. Đến phần xử lí di chuyển, mình thực hiện 1 tỏng 2 cách di chuyển là di chuyển đến vị trí của Ghost mục tiêu đầu và di chuyển theo mục tiêu, phần này cũng không quá rắc rối, mình chỉ cần cho hàm di chuyển đến con Ghost ban đầu chạy, khi nào xảy ra va chạm, mình thực hiện việc gán hàm chuyển động và mục tiêu của Ghost cơ bản sang cho Shady, đồng thời tắt hàm di chuyển đến Ghost đầu tiên và đè hàm di chuyển đến mục tiêu vào luôn.
 
 Ở game gốc sẽ có 265 màn chơi, sau màn 265 sẽ gặp lỗi và đó sẽ là giới hạn của người chơi. Tuy nhiên trong game của mình, minh cho sinh vô hạn số màn, giả sử bạn là một người chơi cực giỏi, và không cần ăn uống gì thì trên lí thuyết bạn có thể chơi mãi mãi.
 
