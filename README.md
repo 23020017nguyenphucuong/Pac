@@ -123,7 +123,7 @@ Công việc kiểm tra va chạm của Ghost và Pacman thì không mấy khó 
 
 Nguyên lí của mình về việc kiểm tra va chạm giữa nhân vật với bản đồ cũng chung tinh thần với việc kiểm tra va chạm bên trên, tuy nhiên kiểm tra va chạm và kiểm tra nhân vật khi chia trường hợp nó sẽ có những sai khác, vậy nên việc xác định ô được gán có sự thay đổi. Khi kiểm tra được va chạm với bản đồ, mình sẽ cho nhân vật dừng không di chuyển nữa, và nếu như nhân vật có đi quá để dè lên map thì mình cũng sẽ cộng trừ vị trí để cho nhân vật không thể chạm vào tường dẫn đến sai lệch về cơ chế kiểm tra.
 
-Về phần chuyển động xuyên suốt game của Ghost, mình kiểm soát nó bằng các hàm di chuyển áp dụng cho từng con Ghost. Thuật toán di chuyển cũng không quá khó hiểu khi mà ta chỉ xoay quanh việc di chuyển bằng thuật toán BFS và di chuyển ngẫu nhiên, điều khó nhất có lẽ là áp dụng thuật toán BFS gắn với chuyển động của Ghost. Vậy vấn đề còn lại đó là việc chọn ra được mục tiêu cho từng con Ghost, với mục tiêu tmình quản lí bằng ô trên bản đồ để dễ dàng kiểm tra qua lại giữa Pacman, Ghost và bản đồ, việc này thì mình triển khai như sau:
+Về phần chuyển động xuyên suốt game của Ghost, mình kiểm soát nó bằng các hàm di chuyển áp dụng cho từng con Ghost. Thuật toán di chuyển cũng không quá khó hiểu khi mà ta chỉ xoay quanh việc di chuyển bằng thuật toán BFS và di chuyển ngẫu nhiên, điều khó nhất có lẽ là áp dụng thuật toán BFS gắn với chuyển động của Ghost. Vậy vấn đề còn lại đó là việc chọn ra được mục tiêu cho từng con Ghost, với mục tiêu thì mình quản lí bằng ô trên bản đồ để dễ dàng kiểm tra qua lại giữa Pacman, Ghost và bản đồ, việc này thì mình triển khai như sau:
 
 - `Blinky`: Dùng thẳng thuật toán BFS với mục tiêu là Pacman.
   
