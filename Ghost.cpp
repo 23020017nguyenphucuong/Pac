@@ -39,7 +39,10 @@ Ghost::Ghost()
 		dx[3] = 1; dx[2] = -1; dx[1] = 0; dx[0] = 0;
 		dy[3] = 0; dy[2] = 0; dy[1] = -1; dy[0] = 1;
 	}
+
 	eat_pacman = true;
+
+	ghost_speed_ = GHOST_SPEED;
 }
 
 Ghost::~Ghost()
@@ -231,19 +234,19 @@ void Ghost::DoPlayer(Map map_data)
 	{
 		if (input_type_.left_ == 1)
 		{
-			x_val_ -= GHOST_SPEED;
+			x_val_ -= ghost_speed_;
 		}
 		else if (input_type_.right_ == 1)
 		{
-			x_val_ += GHOST_SPEED;
+			x_val_ += ghost_speed_;
 		}
 		else if (input_type_.up_ == 1)
 		{
-			y_val_ += GHOST_SPEED;
+			y_val_ += ghost_speed_;
 		}
 		else if (input_type_.down_ == 1)
 		{
-			y_val_ -= GHOST_SPEED;
+			y_val_ -= ghost_speed_;
 		}
 		CheckToMap(map_data);
 	}
@@ -268,7 +271,7 @@ void Ghost::CheckToMap(Map map_data)
 	if (x_val_ > 0)//sang phai
 	{
 		on_wall = false;
-		if (map_data.tile[y1][x2] != BLANK_TILE && map_data.tile[y1][x2] != DOT_TILE && map_data.tile[y1][x2] != HUNTER_MODE_TILE && map_data.tile[y1][x2] != GHOST_DOOR_TILE ||
+		if (map_data.tile[y1][x2] != BLANK_TILE && map_data.tile[y1][x2] != DOT_TILE && map_data.tile[y1][x2] != HUNTER_MODE_TILE && map_data.tile[y1][x2] != GHOST_DOOR_TILE || 
 			map_data.tile[y2][x2] != BLANK_TILE && map_data.tile[y2][x2] != DOT_TILE && map_data.tile[y2][x2] != HUNTER_MODE_TILE && map_data.tile[y2][x2] != GHOST_DOOR_TILE)
 		{
 			if (map_data.tile[y1][x2] == GALAXY_RIGHT_TILE || map_data.tile[y2][x2] == GALAXY_RIGHT_TILE)
@@ -278,9 +281,12 @@ void Ghost::CheckToMap(Map map_data)
 			}
 			else
 			{
-				x_pos_ = x2 * TILE_SIZE - width_frame_ + SIDE_LEFT;
-				x_val_ = 0;
-				on_wall = true;
+				if (map_data.tile[y1][x2] < 7 || map_data.tile[y2][x2] < 7)
+				{
+					x_pos_ = x2 * TILE_SIZE - width_frame_ + SIDE_LEFT;
+					x_val_ = 0;
+					on_wall = true;
+				}
 			}
 		}
 
@@ -298,9 +304,12 @@ void Ghost::CheckToMap(Map map_data)
 			}
 			else
 			{
-				x_pos_ = (x1 + 1) * TILE_SIZE + SIDE_LEFT;
-				x_val_ = 0;
-				on_wall = true;
+				if (map_data.tile[y1][x1] < 7 || map_data.tile[y2][x1] < 7)
+				{
+					x_pos_ = (x1 + 1) * TILE_SIZE + SIDE_LEFT;
+					x_val_ = 0;
+					on_wall = true;
+				}
 			}
 		}
 	}
@@ -310,9 +319,12 @@ void Ghost::CheckToMap(Map map_data)
 		if (map_data.tile[y2][x1] != BLANK_TILE && map_data.tile[y2][x1] != DOT_TILE && map_data.tile[y2][x1] != HUNTER_MODE_TILE && map_data.tile[y2][x1] != GHOST_DOOR_TILE ||
 			map_data.tile[y2][x2] != BLANK_TILE && map_data.tile[y2][x2] != DOT_TILE && map_data.tile[y2][x2] != HUNTER_MODE_TILE && map_data.tile[y2][x2] != GHOST_DOOR_TILE)
 		{
-			y_pos_ = y2 * TILE_SIZE - height_frame_;
-			y_val_ = 0;
-			on_wall = true;
+			if (map_data.tile[y2][x2] < 7 || map_data.tile[y2][x1] < 7)
+			{
+				y_pos_ = y2 * TILE_SIZE - height_frame_;
+				y_val_ = 0;
+				on_wall = true;
+			}
 		}
 	}
 	else if (y_val_ < 0)//len tren
@@ -321,9 +333,12 @@ void Ghost::CheckToMap(Map map_data)
 		if (map_data.tile[y1][x1] != BLANK_TILE && map_data.tile[y1][x1] != DOT_TILE && map_data.tile[y1][x1] != HUNTER_MODE_TILE && map_data.tile[y1][x1] != GHOST_DOOR_TILE ||
 			map_data.tile[y1][x2] != BLANK_TILE && map_data.tile[y1][x2] != DOT_TILE && map_data.tile[y1][x2] != HUNTER_MODE_TILE && map_data.tile[y1][x2] != GHOST_DOOR_TILE)
 		{
-			y_pos_ = (y1 + 1) * TILE_SIZE;
-			y_val_ = 0;
-			on_wall = true;
+			if (map_data.tile[y1][x2] < 7 || map_data.tile[y1][x1] < 7)
+			{
+				y_pos_ = (y1 + 1) * TILE_SIZE;
+				y_val_ = 0;
+				on_wall = true;
+			}
 		}
 	}
 	if (on_wall)

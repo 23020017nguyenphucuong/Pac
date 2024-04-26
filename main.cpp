@@ -142,9 +142,17 @@ new_game:
 	//luu score cua nguoi choi
 	Uint32 score_val = 0;
 
+	bool is_quit = false;
 	//intro
-	menu.CreateIntro(g_event, g_background, g_screen);
+	menu.CreateIntro(g_event, g_background, g_screen, is_quit);
+
 	g_background.Free();
+
+	//choose level
+	int level = menu.ChooseLevel(g_event, g_background, g_screen);
+
+	g_background.Free();
+
 	BaseObject p_mang[3];
 	for (int i = 0; i < 3; i++) p_mang[i].LoadImg("image//intro//mang.png", g_screen);
 	p_mang[0].setRect(850, 300);
@@ -194,13 +202,14 @@ new_level:
 	//shady
 	shady.LoadImg("image//shady_img//shady_up.png", g_screen);
 	shady.SetClip();
-	shady.Set_where_start(330, 240);
+	shady.Set_where_start(130, 30);
 
 
 	//Mix_PlayChannel(1, g_sound_game[4], 0);
 
+	int count_fruit = 0;
+
 	//chay game
-	bool is_quit = false;
 	int count_blinky_first_move = 0;
 	int call_func_blinky = 0;
 	Uint32 time_to_go_out;
@@ -241,44 +250,168 @@ new_life:
 		p_player.ShowArrow(g_screen);
 		p_player.PacmanMove(map_1);
 
-
-		//-level-ez---------------------------------------------------------------------------------------------------------------------
-
-		//thoi gian xuat hien cua cac nhan vat
-		menu.FirstProbe(p_player, blinky, 10000, pinky, 19000, inky, 25000, clyde, 30000, map_1, g_screen);
-
-		//check xem pacman an trung power dot chua
-		bool check_hunter_mode = p_player.Is_hunter_mode();
-		if (check_hunter_mode != 0)
+		bool check_hunter_mode;
+		switch (level)
 		{
-			if (p_player.get_eat_boss(1)) {
-				blinky.set_eat_pacman(false);
+		case 1:
+			//-level-ez---------------------------------------------------------------------------------------------------------------------
+
+			//thoi gian xuat hien cua cac nhan vat
+			menu.FirstProbe(p_player, blinky, 10000, pinky, 19000, inky, 25000, clyde, 30000, map_1, g_screen);
+
+			//check xem pacman an trung power dot chua
+			check_hunter_mode = p_player.Is_hunter_mode();
+			if (check_hunter_mode != 0)
+			{
+				if (p_player.get_eat_boss(1)) {
+					blinky.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(2)) {
+					pinky.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(3)) {
+					inky.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(4)) {
+					clyde.set_eat_pacman(false);
+				}
+				menu.BecomeAMonster(p_player, blinky, pinky, inky, clyde, game_map, map_1, g_background, g_screen);
 			}
-			if (p_player.get_eat_boss(2)) {
-				pinky.set_eat_pacman(false);
+			else
+			{
+				//check va cham, pacman mat mang va choi lai mang moi
+				blinky.Set_alive_status(3);
+				pinky.Set_alive_status(3);
+				inky.Set_alive_status(3);
+				clyde.Set_alive_status(3);
+				bool check_play_again = menu.DieAndPlayAgain(p_player, blinky, pinky, inky, clyde, game_map, map_1, g_background, g_screen);
+				if (check_play_again)
+				{
+					map_1.tile[12][9] = BLANK_TILE;
+					goto new_life;
+				}
+
 			}
-			if (p_player.get_eat_boss(3)) {
-				inky.set_eat_pacman(false);
+			//----------------------------------------------------------------------------------------------------------------------------------
+			break;
+		case 2:
+			//-level-medium---------------------------------------------------------------------------------------------------------------------
+
+			blinky.Set_ghost_speed(GHOST_SPEED + 1);
+			pinky.Set_ghost_speed(GHOST_SPEED + 1);
+			inky.Set_ghost_speed(GHOST_SPEED + 1);
+			clyde.Set_ghost_speed(GHOST_SPEED + 1);
+
+			//thoi gian xuat hien cua cac nhan vat
+			menu.FirstProbe(p_player, blinky, 10000, pinky, 16000, inky, 23000, clyde, 27000, map_1, g_screen);
+
+			//check xem pacman an trung power dot chua
+			check_hunter_mode = p_player.Is_hunter_mode();
+			if (check_hunter_mode != 0)
+			{
+				if (p_player.get_eat_boss(1)) {
+					blinky.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(2)) {
+					pinky.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(3)) {
+					inky.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(4)) {
+					clyde.set_eat_pacman(false);
+				}
+				menu.BecomeAMonster(p_player, blinky, pinky, inky, clyde, game_map, map_1, g_background, g_screen);
 			}
-			if (p_player.get_eat_boss(4)) {
-				clyde.set_eat_pacman(false);
+			else
+			{
+				//check va cham, pacman mat mang va choi lai mang moi
+				blinky.Set_alive_status(3);
+				pinky.Set_alive_status(3);
+				inky.Set_alive_status(3);
+				clyde.Set_alive_status(3);
+				shady.Set_alive_status(3);
+				bool check_play_again = menu.DieAndPlayAgain(p_player, blinky, pinky, inky, clyde, game_map, map_1, g_background, g_screen);
+				if (check_play_again)
+				{
+					map_1.tile[12][9] = BLANK_TILE;
+					goto new_life;
+				}
 			}
-			menu.BecomeAMonster_ez(p_player, blinky, pinky, inky, clyde, game_map, map_1, g_background, g_screen);
+			//----------------------------------------------------------------------------------------------------------------------------------
+			break;
+		case 3:
+			//-level-hard---------------------------------------------------------------------------------------------------------------------
+
+			//thoi gian xuat hien cua cac nhan vat
+			menu.FirstProbe(p_player, blinky, 10000, pinky, 13000, inky, 18000, clyde, 23000, map_1, g_screen);
+			menu.ShadyFirstProbe(p_player, blinky, pinky, inky, clyde, shady, 3000, map_1, g_screen);
+
+			//check xem pacman an trung power dot chua
+			check_hunter_mode = p_player.Is_hunter_mode();
+			if (check_hunter_mode != 0)
+			{
+				if (p_player.get_eat_boss(1)) {
+					blinky.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(2)) {
+					pinky.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(3)) {
+					inky.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(4)) {
+					clyde.set_eat_pacman(false);
+				}
+				if (p_player.get_eat_boss(5)) {
+					shady.set_eat_pacman(false);
+				}
+
+				menu.BecomeAMonster(p_player, blinky, pinky, inky, clyde, game_map, map_1, g_background, g_screen);
+				menu.BecomeAMonsterShady(p_player, shady, game_map, map_1, g_background, g_screen);
+			}
+			else
+			{
+				//check va cham, pacman mat mang va choi lai mang moi
+				blinky.Set_alive_status(3);
+				pinky.Set_alive_status(3);
+				inky.Set_alive_status(3);
+				clyde.Set_alive_status(3);
+				shady.Set_alive_status(3);
+				bool check_play_again = menu.DieAndPlayAgain(p_player, blinky, pinky, inky, clyde, game_map, map_1, g_background, g_screen);
+				bool check_play_again_shady = menu.DieAndPlayAgainShady(p_player, shady, game_map, map_1, g_background, g_screen);
+				if (check_play_again || check_play_again_shady)
+				{
+					map_1.tile[12][9] = BLANK_TILE;
+					goto new_life;
+				}
+			}
+			//----------------------------------------------------------------------------------------------------------------------------------
+			break;
+		default:
+			break;
+
 		}
-		else
+
+		//hien hoa qua cho nguoi choi
+		if (p_player.Get_num_of_dot() <= 100)
 		{
-			//check va cham, pacman mat mang va choi lai mang moi
-			blinky.Set_alive_status(3);
-			pinky.Set_alive_status(3);
-			inky.Set_alive_status(3);
-			clyde.Set_alive_status(3);
-			bool check_play_again = menu.DieAndPlayAgain_ez(p_player, blinky, pinky, inky, clyde, game_map, map_1, g_background, g_screen);
-			if (check_play_again) goto new_life;
+			std::random_device rd;
+			std::mt19937 gen(rd());
+			std::uniform_int_distribution<> dis(7, 10);
+
+			int indx = dis(gen);
+			if (count_fruit == 0)
+			{
+				map_1.tile[12][9] = indx;
+				count_fruit = 1;
+			}
 		}
 
-
-		//----------------------------------------------------------------------------------------------------------------------------------------
-
+		if (p_player.Get_num_of_dot() <= 80)
+		{
+			map_1.tile[12][9] = BLANK_TILE;
+		}
 
 		if (p_player.Get_num_of_dot() <= 0) {
 			MANG = p_player.get_mang();
@@ -310,6 +443,10 @@ new_life:
 			else if (Cuongg_Over == 1) {
 				MANG = 0;
 				score_val = 0;
+				blinky.Set_ghost_speed(GHOST_SPEED);
+				pinky.Set_ghost_speed(GHOST_SPEED);
+				inky.Set_ghost_speed(GHOST_SPEED);
+				clyde.Set_ghost_speed(GHOST_SPEED);
 				goto new_game;
 			}
 		}

@@ -264,7 +264,16 @@ void Pacman::CheckToMap(Map& map_data)
 
 	if (x_val_ > 0)//sang phai
 	{
-		if (map_data.tile[y1][x2] == DOT_TILE || map_data.tile[y2][x2] == DOT_TILE)
+		if (map_data.tile[y1][x2] >= 7 && map_data.tile[y2][x2] >= 7)
+		{
+			map_data.tile[y1][x2] = BLANK_TILE;
+			map_data.tile[y2][x2] = BLANK_TILE;
+
+			score += 50;
+
+			Mix_PlayChannel(-1, g_sound_pac[0], 0);
+		}
+		else if (map_data.tile[y1][x2] == DOT_TILE || map_data.tile[y2][x2] == DOT_TILE)
 		{
 			map_data.tile[y1][x2] = BLANK_TILE;
 			map_data.tile[y2][x2] = BLANK_TILE;
@@ -310,7 +319,16 @@ void Pacman::CheckToMap(Map& map_data)
 	}
 	else if (x_val_ < 0)//sang trai
 	{
-		if (map_data.tile[y1][x1] == DOT_TILE || map_data.tile[y2][x1] == DOT_TILE)
+		if (map_data.tile[y1][x1] >= 7 && map_data.tile[y2][x1] >= 7)
+		{
+			map_data.tile[y1][x1] = BLANK_TILE;
+			map_data.tile[y2][x1] = BLANK_TILE;
+
+			score += 50;
+
+			Mix_PlayChannel(-1, g_sound_pac[0], 0);
+		}
+		else if (map_data.tile[y1][x1] == DOT_TILE || map_data.tile[y2][x1] == DOT_TILE)
 		{
 			map_data.tile[y1][x1] = BLANK_TILE;
 			map_data.tile[y2][x1] = BLANK_TILE;
@@ -354,7 +372,16 @@ void Pacman::CheckToMap(Map& map_data)
 	}
 	else if (y_val_ > 0)//xuong duoi
 	{
-		if (map_data.tile[y2][x1] == DOT_TILE || map_data.tile[y2][x2] == DOT_TILE)
+		if (map_data.tile[y2][x1] >= 7 && map_data.tile[y2][x2] >= 7)
+		{
+			map_data.tile[y2][x1] = BLANK_TILE;
+			map_data.tile[y2][x2] = BLANK_TILE;
+
+			score += 50;
+
+			Mix_PlayChannel(-1, g_sound_pac[0], 0);
+		}
+		else if (map_data.tile[y2][x1] == DOT_TILE || map_data.tile[y2][x2] == DOT_TILE)
 		{
 			map_data.tile[y2][x1] = BLANK_TILE;
 			map_data.tile[y2][x2] = BLANK_TILE;
@@ -390,7 +417,16 @@ void Pacman::CheckToMap(Map& map_data)
 	}
 	else if (y_val_ < 0)//len tren
 	{
-		if (map_data.tile[y1][x1] == DOT_TILE || map_data.tile[y1][x2] == DOT_TILE)
+		if (map_data.tile[y1][x1] >= 7 && map_data.tile[y1][x2] >= 7)
+		{
+			map_data.tile[y1][x1] = BLANK_TILE;
+			map_data.tile[y1][x2] = BLANK_TILE;
+
+			score += 50;
+
+			Mix_PlayChannel(-1, g_sound_pac[0], 0);
+		}
+		else if (map_data.tile[y1][x1] == DOT_TILE || map_data.tile[y1][x2] == DOT_TILE)
 		{
 			map_data.tile[y1][x1] = BLANK_TILE;
 			map_data.tile[y1][x2] = BLANK_TILE;

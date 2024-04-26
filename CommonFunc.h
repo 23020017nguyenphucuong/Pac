@@ -17,13 +17,14 @@
 #include <SDL_timer.h>
 #include <random>
 #include <cmath>
+#include <chrono>
 
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
 
-static Mix_Chunk* g_sound_game[5];
-static Mix_Chunk* g_sound_pac[5];
+static Mix_Chunk* g_sound_game[6];
+static Mix_Chunk* g_sound_pac[6];
 static Mix_Music* g_sound_music;
 
 //screen
@@ -43,7 +44,7 @@ const int CONTROL_COLOR_TRANSPARENT = 0;
 #define NUM_OF_GHOST_FRAME 6
 
 //game map
-#define MAX_TILES 7
+#define MAX_TILES 11
 #define TILE_SIZE 30
 #define MAX_MAP_X 19
 #define MAX_MAP_Y 22

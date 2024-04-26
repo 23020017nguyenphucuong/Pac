@@ -36,6 +36,8 @@ private:
 	int dx[4]; int dy[4];
 	int random_direction;
 
+	int ghost_speed_;
+
 public:
 	Ghost();
 	~Ghost();
@@ -54,15 +56,6 @@ public:
 		SCARY = 1,
 		TIMES_UP = 2,
 		ALIVE = 3,
-	};
-
-	enum type_of_ghost
-	{
-		BLINKY = 0,
-		PINKY = 1,
-		INKY = 2,
-		CLYDE = 3,
-		//FRIENDLY
 	};
 
 	void Set_where_start(int x, int y) { x_pos_ = rect_.x = x; y_pos_ = rect_.y = y; };
@@ -104,6 +97,8 @@ public:
 	}
 	int get_goal_x() { return goal_x; }
 	int get_goal_y() { return goal_y; }
+
+	void Set_ghost_speed(int x) { ghost_speed_ = x; }
 };
 
 #endif

@@ -1,0 +1,13 @@
+Cập nhật: 26/4/2024
+
+     Nội dung:
+            Tạo level gồm easy, medium và hard.
+            Sáng tạo ra Ghost mới: Shady.
+            Tạo ra hệ thống hoa quả.
+            Tạo ra intro phức tạp hơn.
+            Fix một số bug vặt.
+
+     Đây chính là bản cập nhật cuối cùng của game, nếu đọc đến đây thì mình xin cảm ơn mọi người.                              
+
+     ---------------------------------------------------------------
+     

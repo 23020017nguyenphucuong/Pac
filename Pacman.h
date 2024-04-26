@@ -111,12 +111,14 @@ public:
 		else if (x == 2) eat_boss2 = u;
 		else if (x == 3) eat_boss3 = u;
 		else if (x == 4) eat_boss4 = u;
+		else if (x == 5) eat_boss5 = u;
 	}
 	bool get_eat_boss(int x) {
 		if (x == 1) return eat_boss1;
 		else if (x == 2) return eat_boss2;
 		else if (x == 3) return eat_boss3;
 		else if (x == 4) return eat_boss4;
+		else if (x == 5) return eat_boss5;
 	}
 	void reduce_mang() { mang--; }
 	int get_mang() { return mang; }
