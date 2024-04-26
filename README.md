@@ -3,7 +3,7 @@
 
 Đây là dự án cho bài tập lớn môn lập trình nâng cao, trong dự án này, mình lập trình game Pacman bằng ngôn ngữ [C++](https://en.wikipedia.org/wiki/C++), sử dụng thư viện [SDL 2.0](https://www.libsdl.org/download-2.0.php).
 
-Hiện tại thì việc push code lên github của mình đang gặp một số lỗi, mình chưa thể up code lên đã được nửa tháng nên trong quá trình đó sẽ không có bất cứ cập nhật gì.
+Hiện tại thì việc push code lên github của mình đang gặp một số lỗi, mình chưa thể up code lên từ tầm 20 tháng 4 nên trong quá trình đó sẽ không có bất cứ cập nhật gì.
 
 Big Update (3:14 26/4/2024): Anh mentor đã giúp mình push được code lên github, thay đổi ở đây đó là tạo folder .ignore bỏ qua những phần không cần push, tạo branch mới và bằng cách nào đó push được code lên thì mình cũng không hiểu lắm.
 
