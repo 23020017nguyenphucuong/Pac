@@ -52,7 +52,7 @@ Thao tác này rất đơn giản, bạn chỉ cần truy cập đến file zip 
 Trong quá trình test việc chạy file zip trong nhiều máy khác nhau, mình phát hiện ra một vấn đề, đó là một số máy không thể chạy được file có đuôi `.exe` mà mình dùng để chạy game. Điểm chung của những máy này là chúng đều không có các ứng dụng dùng để lập trình, hiện tại mình vẫn chưa biết vấn đề cụ thể nằm ở đâu, nhưng nếu mọi người và các thầy nếu không mở được, thì mong mọi người sẽ đọc được dòng này.
 
 3. ### Cấu trúc và hướng dẫn chơi game
-
+   
 Trong trò chơi này, bạn trong vai một `Pacman` ![](image/recycle/die2.png).
 
 Bạn sẽ phải chạy khỏi những con `Ghost` đang săn lùng bạn, phải luôn chạy, đừng dừng chân, bởi vì bọn chúng biết phối hợp với nhau.
@@ -79,6 +79,8 @@ Ghost được chia ra làm 3 trạng thái:
 - `Thăm dò` ![](image/recycle/pr.png): Khi ở chế độ thăm dò, Ghost sẽ di chuyển ở một góc trên bản đồ trong một khoảng thời gian ngắn. Ở trong game gốc thì chế độ thăm dò sẽ được áp dụng với tất cả con Ghost, nhưng mình sẽ chỉ dùng chế độ thăm dò cho Blinky, thay vào đó sẽ set thời gian các Ghost khác ra khỏi lồng là lâu hơn.
 - `Săn lùng` ![](image/recycle/pr.png): Trong chế độ săn lùng, các Ghost sẽ phối hợp với nhau để ăn được Pacman, có thể bạn sẽ nghĩ các ghost sẽ di chuyển như nhau, tuy nhiên mỗi ghost sẽ có một mục tiêu khác nhau.
 -   `Hoảng sợ` ![](image/recycle/ptime.png): Chế độ hoảng sợ của Ghost bắt đầu khi Pacman ăn được power dot. Khi đó Ghost sẽ không đuổi theo Pacman, nếu bị Pacman ăn thì sẽ chuyển thành `đôi mắt` ![](image/recycle/eyel.png), sau đó tìm đường đi ngắn nhất về cửa lồng để khôi phục trạng thái bình thường.
+
+Mình chia game thành 3 mức độ đó là `Easy`, `Medium` và `Hard`. Với chế độ Easy thì sẽ có 4 con ghost truyền thống, tốc độ của nó chậm hơn Pacman. Ở chế độ Medium thì Shady sẽ xuất hiện, Ghost vẫn chậm hơn so với Pacman tuy nhiên cũng đã được tăng tốc độ. Ở chế độ cuối cùng là Hard, sẽ có tất cả Ghost ở trong bản đồ, đồng thời tốc độ Ghost đã nhanh hơn Pacman, nhưng đừng lo, mình tin là bạn vẫn có thể giành được điểm số cao thôi.
 
 #### Trong bản đồ sẽ có những hình khối sau:
 |Item|Trạng thái|Tên|Điểm đặc biệt|
