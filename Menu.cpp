@@ -684,7 +684,11 @@ void Menu::BecomeAMonsterShady(Pacman& pac, Ghost& shady, GameMap game_map, Map 
 		if (shady.get_eat_pacman() == false)
 		{
 			Uint32 x = pac.Get_score();
-			if (shady.Get_alive_status() == 1) pac.Set_score(x + PAC_EAT_GHOST_SCORE);
+			if (shady.Get_alive_status() == 1)
+			{
+				Mix_PlayChannel(-1, g_sound_game[5], 0);
+				pac.Set_score(x + PAC_EAT_GHOST_SCORE);
+			}
 			shady.Set_alive_status(0);
 		}
 		else
